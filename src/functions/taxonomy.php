@@ -19,7 +19,7 @@ function taxonomy_get_vocabularies(): array
 
 function taxonomy_get_parents($tid)
 {
-    $storage = entity_type_storage('taxonomy_term');
+    $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     assert($storage instanceof TermStorageInterface);
     return array_map(
         static fn (TermInterface $term) => new WrappedContentEntity($term),
@@ -29,7 +29,7 @@ function taxonomy_get_parents($tid)
 
 function taxonomy_get_tree($vid, $parent = 0, $max_depth = null, $load_entities = false)
 {
-    $storage = entity_type_storage('taxonomy_term');
+    $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     assert($storage instanceof TermStorageInterface);
     return array_map(
         static fn (TermInterface $term) => new WrappedContentEntity($term),

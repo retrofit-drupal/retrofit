@@ -5,7 +5,6 @@ declare(strict_types=1);
 require_once __DIR__ . '/functions/cache.php';
 require_once __DIR__ . '/functions/common.php';
 require_once __DIR__ . '/functions/db.php';
-require_once __DIR__ . '/functions/entity.php';
 require_once __DIR__ . '/functions/form.php';
 require_once __DIR__ . '/functions/messages.php';
 require_once __DIR__ . '/functions/node.php';
