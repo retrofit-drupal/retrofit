@@ -1,0 +1,1016 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$callback of function call_user_func_array expects callable\\(\\)\\: mixed, mixed given\\.$#"
+			count: 1
+			path: src/Access/CustomControllerAccessCallback.php
+
+		-
+			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
+			count: 1
+			path: src/Access/CustomControllerAccessCallback.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController\\:\\:getForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Parameter \\#1 \\$classResolver of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\DependencyInjection\\\\ClassResolverInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:buildForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Parameter \\#2 \\$formBuilder of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\Form\\\\FormBuilderInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Parameter \\#3 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/DrupalGetFormController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getPage\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getPage\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getTitle\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
+			count: 1
+			path: src/Controller/PageCallbackController.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\DB\\:\\:get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/DB.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\DB\\:\\:get\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DB.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Entity/WrappedConfigEntity.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: src/Entity/WrappedConfigEntity.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__construct\\(\\) has parameter \\$entity with no value type specified in iterable type Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\.$#"
+			count: 1
+			path: src/Entity/WrappedContentEntity.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Entity/WrappedContentEntity.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: src/Entity/WrappedContentEntity.php
+
+		-
+			message: "#^Class Retrofit\\\\Drupal\\\\Form\\\\ArrayAccessFormState implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 1
+			path: src/Form/DrupalGetForm.php
+
+		-
+			message: "#^Class Retrofit\\\\Drupal\\\\Menu\\\\MenuLinkManager has an uninitialized readonly property \\$hookMenuRegistry\\. Assign it in the constructor\\.$#"
+			count: 1
+			path: src/Menu/MenuLinkManager.php
+
+		-
+			message: "#^Readonly property Retrofit\\\\Drupal\\\\Menu\\\\MenuLinkManager\\:\\:\\$hookMenuRegistry is assigned outside of the constructor\\.$#"
+			count: 1
+			path: src/Menu/MenuLinkManager.php
+
+		-
+			message: "#^Call to function is_callable\\(\\) with callable\\-string&non\\-falsy\\-string will always evaluate to true\\.$#"
+			count: 1
+			path: src/ParamConverter/PageArgumentsConverter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\ParamConverter\\\\PageArgumentsConverter\\:\\:convert\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/ParamConverter/PageArgumentsConverter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockSubmit\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockSubmit\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:build\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\BlockDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/BlockDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\BlockDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/BlockDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\BlockDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/BlockDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldFormatterDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldFormatterDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldFormatterDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) has parameter \\$items with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
+
+		-
+			message: "#^Cannot access offset 'Retrofit\\\\\\\\Drupal' on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
+			count: 1
+			path: src/Provider.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Provider\\:\\:alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Provider.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Provider\\:\\:register\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Provider.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$data\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRegistry.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRegistry.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:\\$definitions type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRegistry.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:alterRoutes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRoutes.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:convertToRoute\\(\\) has parameter \\$definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRoutes.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRoutes.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/User/GlobalUser.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: src/User/GlobalUser.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:getRoles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/User/GlobalUser.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUserSetter\\:\\:onAccountSetUser\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/User/GlobalUserSetter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUserSetter\\:\\:onKernelRequestAuthenticate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/User/GlobalUserSetter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\HookPermissions\\:\\:getPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/User/HookPermissions.php
+
+		-
+			message: "#^Function _cache_get_object\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function _cache_get_object\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_clear_all\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_clear_all\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_clear_all\\(\\) has parameter \\$cid with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_clear_all\\(\\) has parameter \\$wildcard with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get\\(\\) has parameter \\$cid with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get_multiple\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get_multiple\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_get_multiple\\(\\) has parameter \\$cids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_is_empty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_is_empty\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_set\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_set\\(\\) has parameter \\$bin with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_set\\(\\) has parameter \\$cid with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_set\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function cache_set\\(\\) has parameter \\$expire with no type specified\\.$#"
+			count: 1
+			path: src/functions/cache.php
+
+		-
+			message: "#^Function url\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function db_and\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_condition\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_delete\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_delete\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_insert\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_insert\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_like\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_merge\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_merge\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_or\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_range\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_range\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_range\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_temporary\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_temporary\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_temporary\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_query_temporary\\(\\) has parameter \\$query with no type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_select\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_select\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_transaction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_transaction\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_truncate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_truncate\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_update\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Function db_update\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/db.php
+
+		-
+			message: "#^Cannot access offset mixed on mixed\\.$#"
+			count: 2
+			path: src/functions/form.php
+
+		-
+			message: "#^Function form_get_errors\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/form.php
+
+		-
+			message: "#^Function form_set_error\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/form.php
+
+		-
+			message: "#^Function form_set_error\\(\\) has parameter \\$limit_validation_errors with no type specified\\.$#"
+			count: 1
+			path: src/functions/form.php
+
+		-
+			message: "#^Function form_set_error\\(\\) has parameter \\$message with no type specified\\.$#"
+			count: 1
+			path: src/functions/form.php
+
+		-
+			message: "#^Function form_set_error\\(\\) has parameter \\$name with no type specified\\.$#"
+			count: 1
+			path: src/functions/form.php
+
+		-
+			message: "#^Function drupal_set_message\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/messages.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of method Drupal\\\\Core\\\\Messenger\\\\MessengerInterface\\:\\:addMessage\\(\\) expects Drupal\\\\Component\\\\Render\\\\MarkupInterface\\|string, Stringable\\|null given\\.$#"
+			count: 1
+			path: src/functions/messages.php
+
+		-
+			message: "#^Function Retrofit\\\\Drupal\\\\module_load_include\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/namespaced.php
+
+		-
+			message: "#^Function Retrofit\\\\Drupal\\\\module_load_include\\(\\) has parameter \\$module with no type specified\\.$#"
+			count: 1
+			path: src/functions/namespaced.php
+
+		-
+			message: "#^Function Retrofit\\\\Drupal\\\\module_load_include\\(\\) has parameter \\$name with no type specified\\.$#"
+			count: 1
+			path: src/functions/namespaced.php
+
+		-
+			message: "#^Function Retrofit\\\\Drupal\\\\module_load_include\\(\\) has parameter \\$type with no type specified\\.$#"
+			count: 1
+			path: src/functions/namespaced.php
+
+		-
+			message: "#^Call to static method load\\(\\) on an unknown class Drupal\\\\node\\\\Entity\\\\Node\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_load\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_load\\(\\) has parameter \\$nid with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_load\\(\\) has parameter \\$reset with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_load\\(\\) has parameter \\$vid with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_view\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_view\\(\\) has parameter \\$langcode with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_view\\(\\) has parameter \\$node with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Function node_view\\(\\) has parameter \\$view_mode with no type specified\\.$#"
+			count: 1
+			path: src/functions/node.php
+
+		-
+			message: "#^Call to method loadParents\\(\\) on an unknown class Drupal\\\\taxonomy\\\\TermStorageInterface\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Call to method loadTree\\(\\) on an unknown class Drupal\\\\taxonomy\\\\TermStorageInterface\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Call to static method loadMultiple\\(\\) on an unknown class Drupal\\\\taxonomy\\\\Entity\\\\Vocabulary\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Class Drupal\\\\taxonomy\\\\TermStorageInterface not found\\.$#"
+			count: 2
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_parents\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_parents\\(\\) has parameter \\$tid with no type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_tree\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$load_entities with no type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$max_depth with no type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$parent with no type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$vid with no type specified\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function taxonomy_get_vocabularies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\taxonomy\\\\VocabularyInterface given\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity constructor expects Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface, Drupal\\\\taxonomy\\\\TermInterface given\\.$#"
+			count: 2
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Parameter \\$term of anonymous function has invalid type Drupal\\\\taxonomy\\\\TermInterface\\.$#"
+			count: 2
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Parameter \\$vocabulary of anonymous function has invalid type Drupal\\\\taxonomy\\\\VocabularyInterface\\.$#"
+			count: 1
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Function theme\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/functions/theme.php
+
+		-
+			message: "#^Function theme\\(\\) has parameter \\$hook with no type specified\\.$#"
+			count: 1
+			path: src/functions/theme.php
+
+		-
+			message: "#^Function theme\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: src/functions/theme.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:createInstance\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Block/BlockTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:hasDefinition\\(\\)\\.$#"
+			count: 3
+			path: tests/src/Integration/Block/BlockTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Block\\\\BlockTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Block/BlockTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Block\\\\BlockTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Block/BlockTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:insert\\(\\)\\.$#"
+			count: 3
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:schema\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:select\\(\\)\\.$#"
+			count: 2
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Database\\\\DbTest\\:\\:dbDeleteData\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Database\\\\DbTest\\:\\:schemaForTestTable\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Database\\\\DbTest\\:\\:testDbDelete\\(\\) has parameter \\$conditions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DbTest.php
+
+		-
+			message: "#^Cannot access offset mixed on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
+			count: 1
+			path: tests/src/Integration/IntegrationTestCase.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\IntegrationTestCase\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/IntegrationTestCase.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\IntegrationTestCase\\:\\:register\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Integration/IntegrationTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:build\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getCurrentRouteMenuTreeParameters\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:load\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:rebuild\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:transform\\(\\)\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuFormRoutesTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
+			count: 2
+			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuFormRoutesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:register\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
+			count: 6
+			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotFalse\\(\\) with Symfony\\\\Component\\\\Routing\\\\Route\\|null will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Cannot call method getDefaults\\(\\) on Symfony\\\\Component\\\\Routing\\\\Route\\|null\\.$#"
+			count: 1
+			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Cannot call method getRequirements\\(\\) on Symfony\\\\Component\\\\Routing\\\\Route\\|null\\.$#"
+			count: 1
+			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:addModule\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:addProfile\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:alter\\(\\) has parameter \\$type with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:alterDeprecated\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:alterDeprecated\\(\\) has parameter \\$type with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:buildModuleDependencies\\(\\) has parameter \\$modules with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:buildModuleDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:getHookInfo\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:getModuleDirectories\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invoke\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invokeAll\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invokeAll\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invokeAllDeprecated\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invokeAllDeprecated\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:invokeDeprecated\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:loadAll\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:loadAllIncludes\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:reload\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:resetImplementations\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:setModuleList\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:writeCache\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php

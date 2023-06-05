@@ -1,0 +1,6 @@
+[composer.{json,lock}]
+indent_size = 4
+
+[*.neon]
+indent_style = tab
+indent_size = 4

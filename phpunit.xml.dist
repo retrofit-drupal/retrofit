@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheResultFile=".phpunit.cache/test-results"
+         executionOrder="depends,defects"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         convertDeprecationsToExceptions="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
+    <php>
+        <env name="SIMPLETEST_DB" value="sqlite://localhost/:memory:"/>
+    </php>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/src/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>tests/src/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage cacheDirectory=".phpunit.cache/code-coverage"
+              processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
+</phpunit>

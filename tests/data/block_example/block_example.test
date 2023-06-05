@@ -1,0 +1,114 @@
+<?php
+/**
+ * @file
+ * Test case for testing the block example module.
+ */
+
+/**
+ * Functional tests for the Block Example module.
+ *
+ * @ingroup block_example
+ */
+class BlockExampleTestCase extends DrupalWebTestCase {
+
+  protected $webUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Block example functionality',
+      'description' => 'Test the configuration options and block created by Block Example module.',
+      'group' => 'Examples',
+    );
+  }
+
+  /**
+   * Enable modules and create user with specific permissions.
+   */
+  public function setUp() {
+    parent::setUp('block_example', 'search');
+    // Create user. Search content permission granted for the search block to
+    // be shown.
+    $this->webUser = $this->drupalCreateUser(
+      array(
+        'administer blocks',
+        'search content',
+        'access contextual links',
+      )
+    );
+  }
+
+  /**
+   * Functional test for our block example.
+   *
+   * Login user, create an example node, and test block functionality through
+   * the admin and user interfaces.
+   */
+  public function testBlockExampleBasic() {
+    // Login the admin user.
+    $this->drupalLogin($this->webUser);
+
+    // Find the blocks in the settings page.
+    $this->drupalGet('admin/structure/block');
+    $this->assertRaw(t('Example: configurable text string'), 'Block configurable-string found.');
+    $this->assertRaw(t('Example: empty block'), 'Block empty-block found.');
+
+    // Verify the default settings for block are processed.
+    $this->assertFieldByName('blocks[block_example_example_empty][region]', 'sidebar_first', 'Empty block is enabled in first sidebar successfully verified.');
+    $this->assertFieldByName('blocks[block_example_example_configurable_text][region]', -1, 'Configurable text block is disabled in first sidebar successfully verified.');
+
+    // Verify that blocks are not shown.
+    $this->drupalGet('/');
+    $this->assertNoRaw(t('Title of first block (example_configurable_text)'), 'Block configurable test not found.');
+    $this->assertNoRaw(t('Title of second block (example_empty)'), 'Block empty not found.');
+
+    // Enable the Configurable text block and verify.
+    $this->drupalPost('admin/structure/block', array('blocks[block_example_example_configurable_text][region]' => 'sidebar_first'), t('Save blocks'));
+    $this->assertFieldByName('blocks[block_example_example_configurable_text][region]', 'sidebar_first', 'Configurable text block is enabled in first sidebar successfully verified.');
+
+    // Verify that blocks are there. Empty block will not be shown, because it
+    // is empty.
+    $this->drupalGet('/');
+    $this->assertRaw(t('Title of first block (example_configurable_text)'), 'Block configurable text found.');
+
+    // Change content of configurable text block.
+    $string = $this->randomName();
+    $this->drupalPost('admin/structure/block/manage/block_example/example_configurable_text/configure', array('block_example_string' => $string), t('Save block'));
+
+    // Verify that new content is shown.
+    $this->drupalGet('/');
+    $this->assertRaw($string, 'Content of configurable text block successfully verified.');
+
+    // Make sure our example uppercased block is shown as altered by the
+    // hook_block_view_alter().
+    $this->assertRaw(t('UPPERCASE THIS PLEASE'));
+
+    // Create a new block and make sure it gets uppercased.
+    $post = array(
+      'title' => t('configurable block to be uppercased'),
+      'info' => t('configurable block to be uppercased'),
+      'body[value]' => t('body of new  block'),
+      'regions[bartik]' => 'sidebar_first',
+    );
+    $this->drupalPost('admin/structure/block/add', $post, t('Save block'));
+    $this->drupalGet('/');
+    $this->assertRaw(('CONFIGURABLE BLOCK TO BE UPPERCASED'));
+
+    // Verify that search block is at the bottom of the region.
+    // Enable the search block on top of sidebar_first.
+    $block_options = array(
+      'blocks[search_form][region]' => 'sidebar_first',
+      'blocks[search_form][weight]' => -9,
+    );
+    $this->drupalPost('admin/structure/block', $block_options, t('Save blocks'));
+
+    // The first 'configure block' link should be from our configurable block,
+    // the second from the Navigation menu, and the fifth (#4) from
+    // search block if it was successfully pushed to the bottom.
+    $this->drupalGet('/');
+    $this->clickLink('Configure block', 4);
+    $this->assertText(t("'@search' block", array('@search' => t('Search form'))), 'hook_block_info_alter successfully verified.');
+  }
+}

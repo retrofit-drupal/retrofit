@@ -1,0 +1,377 @@
+<?php
+
+/**
+ * @file
+ * Module file for Node Example module.
+ *
+ * Part of the Examples for Developers project.
+ */
+
+/**
+ * @defgroup node_example Example: Node
+ * @ingroup examples
+ * @{
+ * Example defining a node type in code.
+ *
+ * This is an example outlining how a module can be used to define a new
+ * node type. Our example node type will allow users to specify multiple
+ * "colors", a "quantity" and an "image" for their nodes; some kind of
+ * rudimentary inventory-tracking system, perhaps?
+ *
+ * The basic pattern for defining a node type is to tell Drupal about the
+ * node's fields and view modes. Drupal will then take over and manage
+ * the storage for this node type. This differs from Drupal 6, where we
+ * would have to handle all the database storage ourselves in the module.
+ *
+ * Remember that most node types do not require any custom code, as one
+ * simply creates them using the Drupal user interface. Creating a node like
+ * this in code is a special case.
+ *
+ * At absolute minimum, in order to provide a content type for
+ * node, you have to implement hook_node_info() and hook_form().
+ * Node can take care of the rest, if you want it to.
+ *
+ * First and foremost, defining a node type happens in
+ * hook_node_info(). Our implementation of this hook gives
+ * Drupal an array of information about the content type
+ * we want to create.
+ *
+ * Next, since we want to add fields to our content type, we
+ * implement hook_node_type_insert(), which gives us a chance
+ * to modify recently-created content types.
+ *
+ * Drupal is able to handle deletion of our content, including
+ * dependencies based on re-use of our field instances, so we don't
+ * have to manage any of it.
+ *
+ * In previous versions of Drupal, "teaser" and "page" were node view modes.
+ * In Drupal 7 we can define custom view modes to let the node know how it
+ * should return it's data.  This module declares a custom view mode called
+ * "example_node_list".
+ *
+ * Consult the @link http://drupal.org/node/707832 Field API Tutorial @endlink
+ * and @link http://drupal.org/node/443536 Field API Handbook Page @endlink
+ * and @link field Field API documentation @endlink.
+ *
+ * @see field_example.module
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * We are providing a default page to illustrate the use of our custom node view
+ * mode that will live at http://example.com/?q=examples/node_example
+ */
+function node_example_menu() {
+  $items['examples/node_example'] = array(
+    'page callback' => 'node_example_page',
+    'access arguments' => array('access content'),
+    'title' => 'Node Example',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_node_info().
+ *
+ * We use hook_node_info() to define our node content type.
+ */
+function node_example_node_info() {
+  // We define the node type as an associative array.
+  return array(
+    'node_example' => array(
+      'name' => t('Example Node Type'),
+      // 'base' tells Drupal the base string for hook functions.
+      // This is often the module name; if base is set to 'mymodule',
+      // Drupal would call mymodule_insert() or similar for node
+      // hooks. In our case, the base is 'node_example'.
+      'base' => 'node_example',
+      'description' => t('This is an example node type with a few fields.'),
+      'title_label' => t('Example Title'),
+      // We'll set the 'locked' attribute to TRUE, so users won't be
+      // able to change the machine name of our content type.
+      'locked' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_node_type_insert().
+ *
+ * Much like hook_node_insert() lets us know that a node is being
+ * inserted into the database, hook_node_type_insert() lets us know
+ * that a new content type has been inserted.
+ *
+ * Since Drupal will at some point insert our new content type,
+ * this gives us a chance to add the fields we want.
+ *
+ * It is called for all inserts to the content type database, so
+ * we have to make sure we're only modifying the type we're
+ * concerned with.
+ */
+function node_example_node_type_insert($content_type) {
+  if ($content_type->type == 'node_example') {
+    // First we add the body field. Node API helpfully gives us
+    // node_add_body_field().
+    // We'll set the body label now, although we could also set
+    // it along with our other instance properties later.
+    $body_instance = node_add_body_field($content_type, t('Example Description'));
+
+    // Add our example_node_list view mode to the body instance
+    // display by instructing the body to display as a summary.
+    $body_instance['display']['example_node_list'] = array(
+      'label' => 'hidden',
+      'type' => 'text_summary_or_trimmed',
+    );
+
+    // Save our changes to the body field instance.
+    field_update_instance($body_instance);
+
+    // Create all the fields we are adding to our content type.
+    foreach (_node_example_installed_fields() as $field) {
+      field_create_field($field);
+    }
+
+    // Create all the instances for our fields.
+    foreach (_node_example_installed_instances() as $instance) {
+      $instance['entity_type'] = 'node';
+      $instance['bundle'] = 'node_example';
+      field_create_instance($instance);
+    }
+  }
+}
+
+/**
+ * Implements hook_form().
+ *
+ * Drupal needs for us to provide a form that lets the user
+ * add content. This is the form that the user will see if
+ * they go to node/add/node-example.
+ *
+ * You can get fancy with this form, or you can just punt
+ * and return the default form that node_content will provide.
+ */
+function node_example_form($node, $form_state) {
+  return node_content_form($node, $form_state);
+}
+
+/**
+ * Callback that builds our content and returns it to the browser.
+ *
+ * This callback comes from hook_menu().
+ *
+ * @return array
+ *   A renderable array showing a list of our nodes.
+ *
+ * @see node_load()
+ * @see node_view()
+ * @see node_example_field_formatter_view()
+ */
+function node_example_page() {
+  // We'll start building a renderable array that will be our page.
+  // For now we just declare the array.
+  $renderable_array = array();
+  // We query the database and find all of the nodes for the type we defined.
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
+  $result = db_query($sql,
+    array(
+      ':type' => 'node_example',
+      ':status' => 1,
+    )
+  );
+  $renderable_array['explanation'] = array(
+    '#markup' => t("Node Example nodes you've created will be displayed here. Note that the color fields will be displayed differently in this list, than if you view the node normally. Click on the node title to see the difference. This is a result of using our 'example_node_list' node view type."),
+  );
+  // Loop through each of our node_example nodes and instruct node_view
+  // to use our "example_node_list" view.
+  // http://api.drupal.org/api/function/node_load/7
+  // http://api.drupal.org/api/function/node_view/7
+  foreach ($result as $row) {
+    $node = node_load($row->nid);
+    $renderable_array['node_list'][] = node_view($node, 'example_node_list');
+  }
+  return $renderable_array;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * We need to modify the default node entity info by adding a new view mode to
+ * be used in functions like node_view() or node_build_content().
+ */
+function node_example_entity_info_alter(&$entity_info) {
+  // Add our new view mode to the list of view modes...
+  $entity_info['node']['view modes']['example_node_list'] = array(
+    'label' => t('Example Node List'),
+    'custom settings' => TRUE,
+  );
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function node_example_field_formatter_info() {
+  return array(
+    'node_example_colors' => array(
+      'label' => t('Node Example Color Handle'),
+      'field types' => array('text'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * @todo: We need to provide a formatter for the colors that a user is allowed
+ * to enter during node creation.
+ */
+function node_example_field_formatter_view($object_type, $object, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'node_example_colors':
+      foreach ($items as $delta => $item) {
+        $element[$delta]['#type'] = 'markup';
+        $color = $item['safe_value'];
+        $element[$delta]['#markup'] = theme('example_node_color', array('color' => $color));
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * This lets us tell Drupal about our theme functions and their arguments.
+ */
+function node_example_theme($existing, $type, $theme, $path) {
+  return array(
+    'example_node_color' => array(
+      'variables' => array('color' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_help().
+ */
+function node_example_help($path, $arg) {
+  switch ($path) {
+    case 'examples/node_example':
+      return "<p>" . t("The Node Example module provides a custom node type.
+        You can create new Example Node nodes using the <a href='!nodeadd'>node add form</a>.",
+        array('!nodeadd' => url('node/add/node-example'))) . "</p>";
+  }
+}
+
+/**
+ * A custom theme function.
+ *
+ * By using this function to format our node-specific information, themes
+ * can override this presentation if they wish.  This is a simplifed theme
+ * function purely for illustrative purposes.
+ */
+function theme_example_node_color($variables) {
+  $output = '<span style="background-color: #ccc; padding: 1em; margin-bottom: 1em; float: left; color: ' . $variables['color'] . '">' . $variables['color'] . '</span>';
+  return $output;
+}
+
+/**
+ * Define the fields for our content type.
+ *
+ * This big array is factored into this function for readability.
+ *
+ * @return array
+ *   An associative array specifying the fields we wish to add to our
+ *   new node type.
+ */
+function _node_example_installed_fields() {
+  return array(
+    'node_example_color' => array(
+      'field_name' => 'node_example_color',
+      'cardinality' => 3,
+      'type'        => 'text',
+      'settings'    => array(
+        'max_length' => 60,
+      ),
+    ),
+    'node_example_quantity' => array(
+      'field_name'  => 'node_example_quantity',
+      'cardinality' => 1,
+      'type'        => 'text',
+    ),
+    'node_example_image' => array(
+      'field_name' => 'node_example_image',
+      'type'       => 'image',
+      'cardinality' => 1,
+    ),
+  );
+}
+
+/**
+ * Define the field instances for our content type.
+ *
+ * The instance lets Drupal know which widget to use to allow the user to enter
+ * data and how to react in different view modes.  We are going to display a
+ * page that uses a custom "node_example_list" view mode.  We will set a
+ * cardinality of three allowing our content type to give the user three color
+ * fields.
+ *
+ * This big array is factored into this function for readability.
+ *
+ * @return array
+ *   An associative array specifying the instances we wish to add to our new
+ *   node type.
+ */
+function _node_example_installed_instances() {
+  return array(
+    'node_example_color' => array(
+      'field_name' => 'node_example_color',
+      'label'       => t('The colors available for this object.'),
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+        'example_node_list' => array(
+          'label' => 'hidden',
+          'type' => 'node_example_colors',
+        ),
+      ),
+    ),
+    'node_example_quantity' => array(
+      'field_name'  => 'node_example_quantity',
+      'label' => t('Quantity required'),
+      'type'        => 'text',
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+        'example_node_list' => array(
+          'label' => 'hidden',
+          'type' => 'hidden',
+        ),
+      ),
+    ),
+    'node_example_image' => array(
+      'field_name'  => 'node_example_image',
+      'label'       => t('Upload an image:'),
+      'required'    => FALSE,
+      'widget' => array(
+        'type'    => 'image_image',
+        'weight'  => 2.10,
+      ),
+      'display' => array(
+        'example_node_list' => array(
+          'label' => 'hidden',
+          'type' => 'image_link_content__thumbnail',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * @} End of "defgroup node_example".
+ */

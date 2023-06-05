@@ -1,0 +1,18 @@
+name = Block Example
+description = An example outlining how a module can define blocks.
+package = Example modules
+core = 7.x
+; Since someone might install our module through Composer, we want to be sure
+; that the Drupal Composer facade knows we're specifying a core module rather
+; than a project. We do this by namespacing the dependency name with drupal:.
+dependencies[] = drupal:block
+; Since the namespacing feature is new as of Drupal 7.40, we have to require at
+; least that version of core.
+dependencies[] = drupal:system (>= 7.40)
+files[] = block_example.test
+
+; Information added by Drupal.org packaging script on 2023-02-17
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "examples"
+datestamp = "1676613793"

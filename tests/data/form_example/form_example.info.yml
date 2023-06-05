@@ -1,0 +1,5 @@
+name: Form example
+description: Examples of using the Drupal Form API.
+package: Example modules
+type: module
+core_version_requirement: ^10

@@ -1,0 +1,11 @@
+name = Menu example
+description = An example of advanced uses of the menu APIs.
+package = Example modules
+core = 7.x
+files[] = menu_example.test
+
+; Information added by Drupal.org packaging script on 2023-02-17
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "examples"
+datestamp = "1676613793"

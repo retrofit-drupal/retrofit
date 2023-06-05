@@ -1,0 +1,5 @@
+name: Block Example
+description: An example outlining how a module can define blocks.
+package: Example modules
+type: module
+core_version_requirement: ^10

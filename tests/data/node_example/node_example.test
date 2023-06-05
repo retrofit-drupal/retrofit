@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Simpletest case for node_example module.
+ *
+ * Verify example module functionality.
+ */
+
+/**
+ * Functionality tests for node example module.
+ *
+ * @ingroup node_example
+ */
+class NodeExampleTestCase extends DrupalWebTestCase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Node example',
+      'description' => 'Verify the custom node type creation.',
+      'group' => 'Examples',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    // Enable the module.
+    parent::setUp('node_example');
+  }
+
+  /**
+   * API-level content type test.
+   *
+   * This test will verify that when the module is installed, it:
+   *   - Adds a new content type, node_example.
+   *   - Attaches a body field.
+   *   - Attaches three other fields.
+   *   - Creates a view mode, example_node_list.
+   */
+  public function testInstallationApi() {
+    // At this point, the module should be installed.
+    // First check for our content type.
+    $node_type = node_type_get_type('node_example');
+    $this->assertTrue($node_type, 'Node Example Type was created.', 'API');
+
+    // How about the body field?
+    $body = field_info_instance('node', 'body', 'node_example');
+    $this->assertTrue($body, 'Node Example Type has a body field.', 'API');
+
+    // Now look for our attached fields.
+    // We made a handy function that tells us...
+    $attached_fields = _node_example_installed_instances();
+    foreach ($attached_fields as $field_name => $field_info) {
+      $field = field_info_instance('node', $field_name, 'node_example');
+      $this->assertTrue($field,
+        'Field: ' . $field_name . ' was attached to node_example.', 'API');
+    }
+
+    // And that view mode...
+    // entity_get_info() invokes hook_entity_info_alter(), so it's
+    // a good place to verify that our code works.
+    $entities = entity_get_info('node');
+    $this->assertTrue(isset($entities['view modes']['example_node_list']),
+      'Added example_node_list view mode.', 'API');
+  }
+
+  /**
+   * Verify the functionality of the example module.
+   */
+  public function testNodeCreation() {
+    // Create and login user.
+    $account = $this->drupalCreateUser(array('access content', 'create node_example content'));
+    $this->drupalLogin($account);
+
+    // Create a new node. The image makes it more complicated, so skip it.
+    $edit = array(
+      'title' => $this->randomName(),
+      'node_example_color[und][0][value]' => 'red',
+      'node_example_color[und][1][value]' => 'green',
+      'node_example_color[und][2][value]' => 'blue',
+      'node_example_quantity[und][0][value]' => 100,
+    );
+    $this->drupalPost('node/add/node-example', $edit, t('Save'));
+    $this->assertText("Example Node Type " . $edit['title'] . " has been created", "Found node creation message");
+    $this->assertPattern("/The colors available.*red.*green.*blue/", "Correct 'colors available' on node page");
+
+    // Look on the examples page to make sure it shows up there also.
+    $this->drupalGet('examples/node_example');
+    $this->assertText($edit['title'], "Found random title string");
+    $this->assertPattern("/red.*green.*blue/", "Correct 'colors available' on node example page");
+
+  }
+
+  /**
+   * Check the value of body label.
+   *
+   * Checks whether body label has a value of "Example Description"
+   */
+  public function testBodyLabel() {
+    // Create and login user.
+    $account = $this->drupalCreateUser(array('access content', 'create node_example content'));
+    $this->drupalLogin($account);
+
+    // Request a node add node-example page.
+    // Test whether the body label equals 'Example Description'.
+    // Use '$this->assertRaw' to make certain to test the body label and not
+    // some other text.
+    $this->drupalGet('node/add/node-example');
+    $this->assertResponse(200, 'node/add/node-example page found');
+    $this->assertRaw('<label for="edit-body-und-0-value">Example Description </label>', 'Body label equals \'Example Description\'');
+  }
+}

@@ -1,0 +1,288 @@
+<?php
+
+/**
+ * @file
+ * Test file for form_example module.
+ */
+
+/**
+ * Default test case for the form_example module.
+ *
+ * @ingroup form_example
+ */
+class FormExampleTestCase extends DrupalWebTestCase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Form Example',
+      'description' => 'Various tests on the form_example module.' ,
+      'group' => 'Examples',
+    );
+  }
+
+  /**
+   * Enable modules.
+   */
+  public function setUp() {
+    parent::setUp('form_example');
+  }
+
+  /**
+   * Test each tutorial.
+   */
+  public function testTutorials() {
+    // Tutorial #1
+    $this->drupalGet('examples/form_example/tutorial');
+    $this->assertText(t('#9'));
+
+    // #2
+    $this->drupalPost('examples/form_example/tutorial/2', array('name' => t('name')), t('Submit'));
+
+    // #4
+    $this->drupalPost('examples/form_example/tutorial/4',
+      array('first' => t('firstname'), 'last' => t('lastname')), t('Submit'));
+    $this->drupalPost('examples/form_example/tutorial/4', array(), t('Submit'));
+    $this->assertText(t('First name field is required'));
+    $this->assertText(t('Last name field is required'));
+
+    // #5
+    $this->drupalPost('examples/form_example/tutorial/5',
+      array('first' => t('firstname'), 'last' => t('lastname')), t('Submit'));
+    $this->assertText(t('Please enter your first name'));
+    $this->drupalPost('examples/form_example/tutorial/4', array(), t('Submit'));
+    $this->assertText(t('First name field is required'));
+    $this->assertText(t('Last name field is required'));
+
+    // #6
+    $this->drupalPost(
+      'examples/form_example/tutorial/6',
+      array(
+        'first' => t('firstname'),
+        'last' => t('lastname'),
+        'year_of_birth' => 1955,
+      ),
+      t('Submit'));
+    $this->assertNoText(t('Enter a year between 1900 and 2000'));
+    $this->drupalPost(
+      'examples/form_example/tutorial/6',
+      array(
+        'first' => t('firstname'),
+        'last' => t('lastname'),
+        'year_of_birth' => 1855,
+      ),
+      t('Submit')
+    );
+
+    $this->assertText(t('Enter a year between 1900 and 2000'));
+
+    // #7
+    $this->drupalPost(
+      'examples/form_example/tutorial/7',
+      array(
+        'first' => t('firstname'),
+        'last' => t('lastname'),
+        'year_of_birth' => 1955,
+      ),
+      t('Submit')
+    );
+    $this->assertText(t('The form has been submitted. name="firstname lastname", year of birth=1955'));
+    $this->drupalPost(
+      'examples/form_example/tutorial/7',
+      array(
+        'first' => t('firstname'),
+        'last' => t('lastname'),
+        'year_of_birth' => 1855,
+      ),
+      t('Submit')
+    );
+
+    $this->assertText(t('Enter a year between 1900 and 2000'));
+
+    // Test tutorial #8.
+    $this->drupalPost(
+      'examples/form_example/tutorial/8',
+      array(
+        'first' => t('firstname'),
+        'last' => t('lastname'),
+        'year_of_birth' => 1955,
+      ),
+      t('Next >>')
+    );
+
+    $this->drupalPost(NULL, array('color' => t('green')), t('<< Back'));
+    $this->drupalPost(NULL, array(), t('Next >>'));
+    $this->drupalPost(NULL, array('color' => t('red')), t('Submit'));
+    $this->assertText(t('The form has been submitted. name="firstname lastname", year of birth=1955'));
+    $this->assertText(t('And the favorite color is red'));
+
+    // #9
+    $url = 'examples/form_example/tutorial/9';
+    for ($i = 1; $i <= 4; $i++) {
+      if ($i > 1) {
+        // Later steps of multistep form take NULL.
+        $url = NULL;
+      }
+      $this->drupalPost(
+        $url,
+        array(
+          "name[$i][first]" => "firstname $i",
+          "name[$i][last]" => "lastname $i",
+          "name[$i][year_of_birth]" => 1950 + $i,
+        ),
+        t('Add another name')
+      );
+      $this->assertText(t('Name #@num', array('@num' => $i + 1)));
+    }
+
+    // Now remove the last name added (#5).
+    $this->drupalPost(NULL, array(), t('Remove latest name'));
+    $this->assertNoText("Name #5");
+
+    $this->drupalPost(NULL, array(), t('Submit'));
+
+    $this->assertText('Form 9 has been submitted');
+    for ($i = 1; $i <= 4; $i++) {
+      $this->assertText(t('@num: firstname @num lastname @num (@year)', array('@num' => $i, '@year' => 1950 + $i)));
+    }
+
+    // #10
+    $url = 'examples/form_example/tutorial/10';
+
+    $this->drupalPost($url, array(), t('Submit'));
+    $this->assertText(t('No file was uploaded.'));
+
+    // Get sample images.
+    $images = $this->drupalGetTestFiles('image');
+    foreach ($images as $image) {
+      $this->drupalPost($url, array('files[file]' => drupal_realpath($image->uri)), t('Submit'));
+      $this->assertText(t('The form has been submitted and the image has been saved, filename: @filename.', array('@filename' => $image->filename)));
+    }
+
+    // #11: Confirmation form.
+    // Try to submit without a name.
+    $url = 'examples/form_example/tutorial/11';
+    $this->drupalPost($url, array(), t('Submit'));
+    $this->assertText('Name field is required.');
+
+    // Verify that we can enter a name and get the confirmation form.
+    $this->drupalPost(
+      $url,
+      array('name' => t('name 1')), t('Submit')
+    );
+    $this->assertText(t('Is this really your name?'));
+    $this->assertFieldById('edit-name', 'name 1');
+
+    // Check the 'yes' button.
+    $confirmation_text = t("Confirmation form submission recieved. According to your submission your name is '@name'", array('@name' => 'name 1'));
+    $url = 'examples/form_example/tutorial/11/confirm/name%201';
+    $this->drupalPost($url, array(), t('This is my name'));
+    $this->assertText($confirmation_text);
+
+    // Check the 'no' button.
+    $this->drupalGet($url);
+    $this->clickLink(t('Nope, not my name'));
+    $this->assertNoText($confirmation_text);
+  }
+
+  /**
+   * Test Wizard tutorial.
+   *
+   * @TODO improve this using drupal_form_submit
+   */
+  public function testWizard() {
+    // Check if the wizard is there.
+    $this->drupalGet('examples/form_example/wizard');
+    $this->assertText(t('Extensible wizard example'));
+
+    $first_name = $this->randomName(8);
+    $last_name  = $this->randomName(8);
+    $city = $this->randomName(8);
+    $aunts_name = $this->randomName(8);
+
+    // Submit the first step of the wizard.
+    $options = array(
+      'first_name' => $first_name,
+      'last_name'  => $last_name,
+    );
+    $this->drupalPost('examples/form_example/wizard', $options, t('Next'));
+
+    // A label city is created, and two buttons appear, Previous and Next.
+    $this->assertText(t('Hint: Do not enter "San Francisco", and do not leave this out.'));
+
+    // Go back to the beginning and verify that the value is there.
+    $this->drupalPost(NULL, array(), t('Previous'));
+    $this->assertFieldByName('first_name', $first_name);
+    $this->assertFieldByName('last_name', $last_name);
+
+    // Go next. We should keep our values.
+    $this->drupalPost(NULL, array(), t('Next'));
+    $this->assertText(t('Hint: Do not enter "San Francisco", and do not leave this out.'));
+
+    // Try "San Francisco".
+    $this->drupalPost(NULL, array('city' => 'San Francisco'), t('Next'));
+    $this->assertText(t('You were warned not to enter "San Francisco"'));
+
+    // Try the real city.
+    $this->drupalPost(NULL, array('city' => $city), t('Next'));
+
+    // Enter the Aunt's name, but then the previous button.
+    $this->drupalPost(NULL, array('aunts_name' => $aunts_name), t('Previous'));
+    $this->assertFieldByName('city', $city);
+
+    // Go to first step and re-check all fields.
+    $this->drupalPost(NULL, array(), t('Previous'));
+    $this->assertFieldByName('first_name', $first_name);
+    $this->assertFieldByName('last_name', $last_name);
+
+    // Re-check second step.
+    $this->drupalPost(NULL, array(), t('Next'));
+    $this->assertText(t('Hint: Do not enter "San Francisco", and do not leave this out.'));
+    $this->assertFieldByName('city', $city);
+
+    // Re-check third step.
+    $this->drupalPost(NULL, array(), t('Next'));
+    $this->assertFieldByName('aunts_name', $aunts_name);
+
+    // Press finish and check for correct values.
+    $this->drupalPost(NULL, array(), t('Finish'));
+
+    $this->assertRaw(t('[first_name] =&gt; @first_name', array('@first_name' => $first_name)));
+    $this->assertRaw(t('[last_name] =&gt; @last_name', array('@last_name' => $last_name)));
+    $this->assertRaw(t('[city] =&gt; @city', array('@city' => $city)));
+    $this->assertRaw(t('[aunts_name] =&gt; @aunts_name', array('@aunts_name' => $aunts_name)));
+  }
+
+
+  /**
+   * Test the element_example form for correct behavior.
+   */
+  public function testElementExample() {
+    // Make one basic POST with a set of values and check for correct responses.
+    $edit = array(
+      'a_form_example_textfield' => $this->randomName(),
+      'a_form_example_checkbox' => TRUE,
+      'a_form_example_element_discrete[areacode]' => sprintf('%03d', rand(0, 999)),
+      'a_form_example_element_discrete[prefix]' => sprintf('%03d', rand(0, 999)),
+      'a_form_example_element_discrete[extension]' => sprintf('%04d', rand(0, 9999)),
+      'a_form_example_element_combined[areacode]' => sprintf('%03d', rand(0, 999)),
+      'a_form_example_element_combined[prefix]' => sprintf('%03d', rand(0, 999)),
+      'a_form_example_element_combined[extension]' => sprintf('%04d', rand(0, 9999)),
+    );
+    $this->drupalPost('examples/form_example/element_example', $edit, t('Submit'));
+    $this->assertText(t('a_form_example_textfield has value @value', array('@value' => $edit['a_form_example_textfield'])));
+    $this->assertText(t('a_form_example_checkbox has value 1'));
+    $this->assertPattern(t('/areacode.*!areacode/', array('!areacode' => $edit['a_form_example_element_discrete[areacode]'])));
+    $this->assertPattern(t('/prefix.*!prefix/', array('!prefix' => $edit['a_form_example_element_discrete[prefix]'])));
+    $this->assertPattern(t('/extension.*!extension/', array('!extension' => $edit['a_form_example_element_discrete[extension]'])));
+
+    $this->assertText(t('a_form_example_element_combined has value @value', array('@value' => $edit['a_form_example_element_combined[areacode]'] . $edit['a_form_example_element_combined[prefix]'] . $edit['a_form_example_element_combined[extension]'])));
+
+    // Now flip the checkbox and check for correct behavior.
+    $edit['a_form_example_checkbox'] = FALSE;
+    $this->drupalPost('examples/form_example/element_example', $edit, t('Submit'));
+    $this->assertText(t('a_form_example_checkbox has value 0'));
+  }
+}
