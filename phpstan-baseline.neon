@@ -616,27 +616,22 @@ parameters:
 			path: src/functions/namespaced.php
 
 		-
-			message: "#^Call to static method load\\(\\) on an unknown class Drupal\\\\node\\\\Entity\\\\Node\\.$#"
-			count: 1
-			path: src/functions/node.php
-
-		-
 			message: "#^Function node_load\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/functions/node.php
 
 		-
-			message: "#^Function node_load\\(\\) has parameter \\$nid with no type specified\\.$#"
+			message: "#^Function node_load_multiple\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/functions/node.php
 
 		-
-			message: "#^Function node_load\\(\\) has parameter \\$reset with no type specified\\.$#"
+			message: "#^Function node_load_multiple\\(\\) has parameter \\$conditions with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/node.php
 
 		-
-			message: "#^Function node_load\\(\\) has parameter \\$vid with no type specified\\.$#"
+			message: "#^Function node_load_multiple\\(\\) has parameter \\$nids with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/node.php
 
