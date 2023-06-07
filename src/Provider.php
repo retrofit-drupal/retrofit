@@ -6,11 +6,14 @@ namespace Retrofit\Drupal;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
+use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
+use Retrofit\Drupal\Template\ThemeFunctionExtension;
+use Retrofit\Drupal\Theme\Registry;
 use Retrofit\Drupal\User\GlobalUserSetter;
 use Retrofit\Drupal\User\HookPermissions;
 use Symfony\Component\DependencyInjection\ChildDefinition;
@@ -52,7 +55,22 @@ class Provider extends ServiceProviderBase
             (new ChildDefinition('plugin.manager.menu.link'))
             ->setDecoratedService('plugin.manager.menu.link')
         );
-        ;
+
+        $container->setDefinition(
+            Registry::class,
+            (new ChildDefinition('theme.registry'))
+            ->setDecoratedService('theme.registry')
+        );
+
+        $container->setDefinition(
+            FilesystemLoader::class,
+            (new ChildDefinition('twig.loader.filesystem'))
+            ->setDecoratedService('twig.loader.filesystem')
+            ->addMethodCall('addPath', [__DIR__ . '/../templates', 'retrofit'])
+        );
+
+        $container->register(ThemeFunctionExtension::class)
+            ->addTag('twig.extension');
 
         if ($container->has('user.permissions')) {
             $container

@@ -1,0 +1,385 @@
+<?php
+
+/**
+ * @file
+ * Explains how a module declares theme functions, preprocess functions, and
+ * templates.
+ *
+ * The underlying approach is that a module should allow themes to do all
+ * rendering, but provide default implementations where appropriate.
+ *
+ * Modules are also expected to leave data as render arrays as long as possible,
+ * leaving rendering to theme functions and templates.
+ */
+
+/**
+ * @defgroup theming_example Example: Theming
+ * @ingroup examples
+ * @{
+ * Example of Drupal theming.
+ *
+ * The theming_example module attempts to show how module developers can add
+ * theme functions to their projects so that themes can modify output.
+ *
+ * Module developers should to strive to avoid hard-wiring any HTML into the
+ * output of their code, this should all be done in theme functions.
+ *
+ * Starting with the first example, function 'theming_example_page()':
+ * the output is put into an array $content which is then fed to a theming
+ * function 'theme_theming_example_content_array()' which loops over the
+ * content, wrapping it in html in the process.
+ *
+ * In order to get function 'theme_theming_example_content_array()' recognized
+ * it needs to be registered with the module theme register function of the type
+ * 'hook_theme'.
+ *
+ * function 'theming_example_theme()' does this for this module.
+ * for details of what can be done in this hook see the link to api.drupal.org
+ *
+ * The functions 'theming_example_list_page()' and theming_example_order_form()
+ * work in the same way.
+ *
+ * In 'theme_theming_example_list_page()' the content is themed as an
+ * ordered list and given a class attribute 'theming_example_mylist' which
+ * is defined in theming_example.css
+ *
+ * In function 'theme_theming_example_order_form()' the title is loaded into a
+ * temporary variable '$title', deleted from the $form array and output
+ * wrapped in html. The rest of the form is wrapped in a div using '#prefix'
+ * and '#suffix'
+ *
+ * The theming functions can be copied to a theme's template.php, renaming
+ * appropriately, so if your theme is called 'mytheme' you would copy function
+ * 'theme_theming_example_content_array()' to function
+ * 'mytheme_theming_example_page()' in template.php and it will be used instead
+ * of the original.
+ *
+ * The fourth example shows the use of a template file
+ * 'theming_example_text_form.tpl.php'
+ * This file can be copied to a theme's folder and it will be used instead.
+ *
+ * This example also shows what can be done using Drupal's
+ * template_preprocess_HOOK method. In this case it modifies the output so
+ * that a themer can output the whole form or gain control over some of its
+ * parts in the template file.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * The @link menu_example.module Menu Example @endlink provides extensive
+ * examples for hook_menu().
+ */
+function theming_example_menu() {
+  $items['examples/theming_example'] = array(
+    'title' => 'Theming Example',
+    'description' => 'Some theming examples.',
+    'page callback' => 'theming_example_page',
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+  $items['examples/theming_example/theming_example_list_page'] = array(
+    'title' => 'Theming a list',
+    'page callback' => 'theming_example_list_page',
+    'access arguments' => array('access content'),
+    'weight' => 1,
+  );
+  $items['examples/theming_example/theming_example_select_form'] = array(
+    'title' => 'Theming a form (select form)',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('theming_example_select_form'),
+    'access arguments' => array('access content'),
+    'weight' => 2,
+  );
+  $items['examples/theming_example/theming_example_text_form'] = array(
+    'title' => 'Theming a form (text form)',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('theming_example_text_form'),
+    'access arguments' => array('access content'),
+    'weight' => 3,
+  );
+
+  return $items;
+
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Defines the theming capabilities provided by this module.
+ */
+function theming_example_theme($existing, $type, $theme, $path) {
+  return array(
+    'theming_example_content_array' => array(
+      // We use 'render element' when the item to be passed is a self-describing
+      // render array (it will have #theme_wrappers)
+      'render element' => 'element',
+    ),
+    'theming_example_list' => array(
+      // We use 'variables' when the item to be passed is an array whose
+      // structure must be described here.
+      'variables' => array(
+        'title' => NULL,
+        'items' => NULL,
+      ),
+    ),
+    'theming_example_select_form'  => array(
+      'render element' => 'form',
+    ),
+    'theming_example_text_form'  => array(
+      'render element' => 'form',
+      // In this one the rendering will be done by a template file
+      // (theming-example-text-form.tpl.php) instead of being rendered by a
+      // function. Note the use of dashes to separate words in place of
+      // underscores. The template file's extension is also left out so that
+      // it may be determined automatically depending on the template engine
+      // the site is using.
+      'template' => 'theming-example-text-form',
+    ),
+  );
+}
+/**
+ * Initial landing page explaining the use of the module.
+ *
+ * We create a render array and specify the theme to be used through the use
+ * of #theme_wrappers. With all output, we aim to leave the content as a
+ * render array just as long as possible, so that other modules (or the theme)
+ * can alter it.
+ *
+ * @see render_example.module
+ * @see form_example_elements.inc
+ */
+function theming_example_page() {
+  $content[]['#markup']  = t('Some examples of pages and forms that are run through theme functions.');
+  $content[]['#markup']  = l(t('Simple page with a list'), 'examples/theming_example/theming_example_list_page');
+  $content[]['#markup']  = l(t('Simple form 1'), 'examples/theming_example/theming_example_select_form');
+  $content[]['#markup']  = l(t('Simple form 2'), 'examples/theming_example/theming_example_text_form');
+  $content['#theme_wrappers'] = array('theming_example_content_array');
+  return $content;
+}
+
+/**
+ * The list page callback.
+ *
+ * An example page where the output is supplied as an array which is themed
+ * into a list and styled with css.
+ *
+ * In this case we'll use the core-provided theme_item_list as a #theme_wrapper.
+ * Any theme need only override theme_item_list to change the behavior.
+ */
+function theming_example_list_page() {
+  $items = array(
+    t('First item'),
+    t('Second item'),
+    t('Third item'),
+    t('Fourth item'),
+  );
+
+  // First we'll create a render array that simply uses theme_item_list.
+  $title = t("A list returned to be rendered using theme('item_list')");
+  $build['render_version'] = array(
+    // We use #theme here instead of #theme_wrappers because theme_item_list()
+    // is the classic type of theme function that does not just assume a
+    // render array, but instead has its own properties (#type, #title, #items).
+    '#theme' => 'item_list',
+    // '#type' => 'ul',  // The default type is 'ul'
+    // We can easily make sure that a css or js file is present using #attached.
+    '#attached' => array('css' => array(drupal_get_path('module', 'theming_example') . '/theming_example.css')),
+    '#title' => $title,
+    '#items' => $items,
+    '#attributes' => array('class' => array('render-version-list')),
+  );
+
+  // Now we'll create a render array which uses our own list formatter,
+  // theme('theming_example_list').
+  $title = t("The same list rendered by theme('theming_example_list')");
+  $build['our_theme_function'] = array(
+    '#theme' => 'theming_example_list',
+    '#attached' => array('css' => array(drupal_get_path('module', 'theming_example') . '/theming_example.css')),
+    '#title' => $title,
+    '#items' => $items,
+  );
+  return $build;
+}
+
+
+/**
+ * A simple form that displays a select box and submit button.
+ *
+ * This form will be be themed by the 'theming_example_select_form' theme
+ * handler.
+ */
+function theming_example_select_form($form, &$form_state) {
+  $options = array(
+    'newest_first' => t('Newest first'),
+    'newest_last' => t('Newest last'),
+    'edited_first' => t('Edited first'),
+    'edited_last' => t('Edited last'),
+    'by_name' => t('By name'),
+  );
+  $form['choice'] = array(
+    '#type' => 'select',
+    '#options' => $options,
+    '#title' => t('Choose which ordering you want'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Go'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for the select form.
+ *
+ * @param array $form
+ *   Form API form array.
+ * @param array $form_state
+ *   Form API form state array.
+ */
+function theming_example_select_form_submit($form, &$form_state) {
+  drupal_set_message(t('You chose %input', array('%input' => $form_state['values']['choice'])));
+}
+
+/**
+ * A simple form that displays a textfield and submit button.
+ *
+ * This form will be rendered by theme('form') (theme_form() by default)
+ * because we do not provide a theme function for it here.
+ */
+function theming_example_text_form($form, &$form_state) {
+  $form['text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Please input something!'),
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Go'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for the text form.
+ *
+ * @param array $form
+ *   Form API form array.
+ * @param array $form_state
+ *   Form API form state array.
+ */
+function theming_example_text_form_submit($form, &$form_state) {
+  drupal_set_message(t('You entered %input', array('%input' => $form_state['values']['text'])));
+}
+
+
+/**
+ * Theme a simple content array.
+ *
+ * This theme function uses the newer recommended format where a single
+ * render array is provided to the theme function.
+ */
+function theme_theming_example_content_array($variables) {
+  $element = $variables['element'];
+  $output = '';
+  foreach (element_children($element) as $count) {
+    if (!$count) {
+      // The first paragraph is bolded.
+      $output .= '<p><strong>' . $element[$count]['#children'] . '</strong></p>';
+    }
+    else {
+      // Following paragraphs are just output as routine paragraphs.
+      $output .= '<p>' . $element[$count]['#children'] . '</p>';
+    }
+  }
+  return $output;
+}
+
+/**
+ * Theming a simple list.
+ *
+ * This is just a simple wrapper around theme('item_list') but it's worth
+ * showing how a custom theme function can be implemented.
+ *
+ * @see theme_item_list()
+ */
+function theme_theming_example_list($variables) {
+  $title = $variables['title'];
+  $items = $variables['items'];
+
+  // Add the title to the list theme and
+  // state the list type. This defaults to 'ul'.
+  // Add a css class so that you can modify the list styling.
+  // We'll just call theme('item_list') to render.
+  $variables = array(
+    'items' => $items,
+    'title' => $title,
+    'type' => 'ol',
+    'attributes' => array('class' => 'theming-example-list'),
+  );
+  $output = theme('item_list', $variables);
+  return $output;
+}
+
+/**
+ * Theming a simple form.
+ *
+ * Since our form is named theming_example_select_form(), the default
+ * #theme function applied to is will be 'theming_example_select_form'
+ * if it exists. The form could also have specified a different
+ * #theme.
+ *
+ * Here we collect the title, theme it manually and
+ * empty the form title. We also wrap the form in a div.
+ */
+function theme_theming_example_select_form($variables) {
+  $form = $variables['form'];
+  $title = $form['choice']['#title'];
+  $form['choice']['#title'] = '';
+  $output = '<strong>' . $title . '</strong>';
+  $form['choice']['#prefix'] = '<div class="container-inline">';
+  $form['submit']['#suffix'] = '</div>';
+  $output .= drupal_render_children($form);
+  return $output;
+}
+
+/**
+ * Implements template_preprocess().
+ *
+ * We prepare variables for use inside the theming-example-text-form.tpl.php
+ * template file.
+ *
+ * In this example, we create a couple new variables, 'text_form' and
+ * 'text_form_content', that clean up the form output.  Drupal will turn the
+ * array keys in the $variables array into variables for use in the template.
+ *
+ * So $variables['text_form'] becomes available as $text_form in the template.
+ *
+ * @see theming-example-text-form.tpl.php
+ */
+function template_preprocess_theming_example_text_form(&$variables) {
+  $variables['text_form_content'] = array();
+  $text_form_hidden = array();
+
+  // Each form element is rendered and saved as a key in $text_form_content, to
+  // give the themer the power to print each element independently in the
+  // template file.  Hidden form elements have no value in the theme, so they
+  // are grouped into a single element.
+  foreach (element_children($variables['form']) as $key) {
+    $type = $variables['form'][$key]['#type'];
+    if ($type == 'hidden' || $type == 'token') {
+      $text_form_hidden[] = drupal_render($variables['form'][$key]);
+    }
+    else {
+      $variables['text_form_content'][$key] = drupal_render($variables['form'][$key]);
+    }
+  }
+  $variables['text_form_content']['hidden'] = implode($text_form_hidden);
+
+  // The entire form is then saved in the $text_form variable, to make it easy
+  // for the themer to print the whole form.
+  $variables['text_form'] = implode($variables['text_form_content']);
+}
+/**
+ * @} End of "defgroup theming_example".
+ */

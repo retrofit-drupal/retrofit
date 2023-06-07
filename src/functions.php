@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/functions/bootstrap.php';
 require_once __DIR__ . '/functions/cache.php';
 require_once __DIR__ . '/functions/common.php';
 require_once __DIR__ . '/functions/db.php';
