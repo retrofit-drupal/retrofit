@@ -6,6 +6,7 @@ namespace Retrofit\Drupal;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
+use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
@@ -35,6 +36,11 @@ class Provider extends ServiceProviderBase
 
         $container
           ->register(GlobalUserSetter::class)
+          ->addTag('event_subscriber');
+
+        $container
+          ->register(GlobalLanguageContentSetter::class)
+          ->addArgument(new Reference('language_manager'))
           ->addTag('event_subscriber');
 
         $container
