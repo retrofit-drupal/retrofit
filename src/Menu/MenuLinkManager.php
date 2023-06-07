@@ -4,55 +4,26 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Menu;
 
-use Retrofit\Drupal\Routing\HookMenuRegistry;
+use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
+use Drupal\Core\Plugin\Discovery\YamlDiscovery;
+use Retrofit\Drupal\Plugin\Derivative\MenuLinkDeriver;
+use Retrofit\Drupal\Plugin\Discovery\InfoHookDeriverDiscovery;
 
 final class MenuLinkManager extends \Drupal\Core\Menu\MenuLinkManager
 {
-    private readonly HookMenuRegistry $hookMenuRegistry;
-
-    public function setHookMenuRegistry(HookMenuRegistry $hookMenuRegistry): void
+    protected function getDiscovery()
     {
-        $this->hookMenuRegistry = $hookMenuRegistry;
-    }
-
-    public function getDefinitions()
-    {
-        // @todo find a way to improve this – maybe a custom discovery that
-        //   decorates the YAML one and has the hook menu registry?
-        $definitions = parent::getDefinitions();
-        foreach ($this->hookMenuRegistry->get() as $module => $routes) {
-            foreach ($routes as $definition) {
-                if ($definition['type'] !== MENU_NORMAL_ITEM) {
-                    continue;
-                }
-                $menuLinkDefinition = [
-                  'id' => $definition['route_name'],
-                  'title' => $definition['title'] ?? '',
-                  'description' => $definition['description'] ?? '',
-                  'route_name' => $definition['route_name'],
-                  'expanded' => $definition['expanded'] ?? false,
-                  'weight' => $definition['weight'] ?? 0,
-                  'provider' => $module,
-                ];
-                // @todo should we automatically map `main-menu` to main`?
-                $menuName = $definition['menu_name'] ?? '';
-                if ($menuName !== '') {
-                    $menuMapping = [
-                      'main-menu' => 'main',
-                      'management' => 'admin',
-                      'navigation' => 'tools',
-                      'user-menu' => 'account',
-                    ];
-                    $menuLinkDefinition['menu_name'] = $menuMapping[$menuName] ?? $menuName;
-                }
-                $this->processDefinition(
-                    $menuLinkDefinition,
-                    $definition['route_name']
-                );
-                $definitions[$definition['route_name']] = $menuLinkDefinition;
-            }
+        if (!isset($this->discovery)) {
+            $yaml_discovery = new YamlDiscovery('links.menu', $this->moduleHandler->getModuleDirectories());
+            $yaml_discovery->addTranslatableProperty('title', 'title_context');
+            $yaml_discovery->addTranslatableProperty('description', 'description_context');
+            $info_hook_discovery = new InfoHookDeriverDiscovery(
+                $yaml_discovery,
+                'hook_menu',
+                MenuLinkDeriver::class
+            );
+            $this->discovery = new ContainerDerivativeDiscoveryDecorator($info_hook_discovery);
         }
-
-        return $definitions;
+        return $this->discovery;
     }
 }
