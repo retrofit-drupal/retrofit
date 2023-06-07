@@ -156,6 +156,11 @@ parameters:
 			path: src/Form/DrupalGetForm.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Language\\\\GlobalLanguageContent\\:\\:__get\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Language/GlobalLanguageContent.php
+
+		-
 			message: "#^Class Retrofit\\\\Drupal\\\\Menu\\\\MenuLinkManager has an uninitialized readonly property \\$hookMenuRegistry\\. Assign it in the constructor\\.$#"
 			count: 1
 			path: src/Menu/MenuLinkManager.php
@@ -814,6 +819,11 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\IntegrationTestCase\\:\\:register\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/src/Integration/IntegrationTestCase.php
+
+		-
+			message: "#^Cannot access property \\$language on mixed\\.$#"
+			count: 1
+			path: tests/src/Integration/Language/GlobalLanguageContentTest.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:build\\(\\)\\.$#"
