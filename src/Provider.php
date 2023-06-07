@@ -26,8 +26,7 @@ class Provider extends ServiceProviderBase
         $container
           ->register(HookMenuRegistry::class)
           ->addArgument(new Reference('module_handler'))
-          ->addArgument(new Reference('cache.data'))
-          ->setPublic(false);
+          ->addArgument(new Reference('cache.data'));
 
         $container
           ->register(HookMenuRoutes::class)
@@ -46,10 +45,6 @@ class Provider extends ServiceProviderBase
             MenuLinkManager::class,
             (new ChildDefinition('plugin.manager.menu.link'))
             ->setDecoratedService('plugin.manager.menu.link')
-            ->addMethodCall(
-                'setHookMenuRegistry',
-                [new Reference(HookMenuRegistry::class)]
-            )
         );
         ;
 
