@@ -156,12 +156,7 @@ parameters:
 			path: src/Form/DrupalGetForm.php
 
 		-
-			message: "#^Class Retrofit\\\\Drupal\\\\Menu\\\\MenuLinkManager has an uninitialized readonly property \\$hookMenuRegistry\\. Assign it in the constructor\\.$#"
-			count: 1
-			path: src/Menu/MenuLinkManager.php
-
-		-
-			message: "#^Readonly property Retrofit\\\\Drupal\\\\Menu\\\\MenuLinkManager\\:\\:\\$hookMenuRegistry is assigned outside of the constructor\\.$#"
+			message: "#^Property Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/Menu/MenuLinkManager.php
 
@@ -229,6 +224,21 @@ parameters:
 			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/FieldFormatterDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/MenuLinkDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/MenuLinkDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/MenuLinkDeriver.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) has parameter \\$items with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
