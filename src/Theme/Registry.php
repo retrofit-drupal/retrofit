@@ -9,20 +9,13 @@ use Drupal\Core\Theme\Registry as CoreRegistry;
 
 final class Registry extends CoreRegistry
 {
-    protected function processExtension(
-        array &$cache,
-        $name,
-        $type,
-        $theme,
-        $path
-    ) {
-        parent::processExtension(
-            $cache,
-            $name,
-            $type,
-            $theme,
-            $path
-        );
+
+    /**
+     * @param array<string, array{type: string, template: string, path: string}> $cache
+     */
+    protected function processExtension(array &$cache, $name, $type, $theme, $path): void
+    {
+        parent::processExtension($cache, $name, $type, $theme, $path);
         if ($type === 'module') {
             foreach ($cache as $theme_hook => $info) {
                 $theme_function = 'theme_' . $theme_hook;

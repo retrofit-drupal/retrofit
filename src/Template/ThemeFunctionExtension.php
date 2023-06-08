@@ -4,28 +4,31 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Template;
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Render\Markup;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class ThemeFunctionExtension extends AbstractExtension
 {
-    public function getFunctions()
+    /**
+     * @return \Twig\TwigFunction[]
+     */
+    public function getFunctions(): array
     {
         return [
           new TwigFunction(
               'retrofit_theme_function',
               [$this, 'theme'],
-              [
-              'needs_context' => true,
-              'needs_environment' => true,
-              'is_variadic' => true,
-              ]
+              ['needs_context' => true]
           ),
         ];
     }
 
-    public function theme($env, $context, ...$variables)
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function theme(array $context): MarkupInterface|string
     {
         $themeFunction = 'theme_' . $context['theme_hook_original'];
         if (function_exists($themeFunction)) {

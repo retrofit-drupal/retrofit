@@ -27,7 +27,10 @@ function url(?string $path = null, array $options = []): string
     return $path;
 }
 
-function l(string $text, string $path, array $options = [])
+/**
+ * @param array{attributes?: array<string, string[]>, html?: bool} $options
+ */
+function l(string $text, string $path, array $options = []): string
 {
     // Merge in defaults.
     $options += [
@@ -39,12 +42,18 @@ function l(string $text, string $path, array $options = [])
       ($options['html'] ? $text : check_plain($text)) . '</a>';
 }
 
-function drupal_attributes(array $attributes = array())
+/**
+ * @param array<string, string|string[]> $attributes
+ */
+function drupal_attributes(array $attributes = []): string
 {
     foreach ($attributes as $attribute => &$data) {
         $data = implode(' ', (array) $data);
         $data = $attribute . '="' . check_plain($data) . '"';
     }
+    // @note: PHPStan doesn't recognize the shape of $attributes is re-written
+    // by reference.
+    // @phpstan-ignore-next-line
     return $attributes ? ' ' . implode(' ', $attributes) : '';
 }
 
@@ -101,7 +110,11 @@ function entity_language(string $entity_type, EntityInterface $entity): ?string
     return $langcode === LanguageInterface::LANGCODE_NOT_SPECIFIED ? null : $langcode;
 }
 
-function element_children(array &$elements, bool $sort = false)
+/**
+ * @param array<string, mixed> $elements
+ * @return array<string, mixed>
+ */
+function element_children(array &$elements, bool $sort = false): array
 {
     return Element::children($elements, $sort);
 }

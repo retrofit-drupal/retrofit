@@ -301,36 +301,6 @@ parameters:
 			path: src/Routing/HookMenuRoutes.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Template\\\\ThemeFunctionExtension\\:\\:theme\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Template/ThemeFunctionExtension.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Template\\\\ThemeFunctionExtension\\:\\:theme\\(\\) has parameter \\$context with no type specified\\.$#"
-			count: 1
-			path: src/Template/ThemeFunctionExtension.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Template\\\\ThemeFunctionExtension\\:\\:theme\\(\\) has parameter \\$env with no type specified\\.$#"
-			count: 1
-			path: src/Template/ThemeFunctionExtension.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Template\\\\ThemeFunctionExtension\\:\\:theme\\(\\) has parameter \\$variables with no type specified\\.$#"
-			count: 1
-			path: src/Template/ThemeFunctionExtension.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Theme\\\\Registry\\:\\:processExtension\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Theme/Registry.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Theme\\\\Registry\\:\\:processExtension\\(\\) has parameter \\$cache with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Theme/Registry.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php
@@ -359,16 +329,6 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\HookPermissions\\:\\:getPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/User/HookPermissions.php
-
-		-
-			message: "#^Function check_plain\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/bootstrap.php
-
-		-
-			message: "#^Function check_plain\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: src/functions/bootstrap.php
 
 		-
 			message: "#^Function _cache_get_object\\(\\) has no return type specified\\.$#"
@@ -464,36 +424,6 @@ parameters:
 			message: "#^Function cache_set\\(\\) has parameter \\$expire with no type specified\\.$#"
 			count: 1
 			path: src/functions/cache.php
-
-		-
-			message: "#^Function drupal_attributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Function drupal_attributes\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Function element_children\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Function element_children\\(\\) has parameter \\$elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Function l\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Function l\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/functions/common.php
 
 		-
 			message: "#^Function url\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
