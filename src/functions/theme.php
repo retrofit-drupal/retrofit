@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
-function theme($hook, $variables = array())
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Render\RendererInterface;
+
+/**
+ * @param array<string, mixed> $variables
+ */
+function theme(string $hook, array $variables = []): MarkupInterface
 {
-    // @todo phptemplate bridge.
-    // @todo pre/post process of variables.
-    $themeFunction = 'theme_' . $hook;
-    if (function_exists($themeFunction)) {
-        return $themeFunction($variables);
+    $build['#theme'] = $hook;
+    foreach ($variables as $key => $variable) {
+        $build["#$key"] = $variable;
     }
+    $renderer = \Drupal::service('renderer');
+    assert($renderer instanceof RendererInterface);
+    return $renderer->render($build);
 }
