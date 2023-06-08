@@ -1,0 +1,11 @@
+/*
+ * style the list
+ * for OL you can have
+ * decimal | lower-roman | upper-roman | lower-alpha | upper-alpha
+ * for UL you can have
+ * disc | circle | square or an image eg url(x.png)
+ * you can also have 'none'
+ */
+ol.theming-example-list {
+  list-style-type: upper-alpha;
+}

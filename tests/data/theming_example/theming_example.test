@@ -1,0 +1,66 @@
+<?php
+/**
+ * @file
+ * Simpletest case for theming_example module.
+ */
+
+/**
+ * Functional tests for the theming example module.
+ *
+ * @ingroup theming_example
+ */
+class ThemingExampleTestCase extends DrupalWebTestCase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Theming Example',
+      'description' => 'Verify theming example functionality',
+      'group' => 'Examples',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    // Enable the module.
+    parent::setUp('theming_example');
+  }
+
+  /**
+   * Verify the functionality of the example module.
+   */
+  public function testThemingPage() {
+    // No need to login for this test.
+    // Check that the main page has been themed (first line with <b>) and has
+    // content.
+    $this->drupalGet('examples/theming_example');
+    $this->assertRaw('<strong>Some examples of pages');
+    $this->assertRaw('examples/theming_example/theming_example_select_form">Simple form 1</a>');
+
+    // Visit the list demonstration page and check that css gets loaded
+    // and do some spot checks on how the two lists were themed.
+    $this->drupalGet('examples/theming_example/theming_example_list_page');
+    $this->assertPattern('/@import.*theming_example.css/');
+    $first_ul = $this->xpath('//ul[contains(@class,"render-version-list")]');
+    $this->assertTrue($first_ul[0]->li[0] == 'First item');
+    $second_ul = $this->xpath('//ol[contains(@class,"theming-example-list")]');
+    $this->assertTrue($second_ul[0]->li[1] == 'Second item');
+
+    // Visit the select form page to do spot checks.
+    $this->drupalGet('examples/theming_example/theming_example_select_form');
+    // We did explicit theming to accomplish the below...
+    $this->assertRaw('<strong>Choose which ordering you want</strong>');
+    $this->assertRaw('<div class="container-inline"><div class="form-item form-type-select form-item-choice">');
+    $this->assertNoPattern('/@import.*theming_example.css/');
+
+    // Visit the text form page and do spot checks.
+    $this->drupalGet('examples/theming_example/theming_example_text_form');
+    $this->assertText('Please input something!');
+    // If it were themed normally there would be a div wrapper in our pattern.
+    $this->assertPattern('%</div>\s*<input +type="submit"%');
+  }
+}

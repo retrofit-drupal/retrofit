@@ -28,7 +28,7 @@ final class HookMenuRoutesTest extends IntegrationTestCase
         return ['menu_example'];
     }
 
-    public function register(ContainerBuilder $container)
+    public function register(ContainerBuilder $container): void
     {
         parent::register($container);
         $this->registerTestHttpKernel($container);

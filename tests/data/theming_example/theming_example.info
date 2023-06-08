@@ -1,0 +1,11 @@
+name = Theming example
+description = An example module showing how to use theming.
+package = Example modules
+core = 7.x
+files[] = theming_example.test
+
+; Information added by Drupal.org packaging script on 2023-02-17
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "examples"
+datestamp = "1676613793"

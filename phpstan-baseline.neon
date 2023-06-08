@@ -776,11 +776,6 @@ parameters:
 			path: tests/src/Integration/Block/BlockTest.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Block\\\\BlockTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Block/BlockTest.php
-
-		-
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Block\\\\BlockTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/Block/BlockTest.php
@@ -816,21 +811,6 @@ parameters:
 			path: tests/src/Integration/Database/DbTest.php
 
 		-
-			message: "#^Cannot access offset mixed on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
-			count: 1
-			path: tests/src/Integration/IntegrationTestCase.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\IntegrationTestCase\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/IntegrationTestCase.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\IntegrationTestCase\\:\\:register\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/src/Integration/IntegrationTestCase.php
-
-		-
 			message: "#^Cannot access property \\$language on mixed\\.$#"
 			count: 1
 			path: tests/src/Integration/Language/GlobalLanguageContentTest.php
@@ -861,19 +841,9 @@ parameters:
 			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuFormRoutesTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
@@ -884,16 +854,6 @@ parameters:
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuFormRoutesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:getTestModules\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:register\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"

@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * @todo flush out
@@ -24,6 +25,36 @@ function url(?string $path = null, array $options = []): string
         $path = "/$path";
     }
     return $path;
+}
+
+/**
+ * @param array{attributes?: array<string, string[]>, html?: bool} $options
+ */
+function l(string $text, string $path, array $options = []): string
+{
+    // Merge in defaults.
+    $options += [
+      'attributes' => [],
+      'html' => false,
+    ];
+    return '<a href="' . check_plain(url($path, $options)) . '"' .
+      drupal_attributes($options['attributes']) . '>' .
+      ($options['html'] ? $text : check_plain($text)) . '</a>';
+}
+
+/**
+ * @param array<string, string|string[]> $attributes
+ */
+function drupal_attributes(array $attributes = []): string
+{
+    foreach ($attributes as $attribute => &$data) {
+        $data = implode(' ', (array) $data);
+        $data = $attribute . '="' . check_plain($data) . '"';
+    }
+    // @note: PHPStan doesn't recognize the shape of $attributes is re-written
+    // by reference.
+    // @phpstan-ignore-next-line
+    return $attributes ? ' ' . implode(' ', $attributes) : '';
 }
 
 /**
@@ -77,4 +108,13 @@ function entity_language(string $entity_type, EntityInterface $entity): ?string
 {
     $langcode = $entity->language()->getId();
     return $langcode === LanguageInterface::LANGCODE_NOT_SPECIFIED ? null : $langcode;
+}
+
+/**
+ * @param array<string, mixed> $elements
+ * @return array<string, mixed>
+ */
+function element_children(array &$elements, bool $sort = false): array
+{
+    return Element::children($elements, $sort);
 }
