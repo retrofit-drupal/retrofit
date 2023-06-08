@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
 
@@ -117,4 +118,11 @@ function entity_language(string $entity_type, EntityInterface $entity): ?string
 function element_children(array &$elements, bool $sort = false): array
 {
     return Element::children($elements, $sort);
+}
+
+function drupal_get_path(string $type, string $name): string
+{
+    $pathResolver = \Drupal::service('extension.path.resolver');
+    assert($pathResolver instanceof ExtensionPathResolver);
+    return $pathResolver->getPath($type, $name);
 }

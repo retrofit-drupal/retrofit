@@ -751,21 +751,6 @@ parameters:
 			path: src/functions/taxonomy.php
 
 		-
-			message: "#^Function theme\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/theme.php
-
-		-
-			message: "#^Function theme\\(\\) has parameter \\$hook with no type specified\\.$#"
-			count: 1
-			path: src/functions/theme.php
-
-		-
-			message: "#^Function theme\\(\\) has parameter \\$variables with no type specified\\.$#"
-			count: 1
-			path: src/functions/theme.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:createInstance\\(\\)\\.$#"
 			count: 1
 			path: tests/src/Integration/Block/BlockTest.php

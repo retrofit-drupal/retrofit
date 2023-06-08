@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Tests\Integration\Template;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use mglaman\DrupalTestHelpers\RequestTrait;
 use mglaman\DrupalTestHelpers\TestHttpKernelTrait;
 use Retrofit\Drupal\Tests\Integration\IntegrationTestCase;
@@ -14,9 +15,10 @@ final class HookThemeTest extends IntegrationTestCase
 {
     use RequestTrait;
     use TestHttpKernelTrait;
+    use UserCreationTrait;
 
     /** @var string[]  */
-    protected static $modules = ['system'];
+    protected static $modules = ['system', 'user'];
 
     public function register(ContainerBuilder $container): void
     {
@@ -44,5 +46,14 @@ final class HookThemeTest extends IntegrationTestCase
             '<p><a href="/examples/theming_example/theming_example_list_page">Simple page with a list</a></p>',
             $this->getRawContent()
         );
+    }
+
+    public function testThemingExampleListPage(): void
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('You are not allowed to use css in #attached.');
+
+        $this->setUpCurrentUser([], ['access content']);
+        $this->doRequest(Request::create('/examples/theming_example/theming_example_list_page'));
     }
 }
