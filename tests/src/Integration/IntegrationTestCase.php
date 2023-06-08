@@ -11,14 +11,18 @@ use Symfony\Component\DependencyInjection\Reference;
 
 abstract class IntegrationTestCase extends KernelTestBase
 {
+    /**
+     * @return string[]
+     */
     protected static function getTestModules(): array
     {
         return [];
     }
 
-    public function register(ContainerBuilder $container)
+    public function register(ContainerBuilder $container): void
     {
         parent::register($container);
+        /** @var array<string, array{type: string, pathname: string, filename: string}> $modules */
         $modules = $container->getParameter('container.modules');
         foreach (static::getTestModules() as $module) {
             $modules[$module] = [

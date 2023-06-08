@@ -15,12 +15,14 @@ final class HookThemeTest extends IntegrationTestCase
     use RequestTrait;
     use TestHttpKernelTrait;
 
+    /** @var string[]  */
     protected static $modules = ['system'];
 
-    public function register(ContainerBuilder $container)
+    public function register(ContainerBuilder $container): void
     {
         parent::register($container);
         $this->registerTestHttpKernel($container);
+        /** @var array{debug: bool} $twig */
         $twig = $container->getParameter('twig.config');
         $twig['debug'] = true;
         $container->setParameter('twig.config', $twig);

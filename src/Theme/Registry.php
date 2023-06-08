@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Theme;
 
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Theme\Registry as CoreRegistry;
 
 final class Registry extends CoreRegistry
 {
-
     /**
      * @param array<string, array{type: string, template: string, path: string}> $cache
      */
