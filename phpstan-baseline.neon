@@ -856,11 +856,6 @@ parameters:
 			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:register\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
 			count: 6
 			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
