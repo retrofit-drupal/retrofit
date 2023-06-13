@@ -15,9 +15,22 @@ final class CustomControllerAccessCallback
         $route = $route_match->getRouteObject();
         assert($route !== null);
         $access_callback = $route->getDefault('_custom_access_callback');
-        $access_arguments = $route->getDefault('_custom_access_arguments');
+        if (!is_callable($access_callback)) {
+            return AccessResult::forbidden(sprintf(
+                'Access callback "%s" is not callable for "%s".',
+                is_scalar($access_callback) ? $access_callback : gettype($access_callback),
+                $route_match->getRouteName()
+            ));
+        }
+        $access_arguments = $route->getDefault('_custom_access_arguments') ?? [];
+        if (!is_array($access_arguments)) {
+            return AccessResult::forbidden(sprintf(
+                'Access arguments is not array for "%s".',
+                $route_match->getRouteName()
+            ));
+        }
+        /** @var array<int|string, mixed> $access_arguments */
         $result = call_user_func_array($access_callback, $access_arguments);
-
         return AccessResult::allowedIf(is_bool($result) && $result);
     }
 }
