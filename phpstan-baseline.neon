@@ -1,14 +1,5 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Parameter \\#1 \\$callback of function call_user_func_array expects callable\\(\\)\\: mixed, mixed given\\.$#"
-			count: 1
-			path: src/Access/CustomControllerAccessCallback.php
-
-		-
-			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
-			count: 1
-			path: src/Access/CustomControllerAccessCallback.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
