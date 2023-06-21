@@ -12,7 +12,7 @@ use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
-use Retrofit\Drupal\Template\ThemeFunctionExtension;
+use Retrofit\Drupal\Template\RetrofitExtension;
 use Retrofit\Drupal\Theme\Registry;
 use Retrofit\Drupal\User\GlobalUserSetter;
 use Retrofit\Drupal\User\HookPermissions;
@@ -69,7 +69,8 @@ class Provider extends ServiceProviderBase
             ->addMethodCall('addPath', [__DIR__ . '/../templates', 'retrofit'])
         );
 
-        $container->register(ThemeFunctionExtension::class)
+        $container->register(RetrofitExtension::class)
+            ->addArgument(new Reference('theme.registry'))
             ->addTag('twig.extension');
 
         if ($container->has('user.permissions')) {

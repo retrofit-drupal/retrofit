@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
 
 /**
  * @todo flush out
@@ -125,4 +127,48 @@ function drupal_get_path(string $type, string $name): string
     $pathResolver = \Drupal::service('extension.path.resolver');
     assert($pathResolver instanceof ExtensionPathResolver);
     return $pathResolver->getPath($type, $name);
+}
+
+/**
+ * @param array<string, mixed> $element
+ * @param string[]|null $children_keys
+ */
+function drupal_render_children(array &$element, array $children_keys = null): string
+{
+    if ($children_keys === null) {
+        $children_keys = element_children($element);
+    }
+    $output = '';
+    foreach ($children_keys as $key) {
+        if (!empty($element[$key])) {
+            $output .= drupal_render($element[$key]);
+        }
+    }
+    return $output;
+}
+
+/**
+ * @param array<string, mixed> $elements
+ */
+function drupal_render(array &$elements): MarkupInterface
+{
+    $renderer = \Drupal::service('renderer');
+    assert($renderer instanceof RendererInterface);
+    return $renderer->render($elements);
+}
+
+/**
+ * @param array<string, mixed>|mixed $element
+ * @return string|mixed
+ */
+function render(&$element)
+{
+    if (is_array($element)) {
+        show($element);
+        return drupal_render($element);
+    }
+
+    // Safe-guard for inappropriate use of render() on flat variables: return
+    // the variable as-is.
+    return $element;
 }
