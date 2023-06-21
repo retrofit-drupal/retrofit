@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Tests\Integration\Template;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\Form\EnforcedResponseException;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use mglaman\DrupalTestHelpers\RequestTrait;
 use mglaman\DrupalTestHelpers\TestHttpKernelTrait;
@@ -23,6 +24,11 @@ final class HookThemeTest extends IntegrationTestCase
     public function register(ContainerBuilder $container): void
     {
         parent::register($container);
+        // Dirty hack to allow Drupal's form processing to run.
+        // @todo remove after https://github.com/mglaman/drupal-test-helpers/issues/10
+        if (!str_ends_with($this->getName(), 'Form')) {
+            $this->registerTestHttpKernel($container);
+        }
         /** @var array{debug: bool} $twig */
         $twig = $container->getParameter('twig.config');
         $twig['debug'] = true;
@@ -87,8 +93,6 @@ final class HookThemeTest extends IntegrationTestCase
             '<!-- /theming-example-text-form template -->',
             $this->getRawContent(),
         );
-
-        var_export($this->getRawContent());
 
         $this->doFormSubmit('/examples/theming_example/theming_example_text_form', [
             'text' => 'Some random testing text!',
