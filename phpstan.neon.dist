@@ -5,6 +5,8 @@ parameters:
 		- tests/src
 	bootstrapFiles:
 		- tests/bootstrap.php
+	scanFiles:
+		- vendor/drupal/core/includes/common.inc
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 	- phpstan-baseline.neon

@@ -21,9 +21,20 @@ final class Registry extends CoreRegistry
                     $cache[$theme_hook]['template'] = 'theme-function';
                     $cache[$theme_hook]['path'] = '@retrofit';
                 } else {
-                    // @todo check if Twig template exists or not. If not, then
-                    //   check if a .tpl.php template exists. Then add a layer
-                    //   for rendering the template via Twig function.
+                    // In Drupal 7, the `path` did not append the `templates` directory
+                    // if the `path` was not set. In Drupal 8 this changed to follow community
+                    // practices of putting all templates under the `template` directory.
+                    $path = $info['path'] . '/' . $info['template'] . '.tpl.php';
+                    $themePath = $info['theme path'] . '/' . $info['template'] . '.tpl.php';
+                    if (file_exists($path)) {
+                        $cache[$theme_hook]['phptemplate'] = $path;
+                        $cache[$theme_hook]['template'] = 'theme-phptemplate';
+                        $cache[$theme_hook]['path'] = '@retrofit';
+                    } elseif (file_exists($themePath)) {
+                        $cache[$theme_hook]['phptemplate'] = $themePath;
+                        $cache[$theme_hook]['template'] = 'theme-phptemplate';
+                        $cache[$theme_hook]['path'] = '@retrofit';
+                    }
                 }
             }
         }
