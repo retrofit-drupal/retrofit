@@ -8,6 +8,16 @@ function retrofit_fixtures_menu()
             'page callback' => 'retrofit_fixtures_drupal_add_library',
             'access callback' => TRUE,
         ],
+        'retrofit/drupal_add_js_setting' => [
+            'title' => 'drupal_add_js',
+            'page callback' => 'retrofit_fixtures_drupal_add_js_setting',
+            'access callback' => TRUE,
+        ],
+        'retrofit/attached_js_setting' => [
+            'title' => 'drupal js settings',
+            'page callback' => 'retrofit_fixtures_attached_js_setting',
+            'access callback' => TRUE,
+        ],
     ];
 }
 
@@ -15,4 +25,27 @@ function retrofit_fixtures_drupal_add_library()
 {
     drupal_add_library('system', 'jquery');
     return 'drupal_add_library page';
+}
+
+function retrofit_fixtures_drupal_add_js_setting()
+{
+    drupal_add_js(['hello' => 'World'], ['type' => 'setting']);
+    return 'drupal_add_js page';
+}
+
+function retrofit_fixtures_attached_js_setting()
+{
+    return [
+        '#attached' => [
+            'js' => [
+                [
+                    'type' => 'setting',
+                    'data' => ['hello' => 'World']
+                ]
+            ],
+        ],
+        'hello' => [
+            '#plain_text' => '#attached Drupal.settings'
+        ]
+    ];
 }
