@@ -172,3 +172,8 @@ function render(&$element)
     // the variable as-is.
     return $element;
 }
+
+function drupal_add_library($module, $name, $every_page = NULL)
+{
+
+}
