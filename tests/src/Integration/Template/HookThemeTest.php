@@ -55,9 +55,6 @@ final class HookThemeTest extends IntegrationTestCase
 
     public function testThemingExampleListPage(): void
     {
-        $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('You are not allowed to use css in #attached.');
-
         $this->setUpCurrentUser([], ['access content']);
         $this->doRequest(Request::create('/examples/theming_example/theming_example_list_page'));
     }

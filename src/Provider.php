@@ -10,6 +10,7 @@ use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
+use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
 use Retrofit\Drupal\Template\RetrofitExtension;
@@ -80,6 +81,10 @@ class Provider extends ServiceProviderBase
               ->addArgument(new Reference(HookPermissions::class . '.inner'))
               ->addArgument(new Reference('module_handler'));
         }
+
+        $container->register(RetrofitHtmlResponseAttachmentsProcessor::class)
+            ->setDecoratedService('html_response.attachments_processor')
+            ->addArgument(new Reference(RetrofitHtmlResponseAttachmentsProcessor::class . '.inner'));
     }
 
     public function alter(ContainerBuilder $container)
