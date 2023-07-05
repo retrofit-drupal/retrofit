@@ -43,4 +43,22 @@ final class AttachmentResponseSubscriberTest extends IntegrationTestCase
             $this->getRawContent(),
         );
     }
+
+    public function testDrupalAddJsSetting(): void
+    {
+        $response = $this->doRequest(Request::create('/retrofit/drupal_add_js_setting'));
+        self::assertInstanceOf(AttachmentsInterface::class, $response);
+        $attachments = $response->getAttachments();
+        self::assertArrayHasKey('drupalSettings', $attachments);
+        self::assertEquals(['hello' => 'World'], $attachments['drupalSettings']);
+    }
+
+    public function testAttachedSetting(): void
+    {
+        $response = $this->doRequest(Request::create('/retrofit/attached_js_setting'));
+        self::assertInstanceOf(AttachmentsInterface::class, $response);
+        $attachments = $response->getAttachments();
+        self::assertArrayHasKey('drupalSettings', $attachments);
+        self::assertEquals(['hello' => 'World'], $attachments['drupalSettings']);
+    }
 }

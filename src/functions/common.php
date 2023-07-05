@@ -190,3 +190,51 @@ function drupal_add_library(string $module, string $name, ?bool $every_page = nu
         'library' => [$library],
     ]);
 }
+
+/**
+ * @param array<string, mixed>|string|null $data
+ * @param array<string, mixed>|string|null $options
+ * @return string[]
+ */
+function drupal_add_js(array|string|null $data = null, array|string|null $options = null): array
+{
+    if ($data === null) {
+        return [];
+    }
+    $attachment_subscriber = \Drupal::getContainer()->get(AttachmentResponseSubscriber::class);
+    assert($attachment_subscriber instanceof AttachmentResponseSubscriber);
+
+    if (is_string($options)) {
+        $options = ['type' => $options];
+    } elseif ($options === null) {
+        $options = [];
+    }
+
+    $type = $options['type'] ?? 'file';
+    switch ($type) {
+        case 'setting':
+            if (is_array($data)) {
+                $attachment_subscriber->addAttachments([
+                    'drupalSettings' => $data,
+                ]);
+            } else {
+                // @todo log warning if string? Cannot discern what D7 did.
+            }
+
+            break;
+
+        case 'inline':
+            $attachment_subscriber->addAttachments([
+                'js' => [$options],
+            ]);
+            break;
+
+        default:
+            $attachment_subscriber->addAttachments([
+                'js' => [
+                    $options['data'] => $options,
+                ],
+            ]);
+    }
+    return [];
+}
