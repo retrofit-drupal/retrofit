@@ -1,0 +1,18 @@
+<?php
+
+function retrofit_fixtures_menu()
+{
+    return [
+        'retrofit/drupal_add_library' => [
+            'title' => 'drupal_add_library',
+            'page callback' => 'retrofit_fixtures_drupal_add_library',
+            'access callback' => TRUE,
+        ],
+    ];
+}
+
+function retrofit_fixtures_drupal_add_library()
+{
+    drupal_add_library('system', 'jquery');
+    return 'drupal_add_library page';
+}

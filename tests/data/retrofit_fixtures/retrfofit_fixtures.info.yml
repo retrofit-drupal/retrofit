@@ -1,0 +1,5 @@
+name: Retrofit fixtures
+description: Fixtures not present in Examples modules
+package: Example modules
+type: module
+core_version_requirement: ^10

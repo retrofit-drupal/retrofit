@@ -10,6 +10,7 @@ use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
+use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 
 /**
  * @todo flush out
@@ -173,7 +174,19 @@ function render(&$element)
     return $element;
 }
 
-function drupal_add_library($module, $name, $every_page = NULL)
+function drupal_add_library(string $module, string $name, ?bool $every_page = null): void
 {
+    $attachment_subscriber = \Drupal::getContainer()->get(AttachmentResponseSubscriber::class);
+    assert($attachment_subscriber instanceof AttachmentResponseSubscriber);
 
+    $module = match ($name) {
+        'drupal.ajax', 'jquery' => 'core',
+        default => $module
+    };
+
+    $library = "$module/$name";
+
+    $attachment_subscriber->addAttachments([
+        'library' => [$library],
+    ]);
 }

@@ -1,6 +1,5 @@
 parameters:
 	ignoreErrors:
-
 		-
 			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
 			count: 1
@@ -820,6 +819,11 @@ parameters:
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Render\\\\AttachmentResponseSubscriberTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Render/AttachmentResponseSubscriberTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
