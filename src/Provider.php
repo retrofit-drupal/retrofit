@@ -10,6 +10,7 @@ use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
+use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
@@ -85,6 +86,9 @@ class Provider extends ServiceProviderBase
         $container->register(RetrofitHtmlResponseAttachmentsProcessor::class)
             ->setDecoratedService('html_response.attachments_processor')
             ->addArgument(new Reference(RetrofitHtmlResponseAttachmentsProcessor::class . '.inner'));
+
+        $container->register(AttachmentResponseSubscriber::class)
+            ->addTag('event_subscriber');
     }
 
     public function alter(ContainerBuilder $container)
