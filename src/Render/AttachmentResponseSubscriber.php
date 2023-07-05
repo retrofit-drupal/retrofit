@@ -11,7 +11,11 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * @phpstan-type Attachments array{drupalSettings?: array<string, mixed>, placeholders?: array<string, mixed>, library?: string[]}
+ * @phpstan-type Attachments array{
+ *     drupalSettings?: array<string, mixed>,
+ *     placeholders?: array<string, mixed>,
+ *     library?: string[]
+ * }
  */
 final class AttachmentResponseSubscriber implements EventSubscriberInterface
 {
