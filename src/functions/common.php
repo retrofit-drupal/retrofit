@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -237,4 +238,40 @@ function drupal_add_js(array|string|null $data = null, array|string|null $option
             ]);
     }
     return [];
+}
+
+/**
+ * @param array<string, mixed>|string|null $data
+ * @param array<string, mixed>|string|null $options
+ * @return string[]
+ */
+function drupal_add_css(array|string|null $data = null, array|string|null $options = null) {
+    if ($data === null) {
+        return [];
+    }
+    $attachment_subscriber = \Drupal::getContainer()->get(AttachmentResponseSubscriber::class);
+    assert($attachment_subscriber instanceof AttachmentResponseSubscriber);
+
+    if (is_string($options)) {
+        $options = ['type' => $options];
+    } elseif ($options === null) {
+        $options = [];
+    }
+    $type = $options['type'] ?? 'file';
+    if ($type === 'inline') {
+        $attachment_subscriber->addAttachments([
+            'css' => $options,
+        ]);
+    } else {
+        $attachment_subscriber->addAttachments([
+            'css' => [
+                $data => $options,
+            ],
+        ]);
+    }
+    return [];
+}
+
+function filter_xss_admin(string $string): string {
+    return Xss::filterAdmin($string);
 }

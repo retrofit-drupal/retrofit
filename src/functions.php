@@ -8,6 +8,7 @@ require_once __DIR__ . '/functions/common.php';
 require_once __DIR__ . '/functions/db.php';
 require_once __DIR__ . '/functions/form.php';
 require_once __DIR__ . '/functions/messages.php';
+require_once __DIR__ . '/functions/module.php';
 require_once __DIR__ . '/functions/node.php';
 require_once __DIR__ . '/functions/namespaced.php';
 require_once __DIR__ . '/functions/taxonomy.php';

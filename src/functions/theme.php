@@ -18,3 +18,7 @@ function theme(string $hook, array $variables = []): MarkupInterface
     assert($renderer instanceof RendererInterface);
     return $renderer->render($build);
 }
+
+function path_to_theme(): string {
+    return \Drupal::theme()->getActiveTheme()->getPath();
+}
