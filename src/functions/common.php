@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -237,4 +239,24 @@ function drupal_add_js(array|string|null $data = null, array|string|null $option
             ]);
     }
     return [];
+}
+
+function filter_xss_admin(string $string): string
+{
+    return Xss::filterAdmin($string);
+}
+
+/**
+ * @param string[] $allowed_tags
+ */
+function filter_xss(string $string, array $allowed_tags = [
+    'a', 'em', 'strong', 'cite', 'blockquote', 'code', 'ul', 'ol', 'li', 'dl', 'dt', 'dd'
+]): string
+{
+    return Xss::filter($string, $allowed_tags);
+}
+
+function filter_xss_bad_protocol(string $string, bool $decode = true): string
+{
+    return UrlHelper::filterBadProtocol($string);
 }
