@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -241,11 +242,11 @@ function drupal_add_js(array|string|null $data = null, array|string|null $option
 }
 
 /**
- * @param array<string, mixed>|string|null $data
  * @param array<string, mixed>|string|null $options
  * @return string[]
  */
-function drupal_add_css(array|string|null $data = null, array|string|null $options = null) {
+function drupal_add_css(string|null $data = null, array|string|null $options = null)
+{
     if ($data === null) {
         return [];
     }
@@ -262,7 +263,7 @@ function drupal_add_css(array|string|null $data = null, array|string|null $optio
         $attachment_subscriber->addAttachments([
             'css' => $options,
         ]);
-    } else {
+    } elseif ($data) {
         $attachment_subscriber->addAttachments([
             'css' => [
                 $data => $options,
@@ -272,6 +273,22 @@ function drupal_add_css(array|string|null $data = null, array|string|null $optio
     return [];
 }
 
-function filter_xss_admin(string $string): string {
+function filter_xss_admin(string $string): string
+{
     return Xss::filterAdmin($string);
+}
+
+/**
+ * @param string[] $allowed_tags
+ */
+function filter_xss(string $string, array $allowed_tags = [
+    'a', 'em', 'strong', 'cite', 'blockquote', 'code', 'ul', 'ol', 'li', 'dl', 'dt', 'dd'
+]): string
+{
+    return Xss::filter($string, $allowed_tags);
+}
+
+function filter_xss_bad_protocol(string $string, bool $decode = true): string
+{
+    return UrlHelper::filterBadProtocol($string);
 }
