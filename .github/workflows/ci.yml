@@ -28,7 +28,7 @@ jobs:
       - name: Composer normalize
         run: composer normalize --dry-run
       - name: PHPCS
-        run: php vendor/bin/phpcs --report=checkstyle | cs2pr
+        run: php vendor/bin/phpcs -q --report=checkstyle | cs2pr
   static:
     runs-on: ubuntu-latest
     steps:
