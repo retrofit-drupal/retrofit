@@ -28,7 +28,7 @@ jobs:
       - name: Composer normalize
         run: composer normalize --dry-run
       - name: PHPCS
-        run: php vendor/bin/phpcs
+        run: php vendor/bin/phpcs --report=checkstyle
   static:
     runs-on: ubuntu-latest
     steps:
