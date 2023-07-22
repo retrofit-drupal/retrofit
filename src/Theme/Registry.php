@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Theme;
 
+use Drupal\Core\Theme\ActiveTheme;
 use Drupal\Core\Theme\Registry as CoreRegistry;
 
 final class Registry extends CoreRegistry
@@ -35,6 +36,30 @@ final class Registry extends CoreRegistry
                         $cache[$theme_hook]['template'] = 'theme-phptemplate';
                         $cache[$theme_hook]['path'] = '@retrofit';
                     }
+                }
+            }
+        }
+    }
+
+    protected function postProcessExtension(array &$cache, ActiveTheme $theme) {
+        parent::postProcessExtension($cache, $theme);
+        // Add all `hook_process_HOOK` as preprocess functions.
+        $prefixes = array_keys($this->moduleHandler->getModuleList());
+        foreach (array_reverse($theme->getBaseThemeExtensions()) as $base) {
+            $prefixes[] = $base->getName();
+        }
+        if ($theme->getEngine()) {
+            $prefixes[] = $theme->getEngine() . '_engine';
+        }
+        $prefixes[] = $theme->getName();
+
+        foreach ($cache as $hook => $info) {
+            foreach ($prefixes as $prefix) {
+                if (function_exists($prefix . '_process')) {
+                    $cache[$hook]['preprocess functions'][] = $prefix . '_process';
+                }
+                if (function_exists($prefix . '_process_' . $hook)) {
+                    $cache[$hook]['preprocess functions'][] = $prefix . '_process_' . $hook;
                 }
             }
         }
