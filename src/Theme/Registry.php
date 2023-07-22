@@ -41,7 +41,11 @@ final class Registry extends CoreRegistry
         }
     }
 
-    protected function postProcessExtension(array &$cache, ActiveTheme $theme) {
+    /**
+     * @param array<string, array{'preprocess functions': callable[]}> $cache
+     */
+    protected function postProcessExtension(array &$cache, ActiveTheme $theme): void
+    {
         parent::postProcessExtension($cache, $theme);
         // Add all `hook_process_HOOK` as preprocess functions.
         $prefixes = array_keys($this->moduleHandler->getModuleList());
