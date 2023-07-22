@@ -861,6 +861,11 @@ parameters:
 			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
 
 		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\VariablesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/VariablesTest.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotFalse\\(\\) with Symfony\\\\Component\\\\Routing\\\\Route\\|null will always evaluate to true\\.$#"
 			count: 1
 			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
