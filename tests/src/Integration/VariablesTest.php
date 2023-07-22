@@ -10,6 +10,8 @@ use Drupal\KernelTests\KernelTestBase;
 
 final class VariablesTest extends KernelTestBase
 {
+    protected static $modules = ['system'];
+
     public function testSet(): void
     {
         $state = $this->container->get('state');
@@ -37,5 +39,12 @@ final class VariablesTest extends KernelTestBase
     {
         variable_set('foobar', 'baz');
         self::assertEquals('baz', variable_get('foobar'));
+
+        $this->config('system.site')
+            ->set('name', 'Drupal')
+            ->set('slogan', 'With Retrofit')
+            ->save();
+        self::assertEquals('Drupal', variable_get('site_name'));
+        self::assertEquals('With Retrofit', variable_get('site_slogan'));
     }
 }
