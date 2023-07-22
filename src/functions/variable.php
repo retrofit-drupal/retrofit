@@ -22,5 +22,9 @@ function variable_del(string $name): void
 
 function variable_get(string $name, mixed $default = null): mixed
 {
-    return \Drupal::state()->get($name, $default);
+    return match ($name) {
+        'site_name' => \Drupal::config('system.site')->get('name') ?? $default,
+        'site_slogan' => \Drupal::config('system.site')->get('slogan') ?? $default,
+        default => \Drupal::state()->get($name, $default)
+    };
 }
