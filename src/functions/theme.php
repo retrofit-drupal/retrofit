@@ -19,6 +19,7 @@ function theme(string $hook, array $variables = []): MarkupInterface
     return $renderer->render($build);
 }
 
-function path_to_theme(): string {
+function path_to_theme(): string
+{
     return \Drupal::theme()->getActiveTheme()->getPath();
 }
