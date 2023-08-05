@@ -14,6 +14,7 @@ final class HookProcessTest extends IntegrationTestCase
     use RequestTrait;
     use TestHttpKernelTrait;
 
+    /** @var string[]  */
     protected static $modules = ['system'];
 
     protected static function getTestModules(): array
@@ -29,5 +30,4 @@ final class HookProcessTest extends IntegrationTestCase
             $this->getRawContent(),
         );
     }
-
 }
