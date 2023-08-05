@@ -49,3 +49,8 @@ function retrofit_fixtures_attached_js_setting()
         ]
     ];
 }
+
+function retrofit_fixtures_process_html(&$variables)
+{
+    $variables['attributes']['hook_process'] = __FUNCTION__;
+}
