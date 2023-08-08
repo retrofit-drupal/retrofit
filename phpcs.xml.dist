@@ -7,7 +7,7 @@
     <arg value="sp"/>
 
     <file>src</file>
-    <file>tests</file>
+    <file>tests/src</file>
 
     <rule ref="PSR12">
         <!-- Already checked with the sniff Squiz.WhiteSpace.SemicolonSpacing.Incorrect -->

@@ -861,6 +861,11 @@ parameters:
 			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
 
 		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Theme\\\\ThemeIntegrationTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
+
+		-
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\VariablesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/VariablesTest.php
