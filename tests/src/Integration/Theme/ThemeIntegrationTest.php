@@ -15,13 +15,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ThemeIntegrationTest extends IntegrationTestCase
 {
-
-    protected static $modules = ['system', 'test_page_test'];
-
     use RequestTrait;
     use TestHttpKernelTrait;
 
-    protected $strictConfigSchema = FALSE;
+    protected static $modules = ['system', 'test_page_test'];
+
+    protected $strictConfigSchema = false;
 
     public function register(ContainerBuilder $container): void
     {
@@ -45,13 +44,14 @@ final class ThemeIntegrationTest extends IntegrationTestCase
         self::assertArrayHasKey('bartik', $themeHandler->getList());
     }
 
-    public function testPageDoesNotCrashWithTheme(): void {
+    public function testPageDoesNotCrashWithTheme(): void
+    {
         $this->config('core.extension')
             ->set('theme.bartik', 0)
-            ->save(TRUE);
+            ->save(true);
         $this->config('system.theme')
             ->set('default', 'bartik')
-            ->save(TRUE);
+            ->save(true);
 
         $this->doRequest(Request::create('/test-page'));
         self::assertStringContainsString(
@@ -59,5 +59,4 @@ final class ThemeIntegrationTest extends IntegrationTestCase
             $this->getTextContent()
         );
     }
-
 }

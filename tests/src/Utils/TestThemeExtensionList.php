@@ -9,7 +9,6 @@ use Drupal\Core\Extension\ThemeExtensionList;
 
 class TestThemeExtensionList extends ThemeExtensionList
 {
-
     protected function doScanExtensions(): array
     {
         $extensions = parent::doScanExtensions();
@@ -21,5 +20,4 @@ class TestThemeExtensionList extends ThemeExtensionList
         );
         return $extensions;
     }
-
 }
