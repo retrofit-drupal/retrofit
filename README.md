@@ -4,6 +4,8 @@ The Retrofit provides compatibility layers for legacy Drupal code to allow run o
 
 ## Installation
 
+Retrofit is _not_ a module. All you need to do is install the package using Composer and Retrofit is available and working!
+
 ```shell
 composer require mglaman/retrofit-drupal
 ```
@@ -12,7 +14,7 @@ And that's it! 🎉
 
 ## How it works
 
-This library registers a service provider to integrate with Drupal automatically.
+This library registers a service provider to integrate with Drupal automatically. No extra configuration is needed. Once Retrofit has been added to your Drupal code base it will automatically provide backward compatibility layers for you.
 
 ## Usage
 
