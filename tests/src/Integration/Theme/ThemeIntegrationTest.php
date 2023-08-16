@@ -53,10 +53,14 @@ final class ThemeIntegrationTest extends IntegrationTestCase
             ->set('default', 'bartik')
             ->save(true);
 
-        $this->doRequest(Request::create('/test-page'));
-        self::assertStringContainsString(
-            'Test page text.',
-            $this->getTextContent()
-        );
+        try {
+            $this->doRequest(Request::create('/test-page'));
+            self::assertStringContainsString(
+                'Test page text.',
+                $this->getTextContent()
+            );
+        } catch (\Exception $e) {
+            $this->fail($e->getMessage());
+        }
     }
 }

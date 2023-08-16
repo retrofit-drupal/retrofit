@@ -38,6 +38,13 @@ final class Registry extends CoreRegistry
                     }
                 }
             }
+        } elseif ($type === 'theme_engine') {
+            $templates = drupal_find_theme_templates($cache, '.tpl.php', $path);
+            foreach ($templates as $theme_hook => $info) {
+                $cache[$theme_hook]['phptemplate'] = $info['path'] . '/' . $info['template'] . '.tpl.php';
+                $cache[$theme_hook]['template'] = 'theme-phptemplate';
+                $cache[$theme_hook]['path'] = '@retrofit';
+            }
         }
     }
 
