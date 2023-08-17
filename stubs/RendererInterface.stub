@@ -1,9 +1,0 @@
-<?php
-
-namespace Drupal\Core\Render;
-
-interface RendererInterface {
-
-    public function render(&$elements, $is_root_call = FALSE): MarkupInterface|string;
-
-}

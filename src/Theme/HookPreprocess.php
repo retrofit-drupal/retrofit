@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Theme;
 
+/**
+ * @phpstan-type Variables array<string, string|array<int|string, mixed>>
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 final class HookPreprocess
 {
-
     /**
-     * @param array<string, array|string> $variables
+     * @param Variables $variables
      */
     public static function page(array &$variables): void
     {
@@ -28,11 +31,10 @@ final class HookPreprocess
     }
 
     /**
-     * @param array<string, array|string> $variables
+     * @param Variables $variables
      */
     public static function maintenance_page(array &$variables): void
     {
         self::page($variables);
     }
-
 }

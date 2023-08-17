@@ -6,11 +6,20 @@ namespace Retrofit\Drupal\Theme;
 
 use Drupal\Core\Theme\ActiveTheme;
 use Drupal\Core\Theme\Registry as CoreRegistry;
+use Drupal\Core\Utility\ThemeRegistry;
 
+/**
+ * @phpstan-type RegistryData array<string, array{
+ *     type: string,
+ *     template: string,
+ *     path: string,
+ *    'preprocess functions': callable[],
+ * }>
+ */
 final class Registry extends CoreRegistry
 {
     /**
-     * @param array<string, array{type: string, template: string, path: string, 'preprocess functions': callable[]}> $cache
+     * @param RegistryData $cache
      */
     protected function processExtension(array &$cache, $name, $type, $theme, $path): void
     {

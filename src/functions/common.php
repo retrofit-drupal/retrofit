@@ -152,6 +152,7 @@ function drupal_render_children(array &$element, array $children_keys = null): s
 
 /**
  * @param array<string, mixed> $elements
+ * @phpstan-ignore-next-line
  */
 function drupal_render(array &$elements): MarkupInterface|string
 {
