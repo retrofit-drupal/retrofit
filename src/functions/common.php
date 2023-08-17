@@ -153,7 +153,7 @@ function drupal_render_children(array &$element, array $children_keys = null): s
 /**
  * @param array<string, mixed> $elements
  */
-function drupal_render(array &$elements): MarkupInterface
+function drupal_render(array &$elements): MarkupInterface|string
 {
     $renderer = \Drupal::service('renderer');
     assert($renderer instanceof RendererInterface);

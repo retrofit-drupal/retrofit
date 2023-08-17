@@ -7,6 +7,9 @@ parameters:
 		- tests/bootstrap.php
 	scanFiles:
 		- vendor/drupal/core/includes/common.inc
+		- vendor/drupal/core/includes/theme.inc
+	stubFiles:
+		- stubs/RendererInterface.stub
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 	- phpstan-baseline.neon

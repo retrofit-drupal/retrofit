@@ -10,13 +10,17 @@ use Drupal\Core\Theme\Registry as CoreRegistry;
 final class Registry extends CoreRegistry
 {
     /**
-     * @param array<string, array{type: string, template: string, path: string}> $cache
+     * @param array<string, array{type: string, template: string, path: string, 'preprocess functions': callable[]}> $cache
      */
     protected function processExtension(array &$cache, $name, $type, $theme, $path): void
     {
         parent::processExtension($cache, $name, $type, $theme, $path);
-        if ($type === 'module') {
-            foreach ($cache as $theme_hook => $info) {
+
+        foreach ($cache as $theme_hook => $info) {
+            if (method_exists(HookPreprocess::class, $theme_hook)) {
+                $cache[$theme_hook]['preprocess functions'][] = HookPreprocess::class . '::' . $theme_hook;
+            }
+            if ($type === 'module') {
                 $theme_function = 'theme_' . $theme_hook;
                 if (function_exists($theme_function)) {
                     $cache[$theme_hook]['template'] = 'theme-function';
@@ -38,7 +42,9 @@ final class Registry extends CoreRegistry
                     }
                 }
             }
-        } elseif ($type === 'theme_engine') {
+        }
+
+        if ($type === 'theme_engine') {
             $templates = drupal_find_theme_templates($cache, '.tpl.php', $path);
             foreach ($templates as $theme_hook => $info) {
                 $cache[$theme_hook]['phptemplate'] = $info['path'] . '/' . $info['template'] . '.tpl.php';
