@@ -6,17 +6,30 @@ namespace Retrofit\Drupal\Theme;
 
 use Drupal\Core\Theme\ActiveTheme;
 use Drupal\Core\Theme\Registry as CoreRegistry;
+use Drupal\Core\Utility\ThemeRegistry;
 
+/**
+ * @phpstan-type RegistryData array<string, array{
+ *     type: string,
+ *     template: string,
+ *     path: string,
+ *    'preprocess functions': callable[],
+ * }>
+ */
 final class Registry extends CoreRegistry
 {
     /**
-     * @param array<string, array{type: string, template: string, path: string}> $cache
+     * @param RegistryData $cache
      */
     protected function processExtension(array &$cache, $name, $type, $theme, $path): void
     {
         parent::processExtension($cache, $name, $type, $theme, $path);
-        if ($type === 'module') {
-            foreach ($cache as $theme_hook => $info) {
+
+        foreach ($cache as $theme_hook => $info) {
+            if (method_exists(HookPreprocess::class, $theme_hook)) {
+                $cache[$theme_hook]['preprocess functions'][] = HookPreprocess::class . '::' . $theme_hook;
+            }
+            if ($type === 'module') {
                 $theme_function = 'theme_' . $theme_hook;
                 if (function_exists($theme_function)) {
                     $cache[$theme_hook]['template'] = 'theme-function';
@@ -37,6 +50,15 @@ final class Registry extends CoreRegistry
                         $cache[$theme_hook]['path'] = '@retrofit';
                     }
                 }
+            }
+        }
+
+        if ($type === 'theme_engine') {
+            $templates = drupal_find_theme_templates($cache, '.tpl.php', $path);
+            foreach ($templates as $theme_hook => $info) {
+                $cache[$theme_hook]['phptemplate'] = $info['path'] . '/' . $info['template'] . '.tpl.php';
+                $cache[$theme_hook]['template'] = 'theme-phptemplate';
+                $cache[$theme_hook]['path'] = '@retrofit';
             }
         }
     }
