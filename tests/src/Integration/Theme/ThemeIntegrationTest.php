@@ -18,7 +18,11 @@ final class ThemeIntegrationTest extends IntegrationTestCase
     use RequestTrait;
     use TestHttpKernelTrait;
 
-    protected static $modules = ['system', 'test_page_test'];
+    protected static $modules = [
+        'system',
+        'block',
+        'test_page_test'
+    ];
 
     protected $strictConfigSchema = false;
 
@@ -53,14 +57,40 @@ final class ThemeIntegrationTest extends IntegrationTestCase
             ->set('default', 'bartik')
             ->save(true);
 
+        $this->placeBlock('page_title_block', 'header');
+
         try {
             $this->doRequest(Request::create('/test-page'));
             self::assertStringContainsString(
                 'Test page text.',
                 $this->getTextContent()
             );
+            self::assertStringContainsString(
+                '<div id="page-wrapper"><div id="page">',
+                $this->getRawContent()
+            );
+            self::assertStringContainsString(
+                '<h1class="title"id="page-title">Testpage</h1>',
+                preg_replace('/\s/', '', $this->getRawContent())
+            );
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
+    }
+
+    private function placeBlock(string $plugin_id, string $region): void
+    {
+        $block_storage = $this->container->get('entity_type.manager')->getStorage('block');
+        $block_storage->create([
+            'id' => "test_$plugin_id",
+            'theme' => 'bartik',
+            'region' => $region,
+            'plugin' => $plugin_id,
+            'settings' => [
+                'id' => $plugin_id,
+                'label' => $this->randomMachineName()
+            ],
+            'visibility' => [],
+        ])->save();
     }
 }
