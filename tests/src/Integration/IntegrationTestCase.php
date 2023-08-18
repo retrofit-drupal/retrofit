@@ -6,7 +6,9 @@ namespace Retrofit\Drupal\Tests\Integration;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\KernelTests\KernelTestBase;
+use Retrofit\Drupal\Tests\Utils\TestExtensionInstallStorage;
 use Retrofit\Drupal\Tests\Utils\TestModuleHandler;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Reference;
 
 abstract class IntegrationTestCase extends KernelTestBase
@@ -36,5 +38,11 @@ abstract class IntegrationTestCase extends KernelTestBase
         $container->register('test_module_handler', TestModuleHandler::class)
           ->setDecoratedService('module_handler')
           ->addArgument(new Reference('test_module_handler.inner'));
+
+        $container->setDefinition(
+            TestExtensionInstallStorage::class,
+            (new ChildDefinition('config.storage.schema'))
+                ->setDecoratedService('config.storage.schema')
+        );
     }
 }
