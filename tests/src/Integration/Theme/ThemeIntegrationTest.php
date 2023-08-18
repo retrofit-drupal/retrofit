@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Tests\Integration\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ThemeExtensionList;
 use mglaman\DrupalTestHelpers\RequestTrait;
 use mglaman\DrupalTestHelpers\TestHttpKernelTrait;
@@ -80,7 +81,9 @@ final class ThemeIntegrationTest extends IntegrationTestCase
 
     private function placeBlock(string $plugin_id, string $region): void
     {
-        $block_storage = $this->container->get('entity_type.manager')->getStorage('block');
+        $entity_type_manager = $this->container->get('entity_type.manager');
+        self::assertInstanceOf(EntityTypeManagerInterface::class, $entity_type_manager);
+        $block_storage = $entity_type_manager->getStorage('block');
         $block_storage->create([
             'id' => "test_$plugin_id",
             'theme' => 'bartik',

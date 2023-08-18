@@ -9,11 +9,14 @@ use Drupal\Core\Extension\ExtensionDiscovery;
 
 final class TestExtensionInstallStorage extends ExtensionInstallStorage
 {
-    protected function getAllFolders()
+    /**
+     * @return array<string, string>
+     */
+    protected function getAllFolders(): array
     {
         // Skips theme scanning due to core not defining a variable.
         // It doesn't define `$theme_list` ahead of time.
-        if (!isset($this->folders)) {
+        if ($this->folders === null) {
             $this->folders = [];
             $this->folders += $this->getCoreNames();
             $extensions = $this->configStorage->read('core.extension');
@@ -32,7 +35,10 @@ final class TestExtensionInstallStorage extends ExtensionInstallStorage
                     // @todo Remove as part of https://www.drupal.org/node/2186491
                     /** @var \Drupal\Core\Extension\ProfileExtensionList $profile_extension_list */
                     $profile_extension_list = \Drupal::service('extension.list.profile');
-                    $profile_extension_list->setPathname($this->installProfile, $profile_list[$this->installProfile]->getPathname());
+                    $profile_extension_list->setPathname(
+                        $this->installProfile,
+                        $profile_list[$this->installProfile]->getPathname()
+                    );
                 }
                 $module_list_scan = $listing->scan('module');
                 $module_list = [];
@@ -43,7 +49,6 @@ final class TestExtensionInstallStorage extends ExtensionInstallStorage
                 }
                 $this->folders += $this->getComponentNames($module_list);
             }
-
         }
         return $this->folders;
     }

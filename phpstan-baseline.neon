@@ -301,6 +301,21 @@ parameters:
 			path: src/Routing/HookMenuRoutes.php
 
 		-
+			message: "#^Cannot access offset '\\#title' on mixed\\.$#"
+			count: 1
+			path: src/Theme/HookPreprocess.php
+
+		-
+			message: "#^Offset '\\#id' might not exist on array\\<int\\|string, mixed\\>\\|string\\.$#"
+			count: 1
+			path: src/Theme/HookPreprocess.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\Core\\\\Entity\\\\EntityInterface\\|null given\\.$#"
+			count: 1
+			path: src/Theme/HookPreprocess.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php
