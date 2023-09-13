@@ -1,5 +1,5 @@
 {
-    "name": "retrofit-drupal/core",
+    "name": "retrofit-drupal/retrofit",
     "description": "Retrofit provides compatibility layers to run legacy Drupal code.",
     "license": "MIT",
     "type": "library",
