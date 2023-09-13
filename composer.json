@@ -1,5 +1,5 @@
 {
-    "name": "mglaman/retrofit-drupal",
+    "name": "retrofit-drupal/core",
     "description": "Retrofit provides compatibility layers to run legacy Drupal code.",
     "license": "MIT",
     "type": "library",
