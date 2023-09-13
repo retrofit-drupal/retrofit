@@ -19,7 +19,7 @@ final class HookPreprocess
     {
         $variables['logo'] = theme_get_setting('logo.url');
 
-        // @todo support in https://github.com/mglaman/retrofit-drupal/issues/43
+        // @todo support in https://github.com/retrofit-drupal/retrofit/issues/43
         $variables['main_menu'] = [];
         $variables['secondary_menu'] = [];
 
