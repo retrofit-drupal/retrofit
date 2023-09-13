@@ -7,7 +7,7 @@ The Retrofit provides compatibility layers for legacy Drupal code to allow run o
 Retrofit is _not_ a module. All you need to do is install the package using Composer and Retrofit is available and working!
 
 ```shell
-composer require mglaman/retrofit-drupal
+composer require retrofit-drupal/retrofit
 ```
 
 And that's it! 🎉
@@ -18,7 +18,7 @@ This library registers a service provider to integrate with Drupal automatically
 
 ## Support
 
-If you would like free and public support, open a [Discussion](https://github.com/mglaman/retrofit-drupal/discussions/new?category=q-a). You can also join the [#retrofit](https://drupal.slack.com/archives/C05BT6LALUR) channel on [Drupal Slack](https://www.drupal.org/community/contributor-guide/reference-information/talk/tools/slack) as well.
+If you would like free and public support, open a [Discussion](https://github.com/retrofit-drupal/retrofit/discussions/new?category=q-a). You can also join the [#retrofit](https://drupal.slack.com/archives/C05BT6LALUR) channel on [Drupal Slack](https://www.drupal.org/community/contributor-guide/reference-information/talk/tools/slack) as well.
 
 If you would like paid and private support, [contact Matt Glaman](https://mglaman.dev/contact-matt) directly. Opportunities for paid private support are coming.
 
@@ -44,7 +44,7 @@ You must modify your Drupal 7 theme's `.info` file into a `info.yml` format.
 You must also rename `template.php` to `THEME_NAME.theme`, the next extension file format.
 
 You must create an asset library for your previously declared `stylesheets` and add a `libraries` definition
-to attach those to the page. In the future, this may be automated with [#26](https://github.com/mglaman/retrofit-drupal/issues/26).
+to attach those to the page. In the future, this may be automated with [#26](https://github.com/retrofit-drupal/retrofit/issues/26).
 
 ### Namespaced functions
 
