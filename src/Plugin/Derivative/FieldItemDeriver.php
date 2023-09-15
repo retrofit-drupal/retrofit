@@ -9,7 +9,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class FieldTypeDeriver extends DeriverBase implements ContainerDeriverInterface
+final class FieldItemDeriver extends DeriverBase implements ContainerDeriverInterface
 {
     public function __construct(
         private readonly ModuleHandlerInterface $moduleHandler

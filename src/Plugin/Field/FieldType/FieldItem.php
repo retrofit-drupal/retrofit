@@ -13,10 +13,11 @@ use Drupal\field\FieldStorageConfigInterface;
 /**
  * @FieldType(
  *     id = "retrofit_field",
- *     deriver = "\Retrofit\Drupal\Plugin\Derivative\FieldTypeDeriver",
+ *     deriver = "\Retrofit\Drupal\Plugin\Derivative\FieldItemDeriver",
+ *     list_class = "\Retrofit\Drupal\Plugin\Field\FieldType\FieldItemList"
  * )
  */
-final class FieldType extends FieldItemBase
+final class FieldItem extends FieldItemBase implements \ArrayAccess
 {
     public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition)
     {
@@ -57,26 +58,6 @@ final class FieldType extends FieldItemBase
         return parent::mainPropertyName();
     }
 
-    public function validate()
-    {
-        // @todo does this go to a custom field item list class
-        $constraints =  parent::validate();
-        $callable = $this->getPluginDefinition()['provider'] . '_field_validate';
-        if (is_callable($callable)) {
-            $callable(
-                $this->getEntity()->getEntityTypeId(),
-                $this->getEntity(),
-                $this->getFieldDefinition(),
-                $this->getFieldDefinition()->getFieldStorageDefinition(),
-                $this->getLangcode(),
-                // Oh no, is this for the FieldItemList !?
-                [$this],
-                $constraints
-            );
-        }
-        return $constraints;
-    }
-
     public function isEmpty(): bool
     {
         $callable = $this->getPluginDefinition()['provider'] . '_field_is_empty';
@@ -84,5 +65,25 @@ final class FieldType extends FieldItemBase
             return parent::isEmpty();
         }
         return $callable($this, $this->getFieldDefinition());
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return array_key_exists($offset, $this->getProperties());
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->get($offset)->getValue();
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->get($offset)->setValue($value);
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->get($offset)->setValue(null);
     }
 }
