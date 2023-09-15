@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Tests\Integration\Field;
 
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\Sql\DefaultTableMapping;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
@@ -73,6 +75,28 @@ final class FieldTypeTest extends IntegrationTestCase
         $entity->get('field_rgb')->setValue('#000000');
         $violations = $entity->get('field_rgb')->validate();
         self::assertCount(0, $violations);
+    }
+
+    public function testSavingEntity(): void
+    {
+        $this->installEntitySchema('entity_test');
+        $this->createField('field_rgb', 'retrofit_field:field_example_rgb', 1);
+        $entity = EntityTest::create();
+        $entity->get('field_rgb')->setValue('#000000');
+        $entity->save();
+
+        $database = $this->container->get('database');
+        self::assertInstanceOf(Connection::class, $database);
+        $schema = $database->schema();
+
+        self::assertTrue($schema->tableExists('entity_test__field_rgb'));
+        self::assertTrue($schema->fieldExists('entity_test__field_rgb', 'field_rgb_rgb'));
+
+        $values = $database->select('entity_test__field_rgb')
+            ->fields('entity_test__field_rgb', [])
+            ->execute()
+            ->fetchAll();
+        self::assertEquals('#000000', $values[0]->field_rgb_rgb);
     }
 
 
