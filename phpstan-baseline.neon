@@ -221,6 +221,21 @@ parameters:
 			path: src/Plugin/Derivative/FieldFormatterDeriver.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldItemDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldItemDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/FieldItemDeriver.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
@@ -244,6 +259,26 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
+
+		-
+			message: "#^Class Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItem.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItemList.php
+
+		-
+			message: "#^Offset int\\|string\\|null on array\\{\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItemList.php
 
 		-
 			message: "#^Cannot access offset 'Retrofit\\\\\\\\Drupal' on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
