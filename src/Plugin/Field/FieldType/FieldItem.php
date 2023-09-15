@@ -69,6 +69,9 @@ final class FieldItem extends FieldItemBase implements \ArrayAccess
 
     public function offsetExists(mixed $offset): bool
     {
+        if (!is_string($offset)) {
+            return false;
+        }
         return array_key_exists($offset, $this->getProperties());
     }
 

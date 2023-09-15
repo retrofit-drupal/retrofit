@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Plugin\Field\FieldType;
 
-use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
 use Drupal\Core\Field\FieldItemList as CoreFieldItemList;
 use Drupal\field\FieldStorageConfigInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 
 final class FieldItemList extends CoreFieldItemList
 {
-
     public function validate()
     {
         $storageDefinition = $this->getFieldDefinition()->getFieldStorageDefinition();
@@ -52,5 +50,4 @@ final class FieldItemList extends CoreFieldItemList
         }
         return $violationList;
     }
-
 }

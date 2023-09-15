@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Tests\Integration\Field;
 
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
@@ -12,6 +14,9 @@ use Retrofit\Drupal\Tests\Integration\IntegrationTestCase;
 
 final class FieldTypeTest extends IntegrationTestCase
 {
+    /**
+     * @var string[]
+     */
     protected static $modules = ['user', 'system', 'field', 'entity_test'];
 
     protected static function getTestModules(): array
@@ -71,7 +76,9 @@ final class FieldTypeTest extends IntegrationTestCase
     }
 
 
-
+    /**
+     * @return array{0: FieldStorageDefinitionInterface, 1: FieldDefinitionInterface}
+     */
     private function createField(string $name, string $type, int $cardinality): array
     {
         $storage = FieldStorageConfig::create([
@@ -81,10 +88,10 @@ final class FieldTypeTest extends IntegrationTestCase
             'cardinality' => $cardinality,
         ]);
         $storage->save();
-        $field =FieldConfig::create([
+        $field = FieldConfig::create([
             'field_storage' => $storage,
             'bundle' => 'entity_test',
-            'required' => TRUE,
+            'required' => true,
         ]);
         $field->save();
         return [$storage, $field];
