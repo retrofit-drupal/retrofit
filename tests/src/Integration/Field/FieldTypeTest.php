@@ -39,5 +39,8 @@ final class FieldTypeTest extends IntegrationTestCase
             'unique keys' => [],
             'foreign keys' => [],
         ], $storage->getSchema());
+        $property = $storage->getPropertyDefinition('rgb');
+        self::assertNotNull($property);
+        self::assertEquals('string', $property->getDataType());
     }
 }
