@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+function drupal_alter(string|array $type, &$data, &$context1 = null, &$context2 = null, &$context3 = null)
+{
+    \Drupal::moduleHandler()->alter($type, $data, $context1, $context2);
+}
+
 function module_exists(string $module): bool
 {
     return \Drupal::moduleHandler()->moduleExists($module);
