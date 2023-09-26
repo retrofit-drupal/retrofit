@@ -16,3 +16,8 @@ function drupal_get_filename(string $type, string $name, ?string $filename = nul
     assert($pathResolver instanceof ExtensionPathResolver);
     return $pathResolver->getPathname($type, $name);
 }
+
+function get_t(): string
+{
+    return 't';
+}
