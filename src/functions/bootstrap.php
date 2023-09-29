@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Composer\InstalledVersions;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
-use Drupal\TestTools\Extension\SchemaInspector;
 
 function check_plain(MarkupInterface|\Stringable|string $text): string
 {
@@ -31,7 +30,9 @@ function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array
             $schema = [];
             $module_handler = \Drupal::moduleHandler();
             foreach ($module_handler->getModuleList() as $name => $module) {
-                $schema += SchemaInspector::getTablesSpecification($module_handler, $name);
+                if ($module_handler->loadInclude($module, 'install')) {
+                    $schema += $module_handler->invoke($module, 'schema') ?? [];
+                }
             }
             \Drupal::cache()->set(__FUNCTION__, $schema);
         }
