@@ -41,7 +41,7 @@ class EntityFieldQuery
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
      */
-    const RETURN_ALL = null;
+    public const RETURN_ALL = null;
 
     /**
      * TRUE if the query has already been altered, FALSE if it hasn't.
