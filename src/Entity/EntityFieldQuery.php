@@ -276,9 +276,23 @@ class EntityFieldQuery
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
      */
-    public function fieldCondition($field, $column = null, $value = null, $operator = null, $delta_group = null, $langcode_group = null): EntityFieldQuery
-    {
-        return $this->addFieldCondition($this->fieldConditions, $field, $column, $value, $operator, $delta_group, $langcode_group);
+    public function fieldCondition(
+        $field,
+        $column = null,
+        $value = null,
+        $operator = null,
+        $delta_group = null,
+        $langcode_group = null
+    ): EntityFieldQuery {
+        return $this->addFieldCondition(
+            $this->fieldConditions,
+            $field,
+            $column,
+            $value,
+            $operator,
+            $delta_group,
+            $langcode_group
+        );
     }
 
     /**
@@ -303,9 +317,22 @@ class EntityFieldQuery
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
      */
-    public function fieldLanguageCondition($field, $value = null, $operator = null, $delta_group = null, $langcode_group = null): EntityFieldQuery
-    {
-        return $this->addFieldCondition($this->fieldMetaConditions, $field, 'langcode', $value, $operator, $delta_group, $langcode_group);
+    public function fieldLanguageCondition(
+        $field,
+        $value = null,
+        $operator = null,
+        $delta_group = null,
+        $langcode_group = null
+    ): EntityFieldQuery {
+        return $this->addFieldCondition(
+            $this->fieldMetaConditions,
+            $field,
+            'langcode',
+            $value,
+            $operator,
+            $delta_group,
+            $langcode_group
+        );
     }
 
     /**
@@ -330,9 +357,22 @@ class EntityFieldQuery
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
      */
-    public function fieldDeltaCondition($field, $value = null, $operator = null, $delta_group = null, $langcode_group = null): EntityFieldQuery
-    {
-        return $this->addFieldCondition($this->fieldMetaConditions, $field, 'delta', $value, $operator, $delta_group, $langcode_group);
+    public function fieldDeltaCondition(
+        $field,
+        $value = null,
+        $operator = null,
+        $delta_group = null,
+        $langcode_group = nul
+    ): EntityFieldQuery {
+        return $this->addFieldCondition(
+            $this->fieldMetaConditions,
+            $field,
+            'delta',
+            $value,
+            $operator,
+            $delta_group,
+            $langcode_group
+        );
     }
 
     /**
@@ -379,8 +419,15 @@ class EntityFieldQuery
      * @return $this
      *   The called object.
      */
-    protected function addFieldCondition(&$conditions, $field, $column = null, $value = null, $operator = null, $delta_group = null, $langcode_group = null): EntityFieldQuery
-    {
+    protected function addFieldCondition(
+        &$conditions,
+        $field,
+        $column = null,
+        $value = null,
+        $operator = null,
+        $delta_group = null,
+        $langcode_group = null
+    ): EntityFieldQuery {
         if (is_scalar($field)) {
             $field_definition = field_info_field($field);
             if (empty($field_definition)) {
@@ -961,7 +1008,12 @@ class EntityFieldQuery
 
         if (isset($this->entityConditions['bundle'])) {
             if (!empty($entity_info['entity keys']['bundle'])) {
-                $this->addCondition($select_query, "$base_table.$sql_field", $this->entityConditions['bundle'], $having);
+                $this->addCondition(
+                    $select_query,
+                    "$base_table.$sql_field",
+                    $this->entityConditions['bundle'],
+                    $having
+                );
             } else {
                 // This entity has no bundle, so invalidate the query.
                 $select_query->where('1 = 0');
@@ -1107,7 +1159,9 @@ class EntityFieldQuery
             // thus treated as properties, instead of being set as entity
             // conditions. Remove this once we can reliably distinguish between
             // properties and metadata living on the base table.
-            $table = !empty($data_table_schema['fields'][$column]) ? $data_table  . '_' . $property_condition['langcode_group'] : $entity_base_table;
+            $table = !empty($data_table_schema['fields'][$column])
+                ? $data_table  . '_' . $property_condition['langcode_group']
+                : $entity_base_table;
             $this->addCondition($select_query, "$table.$column", $property_condition);
         }
     }
@@ -1127,7 +1181,9 @@ class EntityFieldQuery
         $entity_info = entity_get_info($entity_type);
         list($data_table, $data_table_schema) = $this->getPropertyDataSchema($entity_type);
         $specifier = $order['specifier'];
-        $table = !empty($data_table_schema['fields'][$specifier]) ? $data_table  . '_' . $order['langcode_group'] : $entity_info['base table'];
+        $table = !empty($data_table_schema['fields'][$specifier])
+            ? $data_table  . '_' . $order['langcode_group']
+            : $entity_info['base table'];
         $select_query->orderBy("$table.$specifier", $order['direction']);
     }
 
