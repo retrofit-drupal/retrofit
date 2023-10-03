@@ -56,20 +56,20 @@ class EntityFieldQuery
     /**
      * Associative array of entity-generic metadata conditions.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::entityCondition()
      */
-    public $entityConditions = array();
+    public $entityConditions = [];
 
     /**
      * List of field conditions.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldCondition()
      */
-    public $fieldConditions = array();
+    public $fieldConditions = [];
 
     /**
      * List of field meta conditions (language and delta).
@@ -79,52 +79,54 @@ class EntityFieldQuery
      * and language. These can not be mixed with the field conditions because
      * field columns can have any name including delta and language.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldLanguageCondition()
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldDeltaCondition()
      */
-    public $fieldMetaConditions = array();
+    public $fieldMetaConditions = [];
 
     /**
      * List of property conditions.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::propertyCondition()
      */
-    public $propertyConditions = array();
+    public $propertyConditions = [];
 
     /**
      * List of order clauses.
      *
-     * @var array
+     * @var array[]
      */
-    public $order = array();
+    public $order = [];
 
     /**
      * The query range.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::range()
      */
-    public $range = array();
+    public $range = [];
 
     /**
      * The query pager data.
      *
-     * @var array
+     * @var array[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::pager()
      */
-    public $pager = array();
+    public $pager = [];
 
     /**
      * Query behavior for deleted data.
      *
      * TRUE to return only deleted data, FALSE to return only non-deleted data,
      * EntityFieldQuery::RETURN_ALL to return everything.
+     *
+     * @var ?bool
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
      */
@@ -138,21 +140,21 @@ class EntityFieldQuery
      * before stored in this array. This way, the elements of this array are
      * field arrays.
      *
-     * @var array
+     * @var array[]
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * A list of used properties keyed by group.
      *
-     * @var array
+     * @var array[]
      */
-    public $properties = array();
+    public $properties = [];
 
     /**
      * TRUE if this is a count query, FALSE if it isn't.
      *
-     * @var boolean
+     * @var bool
      */
     public $count = false;
 
@@ -168,29 +170,29 @@ class EntityFieldQuery
     /**
      * A list of the tags added to this query.
      *
-     * @var array
+     * @var string[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addTag()
      */
-    public $tags = array();
+    public $tags = [];
 
     /**
      * A list of metadata added to this query.
      *
-     * @var array
+     * @var mixed[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addMetaData()
      */
-    public $metaData = array();
+    public $metaData = [];
 
     /**
      * The ordered results.
      *
-     * @var array
+     * @var int[]
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::execute().
      */
-    public $orderedResults = array();
+    public $orderedResults = [];
 
     /**
      * The method executing the query, if it is overriding the default.
@@ -235,15 +237,15 @@ class EntityFieldQuery
      *   The operator can be omitted, and will default to 'IN' if the value is
      *   an array, or to '=' otherwise.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function entityCondition($name, $value, $operator = null): EntityFieldQuery
     {
-        $this->entityConditions[$name] = array(
-        'value' => $value,
-        'operator' => $operator,
-        );
+        $this->entityConditions[$name] = [
+            'value' => $value,
+            'operator' => $operator,
+        ];
         return $this;
     }
 
@@ -268,7 +270,7 @@ class EntityFieldQuery
      *   An arbitrary identifier: conditions in the same group must have the
      *   same langcode_group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
@@ -295,7 +297,7 @@ class EntityFieldQuery
      *   An arbitrary identifier: conditions in the same group must have the
      *   same $langcode_group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
@@ -322,7 +324,7 @@ class EntityFieldQuery
      *   An arbitrary identifier: conditions in the same group must have the
      *   same $langcode_group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      *
      * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
@@ -374,7 +376,7 @@ class EntityFieldQuery
      *   An arbitrary identifier: conditions in the same group must have the
      *   same $langcode_group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     protected function addFieldCondition(&$conditions, $field, $column = null, $value = null, $operator = null, $delta_group = null, $langcode_group = null): EntityFieldQuery
@@ -382,7 +384,7 @@ class EntityFieldQuery
         if (is_scalar($field)) {
             $field_definition = field_info_field($field);
             if (empty($field_definition)) {
-                throw new QueryException(t('Unknown field: @field_name', array('@field_name' => $field)));
+                throw new QueryException(t('Unknown field: @field_name', ['@field_name' => $field]));
             }
             $field = $field_definition;
         }
@@ -390,14 +392,14 @@ class EntityFieldQuery
         $index = count($this->fields);
         $this->fields[$index] = $field;
         if (isset($column)) {
-            $conditions[$index] = array(
-            'field' => $field,
-            'column' => $column,
-            'value' => $value,
-            'operator' => $operator,
-            'delta_group' => $delta_group,
-            'langcode_group' => $langcode_group,
-            );
+            $conditions[$index] = [
+                'field' => $field,
+                'column' => $column,
+                'value' => $value,
+                'operator' => $operator,
+                'delta_group' => $delta_group,
+                'langcode_group' => $langcode_group,
+            ];
         }
         return $this;
     }
@@ -434,7 +436,7 @@ class EntityFieldQuery
      *   with a related set of other property conditions and meta conditions. By
      *   default all conditions belong to the same group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      *
      * @see Drupal\entity\EntityFieldQuery::propertyLanguageCondition()
@@ -442,12 +444,12 @@ class EntityFieldQuery
     public function propertyCondition($column, $value, $operator = null, $langcode_group = 0): EntityFieldQuery
     {
         $this->properties[$langcode_group][$column] = $column;
-        $this->propertyConditions[] = array(
-        'column' => $column,
-        'value' => $value,
-        'operator' => $operator,
-        'langcode_group' => $langcode_group,
-        );
+        $this->propertyConditions[] = [
+            'column' => $column,
+            'value' => $value,
+            'operator' => $operator,
+            'langcode_group' => $langcode_group,
+        ];
         return $this;
     }
 
@@ -530,16 +532,16 @@ class EntityFieldQuery
      * @param $direction
      *   The direction to sort. Legal values are "ASC" and "DESC".
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function entityOrderBy($name, $direction = 'ASC'): EntityFieldQuery
     {
-        $this->order[] = array(
-        'type' => 'entity',
-        'specifier' => $name,
-        'direction' => $direction,
-        );
+        $this->order[] = [
+            'type' => 'entity',
+            'specifier' => $name,
+            'direction' => $direction,
+        ];
         return $this;
     }
 
@@ -559,7 +561,7 @@ class EntityFieldQuery
      * @param $direction
      *   The direction to sort. Legal values are "ASC" and "DESC".
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function fieldOrderBy($field, $column, $direction = 'ASC'): EntityFieldQuery
@@ -567,7 +569,7 @@ class EntityFieldQuery
         if (is_scalar($field)) {
             $field_definition = field_info_field($field);
             if (empty($field_definition)) {
-                throw new QueryException(t('Unknown field: @field_name', array('@field_name' => $field)));
+                throw new QueryException(t('Unknown field: @field_name', ['@field_name' => $field]));
             }
             $field = $field_definition;
         }
@@ -575,15 +577,15 @@ class EntityFieldQuery
         // storage.
         $index = count($this->fields);
         $this->fields[$index] = $field;
-        $this->order[] = array(
-        'type' => 'field',
-        'specifier' => array(
-        'field' => $field,
-        'index' => $index,
-        'column' => $column,
-        ),
-        'direction' => $direction,
-        );
+        $this->order[] = [
+            'type' => 'field',
+            'specifier' => [
+                'field' => $field,
+                'index' => $index,
+                'column' => $column,
+            ],
+            'direction' => $direction,
+        ];
         return $this;
     }
 
@@ -608,7 +610,7 @@ class EntityFieldQuery
      *   conditions and other order settings. By default all conditions and
      *   order settings belong to the same group.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      *
      * @see Drupal\entity\EntityFieldQuery::propertyLanguageCondition()
@@ -616,19 +618,19 @@ class EntityFieldQuery
     public function propertyOrderBy($column, $direction = 'ASC', $langcode_group = 0): EntityFieldQuery
     {
         $this->properties[$langcode_group][$column] = $column;
-        $this->order[] = array(
-        'type' => 'property',
-        'specifier' => $column,
-        'direction' => $direction,
-        'langcode_group' => $langcode_group,
-        );
+        $this->order[] = [
+            'type' => 'property',
+            'specifier' => $column,
+            'direction' => $direction,
+            'langcode_group' => $langcode_group,
+        ];
         return $this;
     }
 
     /**
      * Sets the query to be a count query only.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function count()
@@ -646,15 +648,15 @@ class EntityFieldQuery
      * @param $length
      *   The number of entities to return from the result set.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function range($start = null, $length = null): EntityFieldQuery
     {
-        $this->range = array(
-        'start' => $start,
-        'length' => $length,
-        );
+        $this->range = [
+            'start' => $start,
+            'length' => $length,
+        ];
         return $this;
     }
 
@@ -668,7 +670,7 @@ class EntityFieldQuery
      *   An optional integer to distinguish between multiple pagers on one page.
      *   If not provided, one is automatically calculated.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function pager($limit = 10, $element = null): EntityFieldQuery
@@ -679,10 +681,10 @@ class EntityFieldQuery
             PagerSelectExtender::$maxElement = $element + 1;
         }
 
-        $this->pager = array(
-        'limit' => $limit,
-        'element' => $element,
-        );
+        $this->pager = [
+            'limit' => $limit,
+            'element' => $element,
+        ];
         return $this;
     }
 
@@ -693,7 +695,7 @@ class EntityFieldQuery
      *   An EFQ Header array based on which the order clause is added to the
      *   query.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function tableSort(&$headers): EntityFieldQuery
@@ -728,7 +730,7 @@ class EntityFieldQuery
      *   TRUE to only return deleted data, FALSE to return non-deleted data,
      *   EntityFieldQuery::RETURN_ALL to return everything. Defaults to FALSE.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function deleted($deleted = true): EntityFieldQuery
@@ -750,7 +752,7 @@ class EntityFieldQuery
      *   - FIELD_LOAD_REVISION: Query all revisions. The results will be keyed
      *     by entity type and entity revision ID.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function age($age): EntityFieldQuery
@@ -776,7 +778,7 @@ class EntityFieldQuery
      * @param string $tag
      *   The tag to add.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function addTag(string $tag): EntityFieldQuery
@@ -798,7 +800,7 @@ class EntityFieldQuery
      * @param $object
      *   The additional data to add to the query. May be any valid PHP variable.
      *
-     * @return Retrofit\Drupal\Entity\EntityFieldQuery
+     * @return $this
      *   The called object.
      */
     public function addMetaData($key, $object): EntityFieldQuery
@@ -870,7 +872,7 @@ class EntityFieldQuery
         // If there are no field conditions and sorts, and no execute callback
         // then we default to querying entity tables in SQL.
         if (empty($this->fields)) {
-            return array($this, 'propertyQuery');
+            return [$this, 'propertyQuery'];
         }
         // If no override, find the storage engine to be used.
         foreach ($this->fields as $field) {
@@ -905,12 +907,12 @@ class EntityFieldQuery
         $entity_type = $this->entityConditions['entity_type']['value'];
         $entity_info = entity_get_info($entity_type);
         if (empty($entity_info['base table'])) {
-            throw new QueryException(t('Entity %entity has no base table.', array('%entity' => $entity_type)));
+            throw new QueryException(t('Entity %entity has no base table.', ['%entity' => $entity_type]));
         }
 
         $base_table = $entity_info['base table'];
         $select_query = db_select($base_table);
-        $select_query->addExpression(':entity_type', 'entity_type', array(':entity_type' => $entity_type));
+        $select_query->addExpression(':entity_type', 'entity_type', [':entity_type' => $entity_type]);
         $sql_field = $entity_info['entity keys']['id'];
 
         // If a data table is defined we need to join it and make sure that only one
@@ -951,7 +953,7 @@ class EntityFieldQuery
             }
         } else {
             $sql_field = 'bundle';
-            $select_query->addExpression(':bundle', 'bundle', array(':bundle' => $entity_type));
+            $select_query->addExpression(':bundle', 'bundle', [':bundle' => $entity_type]);
             $having = true;
         }
 
@@ -966,7 +968,7 @@ class EntityFieldQuery
             }
         }
 
-        foreach (array('uuid', 'langcode') as $key) {
+        foreach (['uuid', 'langcode'] as $key) {
             if (isset($this->entityConditions[$key])) {
                 $sql_field = !empty($entity_info['entity keys'][$key]) ? $entity_info['entity keys'][$key] : $key;
                 if (isset($base_table_schema[$sql_field])) {
@@ -980,7 +982,10 @@ class EntityFieldQuery
             if ($order['type'] == 'entity') {
                 $key = $order['specifier'];
                 if (!isset($id_map[$key])) {
-                    throw new QueryException(t('Do not know how to order on @key for @entity_type', array('@key' => $key, '@entity_type' => $entity_type)));
+                    throw new QueryException(t('Do not know how to order on @key for @entity_type', [
+                        '@key' => $key,
+                        '@entity_type' => $entity_type,
+                    ]));
                 }
                 $select_query->orderBy($id_map[$key], $order['direction']);
             } elseif ($order['type'] == 'property') {
@@ -997,7 +1002,7 @@ class EntityFieldQuery
      * The pager can be disabled by either setting the pager limit to 0, or by
      * setting this query to be a count query.
      */
-    function initializePager()
+    public function initializePager()
     {
         if ($this->pager && !empty($this->pager['limit']) && !$this->count) {
             $page = pager_find_page($this->pager['element']);
@@ -1023,7 +1028,7 @@ class EntityFieldQuery
      * @return
      *   See EntityFieldQuery::execute().
      */
-    function finishQuery(Select $select_query, $id_key = 'entity_id')
+    public function finishQuery(Select $select_query, $id_key = 'entity_id')
     {
         foreach ($this->tags as $tag) {
             $select_query->addTag($tag);
@@ -1038,7 +1043,7 @@ class EntityFieldQuery
         if ($this->count) {
             return $select_query->countQuery()->execute()->fetchField();
         }
-        $return = array();
+        $return = [];
         foreach ($select_query->execute() as $ids) {
             if (!isset($ids->bundle)) {
                 $ids->bundle = null;
@@ -1072,6 +1077,7 @@ class EntityFieldQuery
         switch ($condition['operator']) {
             case 'CONTAINS':
                 $like_prefix = '%';
+                // Fall through.
             case 'STARTS_WITH':
                 $select_query->$method($sql_field, $like_prefix . db_like($condition['value']) . '%', 'LIKE');
                 break;
@@ -1180,9 +1186,9 @@ class EntityFieldQuery
             $data_table_schema = drupal_get_schema($data_table);
         } else {
             $data_table = false;
-            $data_table_schema = array();
+            $data_table_schema = [];
         }
 
-        return array($data_table, $data_table_schema);
+        return [$data_table, $data_table_schema];
     }
 }
