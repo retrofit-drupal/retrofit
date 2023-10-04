@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function drupal_alter(string|array $type, &$data, &$context1 = null, &$context2 = null, &$context3 = null)
+function drupal_alter(string|array $type, mixed &$data, mixed &$context1 = null, mixed &$context2 = null, mixed &$context3 = null): null
 {
     \Drupal::moduleHandler()->alter($type, $data, $context1, $context2);
 }
@@ -12,7 +12,10 @@ function module_exists(string $module): bool
     return \Drupal::moduleHandler()->moduleExists($module);
 }
 
-function module_implements(string $hook, ?bool $sort = false, ?bool $reset = false): array
+/**
+ * @return string[]
+ */
+function module_implements(string $hook, bool $sort = false, bool $reset = false): array
 {
     $module_handler = \Drupal::moduleHandler();
     if ($reset) {

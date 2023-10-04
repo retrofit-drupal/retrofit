@@ -18,6 +18,9 @@ function drupal_get_filename(string $type, string $name, ?string $filename = nul
     return $pathResolver->getPathname($type, $name);
 }
 
+/**
+ * @return mixed[]|bool
+ */
 function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array|bool
 {
     $loader = require realpath(InstalledVersions::getRootPackage()['install_path']) . '/vendor/autoload.php';
@@ -30,8 +33,8 @@ function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array
             $schema = [];
             $module_handler = \Drupal::moduleHandler();
             foreach ($module_handler->getModuleList() as $name => $module) {
-                if ($module_handler->loadInclude($module, 'install')) {
-                    $schema += $module_handler->invoke($module, 'schema') ?? [];
+                if ($module_handler->loadInclude($name, 'install')) {
+                    $schema += $module_handler->invoke($name, 'schema') ?? [];
                 }
             }
             \Drupal::cache()->set(__FUNCTION__, $schema);

@@ -9,7 +9,10 @@ function file_prepare_directory(string &$directory, ?int $options = FileSystemIn
     return \Drupal::service('file_system')->prepareDirectory($directory, $options);
 }
 
-function file_scan_directory(string $dir, string $mask, ?array $options = []): array
+/**
+ * @return object[]
+ */
+function file_scan_directory(string $dir, string $mask, array $options = []): array
 {
     $files = [];
     if (is_dir($dir)) {
