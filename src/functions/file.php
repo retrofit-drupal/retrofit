@@ -10,6 +10,8 @@ function file_prepare_directory(string &$directory, ?int $options = FileSystemIn
 }
 
 /**
+ * @param mixed[] $options
+ *
  * @return object[]
  */
 function file_scan_directory(string $dir, string $mask, array $options = []): array

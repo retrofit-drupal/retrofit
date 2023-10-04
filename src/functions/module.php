@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+/**
+ * @param string|string[] $type
+ */
 function drupal_alter(
     string|array $type,
     mixed &$data,
