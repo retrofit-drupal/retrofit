@@ -23,10 +23,10 @@ function module_implements(string $hook, ?bool $sort = false, ?bool $reset = fal
     if ($sort) {
         $sorted = &drupal_static(__FUNCTION__, []);
         if (!isset($sorted[$hook])) {
-            $sorted[$hook] = $implementations[$hook];
+            $sorted[$hook] = $implementations;
             sort($sorted[$hook]);
         }
         return $sorted[$hook];
     }
-    return $implementations[$hook];
+    return $implementations;
 }
