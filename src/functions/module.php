@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function drupal_alter(string|array $type, mixed &$data, mixed &$context1 = null, mixed &$context2 = null, mixed &$context3 = null): null
+function drupal_alter(string|array $type, mixed &$data, mixed &$context1 = null, mixed &$context2 = null, mixed &$context3 = null): void
 {
     \Drupal::moduleHandler()->alter($type, $data, $context1, $context2);
 }
