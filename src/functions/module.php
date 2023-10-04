@@ -14,29 +14,19 @@ function module_exists(string $module): bool
 
 function module_implements(string $hook, ?bool $sort = false, ?bool $reset = false): array
 {
-    static $drupal_static_fast;
-    if (!isset($drupal_static_fast)) {
-        $drupal_static_fast['implementors'] = &drupal_static(__FUNCTION__, []);
-        $drupal_static_fast['sorted'] = &drupal_static(__FUNCTION__ . ':sorted', []);
-    }
-    $implementors = &$drupal_static_fast['implementors'];
+    $module_handler = \Drupal::moduleHandler();
     if ($reset) {
-        $implementors  = [];
+        $module_handler->resetImplementations();
         $sorted = [];
-        \Drupal::moduleHandler()->resetImplementations();
     }
-    if (!isset($implementors[$hook])) {
-        $implementors[$hook] = [];
-        \Drupal::moduleHandler()->invokeAllWith($hook, function (callable $callback, string $module) use (&$implementors, $hook) {
-            $implementors[$hook][] = $module;
-        });
-    }
+    $implementations = $module_handler->getImplementations($hook);
     if ($sort) {
+        $sorted = &drupal_static(__FUNCTION__, []);
         if (!isset($sorted[$hook])) {
-            $sorted[$hook] = $implementors[$hook];
+            $sorted[$hook] = $implementations[$hook];
             sort($sorted[$hook]);
         }
         return $sorted[$hook];
     }
-    return $implementors[$hook];
+    return $implementations[$hook];
 }
