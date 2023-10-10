@@ -24,6 +24,13 @@ final class FieldItem extends FieldItemBase implements \ArrayAccess
         $properties = [];
         foreach (self::schema($field_definition)['columns'] as $column => $settings) {
             $type = match ($settings['type']) {
+                'blob' => 'string',
+                'char' => 'string',
+                'float' => 'float',
+                'int' => 'integer',
+                'numeric' => 'string',
+                'serial' => 'integer',
+                'text' => 'string',
                 'varchar' => 'string',
                 default => throw new \RuntimeException(
                     "Could not determine field property definition for column $column of type {$settings['type']}"
