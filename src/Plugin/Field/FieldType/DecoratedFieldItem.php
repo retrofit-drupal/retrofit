@@ -17,11 +17,9 @@ use Drupal\Core\TypedData\TypedDataInterface;
 
 final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate, \ArrayAccess
 {
-
     public function __construct(
         private readonly FieldItemInterface $inner,
-    )
-    {
+    ) {
     }
 
     public function getDataDefinition(): ComplexDataDefinitionInterface
@@ -34,12 +32,12 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->get($property_name);
     }
 
-    public function set($property_name, $value, $notify = TRUE): ComplexDataInterface
+    public function set($property_name, $value, $notify = true): ComplexDataInterface
     {
         return$this->inner->set($property_name, $value, $notify);
     }
 
-    public function getProperties($include_computed = FALSE): array
+    public function getProperties($include_computed = false): array
     {
         return $this->inner->getProperties($include_computed);
     }
@@ -221,7 +219,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         $this->inner->onChange($name);
     }
 
-    public static function createInstance($definition, $name = NULL, TraversableTypedDataInterface $parent = NULL)
+    public static function createInstance($definition, $name = null, TraversableTypedDataInterface $parent = null)
     {
         // @TODO can we get class from field definition to delegate this call?
         throw new \RuntimeException(__CLASS__ . ' should not be created.');
@@ -232,7 +230,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->getValue();
     }
 
-    public function setValue($value, $notify = TRUE)
+    public function setValue($value, $notify = true)
     {
         return $this->inner->setValue($value, $notify);
     }
@@ -252,7 +250,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->validate();
     }
 
-    public function applyDefaultValue($notify = TRUE)
+    public function applyDefaultValue($notify = true)
     {
         $this->inner->applyDefaultValue($notify);
     }
@@ -277,7 +275,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->getPropertyPath();
     }
 
-    public function setContext($name = NULL, TraversableTypedDataInterface $parent = NULL)
+    public function setContext($name = null, TraversableTypedDataInterface $parent = null)
     {
         $this->inner->setContext($name, $parent);
     }

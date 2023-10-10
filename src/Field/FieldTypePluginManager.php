@@ -10,10 +10,8 @@ use Retrofit\Drupal\Plugin\Field\FieldType\DecoratedFieldItem;
 
 final class FieldTypePluginManager extends CoreFieldTypePluginManager
 {
-
-    public function createFieldItem(FieldItemListInterface $items, $index, $values = NULL)
+    public function createFieldItem(FieldItemListInterface $items, $index, $values = null)
     {
         return new DecoratedFieldItem(parent::createFieldItem($items, $index, $values));
     }
-
 }
