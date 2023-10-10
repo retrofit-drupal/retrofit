@@ -17,14 +17,14 @@ use Drupal\field\FieldStorageConfigInterface;
  *     list_class = "\Retrofit\Drupal\Plugin\Field\FieldType\FieldItemList"
  * )
  */
-final class FieldItem extends FieldItemBase implements \ArrayAccess
+final class FieldItem extends FieldItemBase
 {
     public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition)
     {
         $properties = [];
         foreach (self::schema($field_definition)['columns'] as $column => $settings) {
             $type = match ($settings['type']) {
-                'blob' => 'string',
+                'blob' => 'string_long',
                 'char' => 'string',
                 'float' => 'float',
                 'int' => 'integer',
@@ -71,29 +71,6 @@ final class FieldItem extends FieldItemBase implements \ArrayAccess
         if (!is_callable($callable)) {
             return parent::isEmpty();
         }
-        return $callable($this, $this->getFieldDefinition());
-    }
-
-    public function offsetExists(mixed $offset): bool
-    {
-        if (!is_string($offset)) {
-            return false;
-        }
-        return array_key_exists($offset, $this->getProperties());
-    }
-
-    public function offsetGet(mixed $offset): mixed
-    {
-        return $this->get($offset)->getValue();
-    }
-
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-        $this->get($offset)->setValue($value);
-    }
-
-    public function offsetUnset(mixed $offset): void
-    {
-        $this->get($offset)->setValue(null);
+        return $callable(new DecoratedFieldItem($this), $this->getFieldDefinition());
     }
 }

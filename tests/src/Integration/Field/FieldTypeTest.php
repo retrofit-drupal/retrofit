@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Tests\Integration\Field;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Entity\Entity\EntityViewMode;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Sql\DefaultTableMapping;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -97,6 +100,50 @@ final class FieldTypeTest extends IntegrationTestCase
             ->execute()
             ->fetchAll();
         self::assertEquals('#000000', $values[0]->field_rgb_rgb);
+    }
+
+    /**
+     * @dataProvider fieldFormatterData
+     */
+    public function testFieldFormatter(string $plugin, string $output): void
+    {
+        $this->installEntitySchema('entity_test');
+        $this->createField('field_rgb', 'retrofit_field:field_example_rgb', 1);
+
+        $entity = EntityTest::create();
+        $entity->get('field_rgb')->setValue('#000000');
+        $entity->save();
+
+        $viewDisplay = EntityViewDisplay::collectRenderDisplay($entity, 'default');
+        $viewDisplay
+            ->setComponent('field_rgb', [
+                'type' => "retrofit_field_formatter:$plugin",
+            ])
+            ->save();
+
+        $entityTypeManager = $this->container->get('entity_type.manager');
+        self::assertInstanceOf(EntityTypeManagerInterface::class, $entityTypeManager);
+        $viewBuilder = $entityTypeManager->getViewBuilder($entity->getEntityTypeId());
+        $build = $viewBuilder->view($entity, 'default');
+        $this->render($build);
+        self::assertStringContainsString(
+            $output,
+            $this->getRawContent()
+        );
+    }
+
+    public static function fieldFormatterData()
+    {
+        return [
+            'field_example_simple_text' => [
+                'field_example_simple_text',
+                '<p style="color: #000000">The color code in this field is #000000</p>',
+            ],
+            'field_example_color_background' => [
+                'field_example_color_background',
+                '<p style="color: #000000">The content area color has been changed to #000000</p>',
+            ],
+        ];
     }
 
 
