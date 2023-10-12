@@ -104,6 +104,11 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         $this->inner->__unset($property_name);
     }
 
+    public function __call(string $name, array $arguments)
+    {
+        return call_user_func_array([$this->inner, $name], $arguments);
+    }
+
     public function view($display_options = []): array
     {
         return $this->inner->view($display_options);
