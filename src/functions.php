@@ -18,5 +18,6 @@ require_once __DIR__ . '/functions/path.php';
 require_once __DIR__ . '/functions/system.php';
 require_once __DIR__ . '/functions/taxonomy.php';
 require_once __DIR__ . '/functions/theme.php';
+require_once __DIR__ . '/functions/unicode.php';
 require_once __DIR__ . '/functions/user.php';
 require_once __DIR__ . '/functions/variable.php';

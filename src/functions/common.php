@@ -22,6 +22,34 @@ use Retrofit\Drupal\DB;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+function drupal_add_tabledrag(
+    string $table_id,
+    string $action,
+    string $relationship,
+    string $group,
+    ?string $subgroup = null,
+    ?string $source = null,
+    ?bool $hidden = null,
+    ?int $limit = 0
+): void {
+    $tabledrag_id =& drupal_static('drupal_attach_tabledrag');
+    $tabledrag_id = !isset($tabledrag_id) ? 0 : $tabledrag_id + 1;
+
+    // If a subgroup or source isn't set, assume it is the same as the group.
+    $target = $subgroup ?? $group;
+    $source = $source ?? $target;
+    $settings['tableDrag'][$table_id][$group][$tabledrag_id] = array(
+        'target' => $target,
+        'source' => $source,
+        'relationship' => $relationship,
+        'action' => $action,
+        'hidden' => $hidden,
+        'limit' => $limit,
+    );
+    drupal_add_js($settings, 'setting');
+    drupal_add_library('core', 'drupal.tabledrag');
+}
+
 function drupal_encode_path(string $path): string
 {
     return UrlHelper::encodePath($path);
