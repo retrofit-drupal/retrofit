@@ -38,6 +38,7 @@ class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverInterfac
                         && $definition['behaviors']['multiple values'] == FIELD_BEHAVIOR_CUSTOM;
                     $derivative['weight'] = $definition['weight'] ?? null;
                     $derivative['provider'] = $module;
+                    $derivative['widget'] = $id;
                     $derivative['field_widget_info'] = $definition;
                     $this->derivatives[$id] = $derivative;
                 }

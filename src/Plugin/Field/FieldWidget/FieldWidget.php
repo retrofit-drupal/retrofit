@@ -43,17 +43,30 @@ final class FieldWidget extends WidgetBase
     ): array {
         $callable = $this->pluginDefinition['provider'] . '_field_widget_form';
         if (is_callable($callable)) {
-            $instance = $items->getFieldDefinition();
-            $field_definition = $instance->getFieldStorageDefinition();
-            $columns = FieldItem::schema($field_definition)['columns'];
+            $state_array = $form_state->getCacheableArray();
+            $field_storage_definition = $this->fieldDefinition->getFieldStorageDefinition();
+            $instance = $this->fieldDefinition->toArray();
+            $instance['default_value_function'] = $instance['default_value_callback'];
+            if ($instance['default_value'] === []) {
+                $info = $this->pluginDefinition['field_widget_info'];
+                if (($info['behaviors']['default value'] ?? FIELD_BEHAVIOR_DEFAULT) == FIELD_BEHAVIOR_DEFAULT) {
+                    $instance['default_value'] = [null];
+                }
+            }
+            $instance['widget'] = [
+                'type' => $this->pluginDefinition['widget'],
+                'settings' => $this->pluginDefinition['field_widget_info']['settings'],
+                'weight' => $this->pluginDefinition['weight'],
+                'module' => $this->pluginDefinition['provider'],
+            ];
+            $columns = FieldItem::schema($field_storage_definition)['columns'];
             $element += [
-                '#entity_type' => $instance->getTargetEntityTypeId(),
-                '#bundle' => $instance->getTargetBundle(),
+                '#entity_type' => $this->fieldDefinition->getTargetEntityTypeId(),
+                '#bundle' => $this->fieldDefinition->getTargetBundle(),
                 '#field_name' => $items->getName(),
                 '#language' => $items->getLangcode(),
                 '#columns' => $columns,
             ];
-            $state_array = $form_state->getCacheableArray();
             $items_array = [];
             foreach ($items as $position => $item) {
                 $items_array[$position] = $item->toArray();
@@ -61,8 +74,8 @@ final class FieldWidget extends WidgetBase
             return $callable(
                 $form,
                 $state_array,
-                $field_definition->toArray() + ['columns' => $columns],
-                $instance->toArray(),
+                $field_storage_definition->toArray() + ['columns' => $columns],
+                $instance,
                 $items->getLangcode(),
                 $items_array,
                 $delta,
