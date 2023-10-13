@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
@@ -272,6 +273,11 @@ function drupal_add_css(string|null $data = null, array|string|null $options = n
         ]);
     }
     return [];
+}
+
+function drupal_html_class(string $class): string
+{
+    return Html::getClass($class);
 }
 
 function filter_xss_admin(string $string): string

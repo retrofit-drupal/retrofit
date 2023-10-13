@@ -9,6 +9,7 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
+use Retrofit\Drupal\Extension\ModuleHandler;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
@@ -51,6 +52,12 @@ class Provider extends ServiceProviderBase
         $container
           ->register(PageArgumentsConverter::class)
           ->addTag('paramconverter');
+
+        $container->setDefinition(
+            ModuleHandler::class,
+            (new ChildDefinition('module_handler'))
+            ->setDecoratedService('module_handler')
+        );
 
         $container->setDefinition(
             MenuLinkManager::class,

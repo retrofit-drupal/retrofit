@@ -6,6 +6,7 @@ require_once __DIR__ . '/functions/bootstrap.php';
 require_once __DIR__ . '/functions/cache.php';
 require_once __DIR__ . '/functions/common.php';
 require_once __DIR__ . '/functions/db.php';
+require_once __DIR__ . '/functions/file.php';
 require_once __DIR__ . '/functions/form.php';
 require_once __DIR__ . '/functions/messages.php';
 require_once __DIR__ . '/functions/module.php';
