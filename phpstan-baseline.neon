@@ -261,11 +261,6 @@ parameters:
 			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
 
 		-
-			message: "#^Class Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/Plugin/Field/FieldType/FieldItem.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/FieldItem.php

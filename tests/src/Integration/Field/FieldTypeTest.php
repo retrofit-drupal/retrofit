@@ -98,8 +98,9 @@ final class FieldTypeTest extends IntegrationTestCase
         $values = $database->select('entity_test__field_rgb')
             ->fields('entity_test__field_rgb', [])
             ->execute()
-            ->fetchAll();
-        self::assertEquals('#000000', $values[0]->field_rgb_rgb);
+            ?->fetchAll();
+        self::assertNotNull($values);
+        self::assertEquals('#000000', $values[0]?->field_rgb_rgb);
     }
 
     /**
@@ -132,18 +133,16 @@ final class FieldTypeTest extends IntegrationTestCase
         );
     }
 
-    public static function fieldFormatterData()
+    public static function fieldFormatterData(): \Generator
     {
-        return [
-            'field_example_simple_text' => [
-                'field_example_simple_text',
-                '<p style="color: #000000">The color code in this field is #000000</p>',
-            ],
-            'field_example_color_background' => [
-                'field_example_color_background',
-                // @todo test inline CSS it tries to provide.
-                '<p>The content area color has been changed to #000000</p>',
-            ],
+        yield 'field_example_simple_text' => [
+            'field_example_simple_text',
+            '<p style="color: #000000">The color code in this field is #000000</p>',
+        ];
+        yield 'field_example_color_background' => [
+            'field_example_color_background',
+            // @todo test inline CSS it tries to provide.
+            '<p>The content area color has been changed to #000000</p>',
         ];
     }
 

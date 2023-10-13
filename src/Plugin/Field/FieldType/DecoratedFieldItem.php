@@ -15,6 +15,10 @@ use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
 
+/**
+ * @implements  \ArrayAccess<string, mixed>
+ * @implements  \IteratorAggregate<string, \Drupal\Core\TypedData\TypedDataInterface>
+ */
 final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate, \ArrayAccess
 {
     public function __construct(
@@ -37,6 +41,10 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return$this->inner->set($property_name, $value, $notify);
     }
 
+    /**
+     * @param bool $include_computed
+     * @return array<string, \Drupal\Core\TypedData\TypedDataInterface>
+     */
     public function getProperties($include_computed = false): array
     {
         return $this->inner->getProperties($include_computed);
@@ -312,6 +320,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
      * {@inheritdoc}
      *
      * @see \Drupal\Core\TypedData\Plugin\DataType\Map::getIterator
+     * @return \ArrayIterator<string, \Drupal\Core\TypedData\TypedDataInterface>
      */
     public function getIterator(): \ArrayIterator
     {
