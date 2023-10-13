@@ -33,6 +33,11 @@ final class FieldFormatterDeriver extends DeriverBase implements ContainerDerive
                     $derivative = $base_plugin_definition;
                     $derivative['provider'] = $module;
                     $derivative['field_formatter_info'] = $definition;
+                    $derivative['label'] = $definition['label'];
+                    $derivative['field_types'] = array_map(
+                        static fn (string $type) => "retrofit_field:$type",
+                        $definition['field types'] ?? []
+                    );
                     $this->derivatives[$id] = $derivative;
                 }
             }
