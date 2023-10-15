@@ -221,16 +221,6 @@ parameters:
 			path: src/Plugin/Derivative/FieldFormatterDeriver.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/FieldItemDeriver.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/FieldItemDeriver.php
-
-		-
 			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/FieldItemDeriver.php
@@ -259,6 +249,176 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:__construct\\(\\) has parameter \\$inner with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:applyDefaultValue\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateStorageDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:createInstance\\(\\) has parameter \\$parent with no value type specified in iterable type Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:defaultFieldSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:defaultFieldSettings\\(\\) should return array but return statement is missing\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:defaultStorageSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:defaultStorageSettings\\(\\) should return array but return statement is missing\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsFromConfigData\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsFromConfigData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsSummary\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsToConfigData\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:fieldSettingsToConfigData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:generateSampleValue\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:generateSampleValue\\(\\) should return array but return statement is missing\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:getParent\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:getRoot\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:onDependencyRemoval\\(\\) has parameter \\$dependencies with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:setContext\\(\\) has parameter \\$parent with no value type specified in iterable type Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsFromConfigData\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsFromConfigData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsSummary\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsToConfigData\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:storageSettingsToConfigData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:view\\(\\) has parameter \\$display_options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:view\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function call_user_func_array expects callable\\(\\)\\: mixed, array\\{Drupal\\\\Core\\\\Field\\\\FieldItemInterface, string\\} given\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"

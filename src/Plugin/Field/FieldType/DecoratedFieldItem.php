@@ -14,6 +14,7 @@ use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @implements  \ArrayAccess<string, mixed>
@@ -31,14 +32,23 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->getDataDefinition();
     }
 
+    /**
+     * @param string $property_name
+     */
     public function get($property_name): TypedDataInterface
     {
         return $this->inner->get($property_name);
     }
 
+    /**
+     * @param string $property_name
+     * @param mixed $value
+     * @param bool $notify
+     */
     public function set($property_name, $value, $notify = true): ComplexDataInterface
     {
-        return$this->inner->set($property_name, $value, $notify);
+        $this->inner->set($property_name, $value, $notify);
+        return $this;
     }
 
     /**
@@ -50,6 +60,9 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->getProperties($include_computed);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return $this->inner->toArray();
@@ -60,21 +73,23 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->isEmpty();
     }
 
-    public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition)
+    public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array
     {
         // TODO: Implement propertyDefinitions() method.
         // @TODO can we get class from field definition to delegate this call?
+        return [];
     }
 
-    public static function mainPropertyName()
+    public static function mainPropertyName(): ?string
     {
         return FieldItemBase::mainPropertyName();
     }
 
-    public static function schema(FieldStorageDefinitionInterface $field_definition)
+    public static function schema(FieldStorageDefinitionInterface $field_definition): array
     {
         // TODO: Implement schema() method.
         // @TODO can we get class from field storage definition to delegate this call?
+        return [];
     }
 
     public function getEntity(): FieldableEntityInterface
@@ -112,7 +127,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         $this->inner->__unset($property_name);
     }
 
-    public function __call(string $name, array $arguments)
+    public function __call(string $name, array $arguments): mixed
     {
         return call_user_func_array([$this->inner, $name], $arguments);
     }
@@ -179,24 +194,28 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
     {
         // TODO: Implement storageSettingsToConfigData() method.
         // @TODO can we get class from field definition to delegate this call?
+        return $settings;
     }
 
     public static function storageSettingsFromConfigData(array $settings)
     {
         // TODO: Implement storageSettingsFromConfigData() method.
         // @TODO can we get class from field definition to delegate this call?
+        return $settings;
     }
 
     public static function fieldSettingsToConfigData(array $settings)
     {
         // TODO: Implement fieldSettingsToConfigData() method.
         // @TODO can we get class from field definition to delegate this call?
+        return $settings;
     }
 
     public static function fieldSettingsFromConfigData(array $settings)
     {
         // TODO: Implement fieldSettingsFromConfigData() method.
         // @TODO can we get class from field definition to delegate this call?
+        return $settings;
     }
 
     public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data)
@@ -213,26 +232,37 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
     {
         // TODO: Implement calculateDependencies() method.
         // @TODO can we get class from field definition to delegate this call?
+        return [];
     }
 
-    public static function calculateStorageDependencies(FieldStorageDefinitionInterface $field_storage_definition)
+    public static function calculateStorageDependencies(FieldStorageDefinitionInterface $field_storage_definition): array
     {
         // TODO: Implement calculateStorageDependencies() method.
         // @TODO can we get class from field definition to delegate this call?
+        return [];
     }
 
-    public static function onDependencyRemoval(FieldDefinitionInterface $field_definition, array $dependencies)
+    public static function onDependencyRemoval(FieldDefinitionInterface $field_definition, array $dependencies): bool
     {
         // TODO: Implement onDependencyRemoval() method.
         // @TODO can we get class from field definition to delegate this call?
+        return FALSE;
     }
 
-    public function onChange($name)
+    /**
+     * @param string $name
+     */
+    public function onChange($name): void
     {
         $this->inner->onChange($name);
     }
 
-    public static function createInstance($definition, $name = null, TraversableTypedDataInterface $parent = null)
+    /**
+     * @param array<string, mixed> $definition
+     * @param string $name
+     * @param TraversableTypedDataInterface|null $parent
+     */
+    public static function createInstance($definition, $name = null, TraversableTypedDataInterface $parent = null): void
     {
         // @TODO can we get class from field definition to delegate this call?
         throw new \RuntimeException(__CLASS__ . ' should not be created.');
@@ -243,61 +273,69 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return $this->inner->getValue();
     }
 
-    public function setValue($value, $notify = true)
+    /**
+     * @param mixed|null $value
+     * @param bool $notify
+     */
+    public function setValue($value, $notify = true): void
     {
-        return $this->inner->setValue($value, $notify);
+        $this->inner->setValue($value, $notify);
     }
 
-    public function getString()
+    public function getString(): string
     {
         return $this->inner->getString();
     }
 
-    public function getConstraints()
+    /**
+     * @return array<int, \Symfony\Component\Validator\Constraint>
+     */
+    public function getConstraints(): array
     {
         return $this->inner->getConstraints();
     }
 
-    public function validate()
+    public function validate(): ConstraintViolationListInterface
     {
         return $this->inner->validate();
     }
 
-    public function applyDefaultValue($notify = true)
+    public function applyDefaultValue($notify = true): FieldItemInterface
     {
         $this->inner->applyDefaultValue($notify);
+        return $this;
     }
 
-    public function getName()
+    public function getName(): int|null|string
     {
         return $this->inner->getName();
     }
 
-    public function getParent()
+    public function getParent(): ?TraversableTypedDataInterface
     {
         return $this->inner->getParent();
     }
 
-    public function getRoot()
+    public function getRoot(): TraversableTypedDataInterface
     {
         return $this->inner->getRoot();
     }
 
-    public function getPropertyPath()
+    public function getPropertyPath(): string
     {
         return $this->inner->getPropertyPath();
     }
 
-    public function setContext($name = null, TraversableTypedDataInterface $parent = null)
+    /**
+     * @param string|null $name
+     */
+    public function setContext($name = null, TraversableTypedDataInterface $parent = null): void
     {
         $this->inner->setContext($name, $parent);
     }
 
     public function offsetExists(mixed $offset): bool
     {
-        if (!is_string($offset)) {
-            return false;
-        }
         return array_key_exists($offset, $this->getProperties());
     }
 
@@ -308,7 +346,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->get($offset)->setValue($value);
+        $this->get((string) $offset)->setValue($value);
     }
 
     public function offsetUnset(mixed $offset): void

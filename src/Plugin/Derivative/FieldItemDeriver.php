@@ -23,6 +23,10 @@ final class FieldItemDeriver extends DeriverBase implements ContainerDeriverInte
         );
     }
 
+    /**
+     * @param array<string, mixed> $base_plugin_definition
+     * @return array<string, array<string, string>>
+     */
     public function getDerivativeDefinitions($base_plugin_definition)
     {
         $this->moduleHandler->invokeAllWith(
