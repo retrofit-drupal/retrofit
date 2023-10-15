@@ -235,8 +235,9 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         return [];
     }
 
-    public static function calculateStorageDependencies(FieldStorageDefinitionInterface $field_storage_definition): array
-    {
+    public static function calculateStorageDependencies(
+        FieldStorageDefinitionInterface $field_storage_definition
+    ): array {
         // TODO: Implement calculateStorageDependencies() method.
         // @TODO can we get class from field definition to delegate this call?
         return [];
@@ -246,7 +247,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
     {
         // TODO: Implement onDependencyRemoval() method.
         // @TODO can we get class from field definition to delegate this call?
-        return FALSE;
+        return false;
     }
 
     /**
