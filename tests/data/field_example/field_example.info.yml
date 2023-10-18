@@ -1,0 +1,5 @@
+name: Field Example
+description: An implementation of a field to show the Field API
+package: Example modules
+type: module
+core_version_requirement: ^10

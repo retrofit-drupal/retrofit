@@ -15,6 +15,8 @@ $loader->add('Drupal\\KernelTests', __DIR__ . '/../vendor/drupal/core/tests');
 $loader->add('Drupal\\FunctionalTests', __DIR__ . '/../vendor/drupal/core/tests');
 $loader->add('Drupal\\FunctionalJavascriptTests', __DIR__ . '/../vendor/drupal/core/tests');
 $loader->add('Drupal\\TestTools', __DIR__ . '/../vendor/drupal/core/tests');
+$loader->addPsr4('Drupal\\entity_test\\', __DIR__ . '/../vendor/drupal/core/modules/system/tests/modules/entity_test/src');
+$loader->addPsr4('Drupal\\field\\', __DIR__ . '/../vendor/drupal/core/modules/field/src');
 $loader->addPsr4('Drupal\\sqlite\\', __DIR__ . '/../vendor/drupal/core/modules/sqlite/src');
 $loader->addPsr4('Drupal\\user\\', __DIR__ . '/../vendor/drupal/core/modules/user/src');
 $loader->addPsr4('Drupal\\Tests\\user\\Traits\\', __DIR__ . '/../vendor/drupal/core/modules/user/tests/src/Traits');

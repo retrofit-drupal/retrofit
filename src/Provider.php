@@ -7,6 +7,7 @@ namespace Retrofit\Drupal;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
+use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\Extension\ModuleHandler;
@@ -96,6 +97,12 @@ class Provider extends ServiceProviderBase
 
         $container->register(AttachmentResponseSubscriber::class)
             ->addTag('event_subscriber');
+
+        $container->setDefinition(
+            FieldTypePluginManager::class,
+            (new ChildDefinition('plugin.manager.field.field_type'))
+            ->setDecoratedService('plugin.manager.field.field_type')
+        );
     }
 
     public function alter(ContainerBuilder $container)

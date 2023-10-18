@@ -1,0 +1,8 @@
+/**
+ * @file
+ * CSS for Field Example.
+ */
+div.form-item table .form-type-textfield, 
+div.form-item table .form-type-textfield * {
+  display: inline-block;
+}
