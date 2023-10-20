@@ -26,6 +26,13 @@ TODO
 
 TODO
 
+- `\Retrofit\Drupal\Field\FieldTypePluginManager`
+- `\Retrofit\Drupal\Plugin\Derivative\FieldItemDeriver`
+- `\Retrofit\Drupal\Plugin\Derivative\FieldFormatterDeriver`
+- `\Retrofit\Drupal\Plugin\Field\FieldType\DecoratedFieldItem`
+- `\Retrofit\Drupal\Plugin\Field\FieldType\FieldItem`
+- `\Retrofit\Drupal\Plugin\Field\FieldType\FieldItemList`
+
 ## Form API
 
 TODO 
