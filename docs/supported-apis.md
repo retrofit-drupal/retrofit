@@ -10,17 +10,21 @@ the [Routing system](https://www.drupal.org/docs/drupal-apis/routing-system) and
 
 Retrofit for Drupal provides a backward compatibility layer that converts `hook_menu` into routes and menu link plugins.
 
-See [`hook_menu`](supported-hooks.md#hookmenu) for more details.
+See [`hook_menu`](supported-hooks.md#hook_menu) for more details.
 
-## Permissions API (`hook_permissions`)
+## Theme API 
 
-TODO 
+* Adds support for theme functions and PHPTemplates.
+* Process hooks are run as preprocess hooks.
 
-## Theme API (`hook_theme`)
+## Block API
 
 TODO
 
-## Block API (`hook_block_*`)
+- `\Retrofit\Drupal\Plugin\Derivative\BlockDeriver`
+- `\Retrofit\Drupal\Plugin\Block\Block`
+
+See [supported hooks](supported-hooks.md#block-hooks). 
 
 ## Field API
 
@@ -32,6 +36,8 @@ TODO
 - `\Retrofit\Drupal\Plugin\Field\FieldType\DecoratedFieldItem`
 - `\Retrofit\Drupal\Plugin\Field\FieldType\FieldItem`
 - `\Retrofit\Drupal\Plugin\Field\FieldType\FieldItemList`
+
+See [supported hooks](supported-hooks.md#field-hooks).
 
 ## Form API
 

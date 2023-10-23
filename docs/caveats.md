@@ -10,9 +10,7 @@ See https://github.com/retrofit-drupal/retrofit/issues/15
 
 ## Namespaced functions
 
-### `module_load_include`
-
-`module_load_include` is available as `Retrofit\Drupal\module_load_include`.
+See [namespaced functions](namespaced-functions.md).
 
 ## Fixing placeholders in `t()`
 
