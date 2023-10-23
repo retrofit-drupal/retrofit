@@ -452,12 +452,12 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'data' on mixed\\.$#"
-			count: 2
+			count: 1
 			path: src/Render/RetrofitHtmlResponseAttachmentsProcessor.php
 
 		-
 			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 2
+			count: 1
 			path: src/Render/RetrofitHtmlResponseAttachmentsProcessor.php
 
 		-
