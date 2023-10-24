@@ -63,8 +63,10 @@ final class MenuLinkDeriver extends DeriverBase implements ContainerDeriverInter
                     ($pos = strrpos($path, '/'))
                     && $path = substr($path, 0, $pos)
                 ) {
-                    $menuLinkDefinition['parent'] = key($this->routeProvider->getRoutesByPattern($path)->all());
-                    break;
+                    if ($parent = key($this->routeProvider->getRoutesByPattern($path)->all())) {
+                        $menuLinkDefinition['parent'] = $parent;
+                        break;
+                    }
                 }
                 if ($definition['type'] === MENU_SUGGESTED_ITEM) {
                     $menuLinkDefinition['enabled'] = 0;

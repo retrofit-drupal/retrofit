@@ -57,19 +57,13 @@ class LocalTaskDeriver extends DeriverBase implements ContainerDeriverInterface
                         break;
                     }
                 }
-                switch ($definition['type']) {
-                    case MENU_DEFAULT_LOCAL_TASK:
-                        if ($parent) {
-                            $menuLinkDefinition['route_name'] = $parent;
-                        }
-                        // In other ways this is a normal local task.
-                    case MENU_LOCAL_TASK:
-                        if ($parent) {
-                            $menuLinkDefinition['base_route'] = $parent;
-                        } else {
-                            $menuLinkDefinition['base_route'] = $definition['route_name'];
-                        }
-                        break;
+                if (!empty($parent)) {
+                    $menuLinkDefinition['base_route'] = $parent;
+                    if ($definition['type'] === MENU_DEFAULT_LOCAL_TASK) {
+                        $menuLinkDefinition['route_name'] = $parent;
+                    }
+                } else {
+                    $menuLinkDefinition['base_route'] = $definition['route_name'];
                 }
                 $this->derivatives[$definition['route_name']] = $menuLinkDefinition;
             }
