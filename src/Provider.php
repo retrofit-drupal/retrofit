@@ -8,6 +8,7 @@ use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
+use Retrofit\Drupal\Entity\EntityTypeManager;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\LocalActionManager;
@@ -122,6 +123,12 @@ class Provider extends ServiceProviderBase
         $container->register(RetrofitTitleResolver::class)
             ->setDecoratedService('title_resolver')
             ->addArgument(new Reference(RetrofitTitleResolver::class . '.inner'));
+
+        $container->setDefinition(
+            EntityTypeManager::class,
+            (new ChildDefinition('entity_type.manager'))
+            ->setDecoratedService('entity_type.manager')
+        );
     }
 
     public function alter(ContainerBuilder $container)
