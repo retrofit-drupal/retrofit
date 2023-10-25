@@ -151,6 +151,16 @@ parameters:
 			path: src/Language/GlobalLanguageContent.php
 
 		-
+			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: src/Menu/LocalActionManager.php
+
+		-
+			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: src/Menu/LocalTaskManager.php
+
+		-
 			message: "#^Property Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/Menu/MenuLinkManager.php
@@ -226,6 +236,51 @@ parameters:
 			path: src/Plugin/Derivative/FieldItemDeriver.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalActionDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalActionDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalActionDeriver.php
+
+		-
+			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalActionDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver\\:\\:create\\(\\) should return static\\(Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver\\) but returns Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalTaskDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalTaskDeriver.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalTaskDeriver.php
+
+		-
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalTaskDeriver.php
+
+		-
+			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/LocalTaskDeriver.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
@@ -237,6 +292,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
+			count: 1
+			path: src/Plugin/Derivative/MenuLinkDeriver.php
+
+		-
+			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
 

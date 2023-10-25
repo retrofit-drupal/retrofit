@@ -10,7 +10,7 @@ use Drupal\Core\Routing\RouteProviderInterface;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class MenuLinkDeriver extends DeriverBase implements ContainerDeriverInterface
+final class LocalActionDeriver extends DeriverBase implements ContainerDeriverInterface
 {
     public function __construct(
         private readonly HookMenuRegistry $hookMenuRegistry,
@@ -32,44 +32,26 @@ final class MenuLinkDeriver extends DeriverBase implements ContainerDeriverInter
     {
         foreach ($this->hookMenuRegistry->get() as $module => $routes) {
             foreach ($routes as $path => $definition) {
-                if (
-                    !in_array($definition['type'], [
-                        MENU_NORMAL_ITEM,
-                        MENU_SUGGESTED_ITEM,
-                    ])
-                ) {
+                if ($definition['type'] !== MENU_LOCAL_ACTION) {
                     continue;
                 }
                 $menuLinkDefinition = [
-                  'id' => $definition['route_name'],
-                  'title' => $definition['title'] ?? '',
-                  'description' => $definition['description'] ?? '',
-                  'route_name' => $definition['route_name'],
-                  'expanded' => $definition['expanded'] ?? false,
-                  'weight' => $definition['weight'] ?? 0,
-                  'provider' => $module,
+                    'id' => $definition['route_name'],
+                    'title' => $definition['title'] ?? '',
+                    'description' => $definition['description'] ?? '',
+                    'route_name' => $definition['route_name'],
+                    'expanded' => $definition['expanded'] ?? false,
+                    'weight' => $definition['weight'] ?? 0,
+                    'provider' => $module,
                 ];
-                $menuName = $definition['menu_name'] ?? '';
-                if ($menuName !== '') {
-                    $menuMapping = [
-                      'main-menu' => 'main',
-                      'management' => 'admin',
-                      'navigation' => 'tools',
-                      'user-menu' => 'account',
-                    ];
-                    $menuLinkDefinition['menu_name'] = $menuMapping[$menuName] ?? $menuName;
-                }
                 while (
                     ($pos = strrpos($path, '/'))
                     && $path = substr($path, 0, $pos)
                 ) {
                     if ($parent = key($this->routeProvider->getRoutesByPattern($path)->all())) {
-                        $menuLinkDefinition['parent'] = $parent;
+                        $menuLinkDefinition['appears_on'] = [$parent];
                         break;
                     }
-                }
-                if ($definition['type'] === MENU_SUGGESTED_ITEM) {
-                    $menuLinkDefinition['enabled'] = 0;
                 }
                 $this->derivatives[$definition['route_name']] = $menuLinkDefinition;
             }

@@ -9,6 +9,8 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
+use Retrofit\Drupal\Menu\LocalActionManager;
+use Retrofit\Drupal\Menu\LocalTaskManager;
 use Retrofit\Drupal\Menu\MenuLinkManager;
 use Retrofit\Drupal\Extension\ModuleHandler;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
@@ -64,6 +66,18 @@ class Provider extends ServiceProviderBase
             MenuLinkManager::class,
             (new ChildDefinition('plugin.manager.menu.link'))
             ->setDecoratedService('plugin.manager.menu.link')
+        );
+
+        $container->setDefinition(
+            LocalActionManager::class,
+            (new ChildDefinition('plugin.manager.menu.local_action'))
+            ->setDecoratedService('plugin.manager.menu.local_action')
+        );
+
+        $container->setDefinition(
+            LocalTaskManager::class,
+            (new ChildDefinition('plugin.manager.menu.local_task'))
+            ->setDecoratedService('plugin.manager.menu.local_task')
         );
 
         $container->setDefinition(
