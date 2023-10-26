@@ -16,12 +16,15 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
         };
     }
 
-    public function offsetGet(mixed $offset): mixed
+    public function &offsetGet(mixed $offset): mixed
     {
-        return match ($offset) {
-            'values' => $this->getValues(),
-            default => $this->$offset
-        };
+        switch ($offset) {
+            case 'values':
+                return $this->getValues();
+
+            default:
+                return $this->$offset;
+        }
     }
 
     public function offsetSet(mixed $offset, mixed $value): void
