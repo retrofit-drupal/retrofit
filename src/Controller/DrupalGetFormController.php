@@ -49,7 +49,7 @@ final class DrupalGetFormController implements ContainerInjectionInterface
             DrupalGetForm::class
         );
         $form_object->setFormId($route->getDefault('_form_id'));
-        $form_state = new ArrayAccessFormState();
+        $form_state = new ArrayAccessFormState(new FormState());
         $args = $routeMatch->getRawParameters()->all();
         $form_state->addBuildInfo('args', array_values($args));
         return $this->formBuilder->buildForm($form_object, $form_state);

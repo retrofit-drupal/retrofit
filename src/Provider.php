@@ -9,6 +9,7 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
+use Retrofit\Drupal\Form\FormValidator;
 use Retrofit\Drupal\Language\GlobalLanguageContentSetter;
 use Retrofit\Drupal\Menu\LocalActionManager;
 use Retrofit\Drupal\Menu\LocalTaskManager;
@@ -122,6 +123,12 @@ class Provider extends ServiceProviderBase
         $container->register(RetrofitTitleResolver::class)
             ->setDecoratedService('title_resolver')
             ->addArgument(new Reference(RetrofitTitleResolver::class . '.inner'));
+
+        $container->setDefinition(
+            FormValidator::class,
+            (new ChildDefinition('form_validator'))
+            ->setDecoratedService('form_validator')
+        );
     }
 
     public function alter(ContainerBuilder $container)
