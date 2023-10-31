@@ -18,6 +18,17 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
     public function processAttachments(AttachmentsInterface $response)
     {
         $attachments = $response->getAttachments();
+        if (isset($attachments['library']) && is_array($attachments['library'])) {
+            foreach ($attachments['library'] as $key => $item) {
+                if (is_array($item)) {
+                    $item[0] = match ($item[0]) {
+                        'drupal.ajax', 'jquery' => 'core',
+                        default => $item[0],
+                    };
+                    $attachments['library'][$key] = implode('/', $item);
+                }
+            }
+        }
         if (isset($attachments['js']) && is_array($attachments['js'])) {
             foreach ($attachments['js'] as $key => $item) {
                 if (isset($item['type'], $item['data']) && $item['type'] === 'setting') {
