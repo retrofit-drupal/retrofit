@@ -21,10 +21,9 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
         if (isset($attachments['library']) && is_array($attachments['library'])) {
             foreach ($attachments['library'] as $key => $item) {
                 if (is_array($item)) {
-                    $item = array_combine(['module', 'name'], $item);
-                    $item['module'] = match ($item['module']) {
+                    $item[0] = match ($item[0]) {
                         'drupal.ajax', 'jquery' => 'core',
-                        default => $item['module'],
+                        default => $item[0],
                     };
                     $attachments['library'][$key] = implode('/', $item);
                 }
