@@ -87,3 +87,8 @@ function db_condition(string $conjunction)
 {
     return DB::get()->condition($conjunction);
 }
+
+function db_table_exists(string $table): bool
+{
+    return DB::get()->schema()->tableExists($table);
+}
