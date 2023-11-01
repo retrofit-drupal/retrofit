@@ -856,7 +856,7 @@ parameters:
 			path: src/functions/file.php
 
 		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
+			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
 			count: 2
 			path: src/functions/form.php
 
@@ -866,22 +866,17 @@ parameters:
 			path: src/functions/form.php
 
 		-
-			message: "#^Function form_set_error\\(\\) has no return type specified\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, 'strval' given\\.$#"
 			count: 1
 			path: src/functions/form.php
 
 		-
-			message: "#^Function form_set_error\\(\\) has parameter \\$limit_validation_errors with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:buildForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
 			count: 1
 			path: src/functions/form.php
 
 		-
-			message: "#^Function form_set_error\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: src/functions/form.php
-
-		-
-			message: "#^Function form_set_error\\(\\) has parameter \\$name with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:getForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
 			count: 1
 			path: src/functions/form.php
 
