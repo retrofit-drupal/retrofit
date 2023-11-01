@@ -131,6 +131,12 @@ class DbTest extends KernelTestBase
         ], $query);
     }
 
+    public function testDbTableExists(): void
+    {
+        self::assertTrue(db_table_exists(self::TABLE_NAME));
+        self::assertFalse(db_table_exists('non_existent_table'));
+    }
+
 
     protected function schemaForTestTable(): array
     {
