@@ -47,4 +47,4 @@ TODO
 * `\Retrofit\Drupal\Controller\DrupalGetFormController`
 * `\Retrofit\Drupal\Form\DrupalGetForm`
 * `\Retrofit\Drupal\Form\ArrayAccessFormState`
-* `\Retrofit\Drupal\Form\FormValidator`
+* `\Retrofit\Drupal\Form\FormBuilder`

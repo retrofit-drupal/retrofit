@@ -13,11 +13,12 @@ class FormBuilder extends CoreFormBuilder
     /**
      * @return mixed[]
      */
-    public function buildForm(mixed $form_arg, FormStateInterface &$form_state): array
+    public function getForm(mixed $form_arg): array
     {
-        if (!($form_state instanceof ArrayAccessFormState)) {
-            $form_state = new ArrayAccessFormState($form_state);
-        }
-        return parent::buildForm($form_arg, $form_state);
+        $form_state = new ArrayAccessFormState();
+        $args = func_get_args();
+        array_shift($args);
+        $form_state->addBuildInfo('args', $args);
+        return $this->buildForm($form_arg, $form_state);
     }
 }
