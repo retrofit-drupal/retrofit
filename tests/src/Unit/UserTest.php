@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Tests\Unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\Session\UserSession;
