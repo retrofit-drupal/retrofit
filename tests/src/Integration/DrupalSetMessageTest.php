@@ -25,5 +25,10 @@ final class DrupalSetMessageTest extends KernelTestBase
           'warning' => ['bar'],
           'error' => ['baz'],
         ], $messenger->all());
+        self::assertEquals([
+          'status' => ['foo'],
+          'warning' => ['bar'],
+          'error' => ['baz'],
+        ], drupal_set_message());
     }
 }
