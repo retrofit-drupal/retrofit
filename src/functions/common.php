@@ -337,3 +337,21 @@ function &drupal_array_get_nested_value(array &$array, array $parents, ?bool &$k
 {
     return NestedArray::getValue($array, $parents, $key_exists);
 }
+
+/**
+ * @param array<int|string, mixed> $array
+ * @param array<int, int|string> $parents
+ */
+function drupal_array_set_nested_value(array &$array, array $parents, mixed $value, bool $force = false): void
+{
+    NestedArray::setValue($array, $parents, $value, $force);
+}
+
+/**
+ * @param array<int|string, mixed> $array
+ * @param array<int, int|string> $parents
+ */
+function drupal_array_nested_key_exists(array $array, array $parents): bool
+{
+    return NestedArray::keyExists($array, $parents);
+}
