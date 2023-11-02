@@ -14,8 +14,7 @@ final class RetrofitTitleResolver implements TitleResolverInterface
 
     public function __construct(
         private readonly TitleResolverInterface $inner,
-    )
-    {
+    ) {
     }
 
     public function setStoredTitle(string $title): void
