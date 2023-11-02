@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -19,21 +20,38 @@ use Retrofit\Drupal\Plugin\Field\FieldType\FieldItem;
  */
 final class FieldWidget extends WidgetBase
 {
-    public static function defaultSettings()
+    /**
+     * @return mixed[]
+     */
+    public static function defaultSettings(): array
     {
         return parent::defaultSettings();
     }
 
-    public function settingsForm(array $form, FormStateInterface $form_state)
+    /**
+     * @param mixed[] $form
+     * @return mixed[]
+     */
+    public function settingsForm(array $form, FormStateInterface $form_state): array
     {
         return [];
     }
 
-    public function settingsSummary()
+    /**
+     * @return mixed[]
+     */
+    public function settingsSummary(): array
     {
         return [];
     }
 
+    /**
+     * @param FieldItemListInterface<FieldItemInterface> $items
+     * @param int $delta
+     * @param mixed[] $element
+     * @param mixed[] $form
+     * @return mixed[]
+     */
     public function formElement(
         FieldItemListInterface $items,
         $delta,

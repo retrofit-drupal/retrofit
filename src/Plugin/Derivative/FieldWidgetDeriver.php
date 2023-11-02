@@ -16,14 +16,18 @@ class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverInterfac
     ) {
     }
 
-    public static function create(ContainerInterface $container, $base_plugin_id)
+    public static function create(ContainerInterface $container, $base_plugin_id): self
     {
         return new self(
             $container->get('module_handler')
         );
     }
 
-    public function getDerivativeDefinitions($base_plugin_definition)
+    /**
+     * @param mixed[] $base_plugin_definition
+     * @return mixed[]
+     */
+    public function getDerivativeDefinitions($base_plugin_definition): array
     {
         $this->moduleHandler->invokeAllWith(
             'field_widget_info',
