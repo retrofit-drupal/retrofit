@@ -1046,6 +1046,11 @@ parameters:
 			path: src/functions/taxonomy.php
 
 		-
+			message: "#^Function theme\\(\\) never returns string so it can be removed from the return type\\.$#"
+			count: 1
+			path: src/functions/theme.php
+
+		-
 			message: "#^Call to an undefined method object\\:\\:createInstance\\(\\)\\.$#"
 			count: 1
 			path: tests/src/Integration/Block/BlockTest.php
