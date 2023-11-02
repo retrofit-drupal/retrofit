@@ -8,7 +8,7 @@ use Drupal\Core\Render\RendererInterface;
 /**
  * @param array<string, mixed> $variables
  */
-function theme(string $hook, array $variables = []): MarkupInterface
+function theme(string $hook, array $variables = []): MarkupInterface|string
 {
     $build['#theme'] = $hook;
     foreach ($variables as $key => $variable) {
