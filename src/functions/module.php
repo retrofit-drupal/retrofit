@@ -58,3 +58,39 @@ function module_invoke_all(string $hook): array
     unset($args[0]);
     return \Drupal::moduleHandler()->invokeAll($hook, $args);
 }
+
+/**
+ * @param ?string[] $fixed_list
+ * @return string[]
+ */
+function module_list(
+    bool $refresh = false,
+    bool $bootstrap_refresh = false,
+    bool $sort = false,
+    ?array $fixed_list = null
+): array {
+    static $list = [], $sorted_list;
+    if ($refresh || $fixed_list) {
+        $list = [];
+        $sorted_list = null;
+        if ($fixed_list !== null) {
+            foreach (array_keys($fixed_list) as $name) {
+                drupal_get_filename('module', $name);
+                $list[$name] = $name;
+            }
+        } elseif ($refresh || $bootstrap_refresh) {
+            // These do nothing, now.
+        } else {
+            $list = array_keys(\Drupal::moduleHandler()->getModuleList());
+            $list = array_combine($list, $list);
+        }
+    }
+    if ($sort) {
+        if (!isset($sorted_list)) {
+            $sorted_list = $list;
+            ksort($sorted_list);
+        }
+        return $sorted_list;
+    }
+    return $list;
+}
