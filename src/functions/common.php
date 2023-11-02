@@ -299,3 +299,17 @@ function filter_xss_bad_protocol(string $string, bool $decode = true): string
 {
     return UrlHelper::filterBadProtocol($string);
 }
+
+
+/**
+ * @param array<string|int> $array
+ * @return array<string|int, mixed>
+ */
+function drupal_map_assoc(array $array, ?callable $function = null): array
+{
+    $array = array_combine($array, $array);
+    if ($function !== null) {
+        $array = array_map($function, $array);
+    }
+    return $array;
+}
