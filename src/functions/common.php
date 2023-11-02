@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
@@ -326,4 +327,13 @@ function drupal_clean_css_identifier(string $identifier, array $filter = [
 ]): string
 {
     return Html::cleanCssIdentifier($identifier, $filter);
+}
+
+/**
+ * @param array<int|string, mixed> $array
+ * @param array<int, int|string> $parents
+ */
+function &drupal_array_get_nested_value(array &$array, array $parents, ?bool &$key_exists = null): mixed
+{
+    return NestedArray::getValue($array, $parents, $key_exists);
 }
