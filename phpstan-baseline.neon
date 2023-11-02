@@ -516,16 +516,6 @@ parameters:
 			path: src/Provider.php
 
 		-
-			message: "#^Cannot access offset 'data' on mixed\\.$#"
-			count: 1
-			path: src/Render/RetrofitHtmlResponseAttachmentsProcessor.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 1
-			path: src/Render/RetrofitHtmlResponseAttachmentsProcessor.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$data\\.$#"
 			count: 1
 			path: src/Routing/HookMenuRegistry.php

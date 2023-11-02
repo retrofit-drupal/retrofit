@@ -31,7 +31,7 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
         }
         if (isset($attachments['js']) && is_array($attachments['js'])) {
             foreach ($attachments['js'] as $key => $item) {
-                if (isset($item['type'], $item['data']) && $item['type'] === 'setting') {
+                if (is_array($item) && isset($item['type'], $item['data']) && $item['type'] === 'setting') {
                     $attachments['drupalSettings'] = NestedArray::mergeDeepArray(
                         [$attachments['drupalSettings'] ?? [], $item['data']],
                         true,
