@@ -18,6 +18,11 @@ function retrofit_fixtures_menu()
             'page callback' => 'retrofit_fixtures_attached_js_setting',
             'access callback' => TRUE,
         ],
+        'retrofit/drupal_set_title' => [
+            'title' => 'this title will be overridden',
+            'page callback' => 'retrofit_fixtures_drupal_set_title',
+            'access callback' => TRUE,
+        ],
     ];
 }
 
@@ -53,4 +58,10 @@ function retrofit_fixtures_attached_js_setting()
 function retrofit_fixtures_process_html(&$variables)
 {
     $variables['attributes']['hook_process'] = __FUNCTION__;
+}
+
+function retrofit_fixtures_drupal_set_title()
+{
+    drupal_set_title('this title has been overridden');
+    return 'drupal_set_title page';
 }

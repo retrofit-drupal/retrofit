@@ -76,6 +76,11 @@ parameters:
 			path: src/Controller/PageCallbackController.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\RetrofitTitleResolver\\:\\:getTitle\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Controller/RetrofitTitleResolver.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\DB\\:\\:get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/DB.php
@@ -597,6 +602,16 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$data\\.$#"
+			count: 1
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Function drupal_get_title\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Function drupal_set_title\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
 
@@ -1139,6 +1154,11 @@ parameters:
 			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Render\\\\AttachmentResponseSubscriberTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/src/Integration/Render/AttachmentResponseSubscriberTest.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\RetrofitTitleResolverTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Integration/RetrofitTitleResolverTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
