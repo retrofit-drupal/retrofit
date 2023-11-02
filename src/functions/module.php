@@ -7,11 +7,12 @@ declare(strict_types=1);
  */
 function drupal_alter(
     string|array $type,
-    mixed &$data,
-    mixed &$context1 = null,
-    mixed &$context2 = null,
-    mixed &$context3 = null
-): void {
+    mixed        &$data,
+    mixed        &$context1 = null,
+    mixed        &$context2 = null,
+    mixed        &$context3 = null
+): void
+{
     \Drupal::moduleHandler()->alter($type, $data, $context1, $context2);
 }
 
@@ -42,11 +43,11 @@ function module_implements(string $hook, bool $sort = false, bool $reset = false
     return $implementations;
 }
 
-function module_invoke($module, $hook): mixed
+function module_invoke(string $module, string $hook): mixed
 {
-  $args = func_get_args();
-  unset($args[0], $args[1]);
-  return \Drupal::moduleHandler()->invoke($module, $hook, $args);
+    $args = func_get_args();
+    unset($args[0], $args[1]);
+    return \Drupal::moduleHandler()->invoke($module, $hook, $args);
 }
 
 /**
