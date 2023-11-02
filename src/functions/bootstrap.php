@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use Composer\InstalledVersions;
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Controller\TitleResolverInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
+use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 
 function check_plain(MarkupInterface|\Stringable|string $text): string
 {
@@ -53,4 +55,34 @@ function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array
 function get_t(): string
 {
     return 't';
+}
+
+function drupal_set_title(?string $title = null, int $output = CHECK_PLAIN): array|string|\Stringable|null
+{
+    $titleResolver = \Drupal::service('title_resolver');
+    assert($titleResolver instanceof TitleResolverInterface);
+    if ($title !== null && $titleResolver instanceof RetrofitTitleResolver) {
+        $storedTitle = ($output === PASS_THROUGH) ? $title : check_plain($title);
+        $titleResolver->setStoredTitle($storedTitle);
+    }
+
+    $route = \Drupal::routeMatch()->getRouteObject();
+    if ($route === null) {
+        return null;
+    }
+
+    return $titleResolver->getTitle(\Drupal::request(), $route);
+}
+
+function drupal_get_title(): array|string|\Stringable|null
+{
+    $titleResolver = \Drupal::service('title_resolver');
+    assert($titleResolver instanceof TitleResolverInterface);
+
+    $route = \Drupal::routeMatch()->getRouteObject();
+    if ($route === null) {
+        return null;
+    }
+
+    return $titleResolver->getTitle(\Drupal::request(), $route);
 }
