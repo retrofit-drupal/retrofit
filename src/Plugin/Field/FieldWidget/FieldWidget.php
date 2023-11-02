@@ -43,7 +43,6 @@ final class FieldWidget extends WidgetBase
     ): array {
         $callable = $this->pluginDefinition['provider'] . '_field_widget_form';
         if (is_callable($callable)) {
-            $state_array = $form_state->getCacheableArray();
             $field_storage_definition = $this->fieldDefinition->getFieldStorageDefinition();
             $instance = $this->fieldDefinition->toArray();
             $instance['default_value_function'] = $instance['default_value_callback'];
@@ -73,7 +72,7 @@ final class FieldWidget extends WidgetBase
             }
             return $callable(
                 $form,
-                $state_array,
+                $form_state,
                 $field_storage_definition->toArray() + ['columns' => $columns],
                 $instance,
                 $items->getLangcode(),
