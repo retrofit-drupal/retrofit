@@ -313,3 +313,17 @@ function drupal_map_assoc(array $array, ?callable $function = null): array
     }
     return $array;
 }
+
+/**
+ * @param string[] $filter
+ */
+function drupal_clean_css_identifier(string $identifier, array $filter = [
+    ' ' => '-',
+    '_' => '-',
+    '/' => '-',
+    '[' => '-',
+    ']' => '',
+]): string
+{
+    return Html::cleanCssIdentifier($identifier, $filter);
+}
