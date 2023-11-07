@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -60,8 +61,12 @@ final class FieldWidget extends WidgetBase
         FormStateInterface $form_state
     ): array {
         $callable = $this->pluginDefinition['provider'] . '_field_widget_form';
-        if (is_callable($callable)) {
-            $field_storage_definition = $this->fieldDefinition->getFieldStorageDefinition();
+        $field_storage_definition = $this->fieldDefinition->getFieldStorageDefinition();
+        if (
+            is_callable($callable)
+            && $this->fieldDefinition instanceof ConfigEntityInterface
+            && $field_storage_definition instanceof ConfigEntityInterface
+        ) {
             $instance = $this->fieldDefinition->toArray();
             $instance['default_value_function'] = $instance['default_value_callback'];
             if ($instance['default_value'] === []) {

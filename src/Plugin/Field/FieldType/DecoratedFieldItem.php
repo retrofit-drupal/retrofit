@@ -12,15 +12,19 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
+use Drupal\Core\TypedData\OptionsProviderInterface;
+use Drupal\Core\TypedData\PrimitiveInterface;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
+use Drupal\Core\Validation\Plugin\Validation\Constraint\AllowedValuesConstraint;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @implements  \ArrayAccess<string, mixed>
  * @implements  \IteratorAggregate<string, \Drupal\Core\TypedData\TypedDataInterface>
  */
-final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate, \ArrayAccess
+final class DecoratedFieldItem implements FieldItemInterface, PrimitiveInterface, \IteratorAggregate, \ArrayAccess
 {
     public function __construct(
         private readonly FieldItemInterface $inner,
@@ -269,7 +273,7 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         throw new \RuntimeException(__CLASS__ . ' should not be created.');
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->inner->getValue();
     }
@@ -283,17 +287,40 @@ final class DecoratedFieldItem implements FieldItemInterface, \IteratorAggregate
         $this->inner->setValue($value, $notify);
     }
 
+    public function getCastedValue(): mixed
+    {
+        $name = $this->inner->getDataDefinition()->getMainPropertyName();
+        if (!isset($name)) {
+            throw new \LogicException('Cannot validate allowed values for complex data without a main property.');
+        }
+        $typed_data = $this->inner->get($name);
+        if (method_exists($typed_data, 'getCastedValue')) {
+            $value = $typed_data->getCastedValue();
+        } else {
+            $value =  $typed_data->getValue();
+        }
+        return $value;
+    }
+
     public function getString(): string
     {
         return $this->inner->getString();
     }
 
     /**
-     * @return array<int, \Symfony\Component\Validator\Constraint>
+     * @return array<int, Constraint>
      */
     public function getConstraints(): array
     {
-        return $this->inner->getConstraints();
+        $constraints = [];
+        foreach ($this->inner->getConstraints() as $constraint) {
+            if ($this->inner instanceof OptionsProviderInterface && $constraint instanceof AllowedValuesConstraint) {
+                $allowed_values = $this->inner->getSettableValues(\Drupal::currentUser());
+                $constraint->choices = $allowed_values;
+            }
+            $constraints[] = $constraint;
+        }
+        return $constraints;
     }
 
     public function validate(): ConstraintViolationListInterface

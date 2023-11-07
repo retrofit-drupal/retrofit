@@ -9,7 +9,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverInterface
+final class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverInterface
 {
     public function __construct(
         private readonly ModuleHandlerInterface $moduleHandler
@@ -18,7 +18,7 @@ class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverInterfac
 
     public static function create(ContainerInterface $container, $base_plugin_id): self
     {
-        return new self(
+        return new static(
             $container->get('module_handler')
         );
     }
