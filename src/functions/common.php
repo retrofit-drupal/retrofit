@@ -12,10 +12,13 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
+use Drupal\Core\Form\EnforcedResponseException;
+use Drupal\Core\GeneratedUrl;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * @todo flush out
@@ -369,4 +372,23 @@ function drupal_get_library(string $module, ?string $name = null): array|false
     }
 
     return $libraryDiscovery->getLibrariesByExtension($module);
+}
+
+
+/**
+ * @param array<string, mixed> $options
+ */
+function drupal_goto(string $path = '', array $options = [], int $http_response_code = 302): void
+{
+    \Drupal::moduleHandler()->alter('drupal_goto', $path, $options, $http_response_code);
+    $url = \Drupal::pathValidator()->getUrlIfValidWithoutAccessCheck($path);
+    if ($url !== false) {
+        $url->mergeOptions($options);
+        $goto = $url->toString();
+        if ($goto instanceof GeneratedUrl) {
+            $goto = $goto->getGeneratedUrl();
+        }
+        $response = new RedirectResponse($goto, $http_response_code);
+        throw new EnforcedResponseException($response);
+    }
 }
