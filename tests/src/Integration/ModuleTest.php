@@ -43,6 +43,5 @@ final class ModuleTest extends IntegrationTestCase
             ['user', 'system', 'sqlite'],
             array_keys($moduleHandler->getModuleList())
         );
-
     }
 }
