@@ -14,11 +14,6 @@ function drupal_build_form(string $form_id, array &$form_state): array
 {
     $form_object = \Drupal::classResolver(DrupalGetForm::class);
     $form_object->setFormId($form_id);
-    $original_form_state = $form_state;
-    $form_state = new ArrayAccessFormState();
-    foreach ($original_form_state as $offset => $value) {
-        $form_state[$offset] = $value;
-    }
     return \Drupal::formBuilder()->buildForm($form_object, $form_state);
 }
 
