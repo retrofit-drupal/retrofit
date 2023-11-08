@@ -93,3 +93,17 @@ function drupal_get_title(): array|string|\Stringable|null
 
     return $titleResolver->getTitle(\Drupal::request(), $route);
 }
+
+/**
+ * @param mixed[] $variables
+ */
+function watchdog(
+    string $type,
+    string|\Stringable $message,
+    array $variables = [],
+    int $severity = WATCHDOG_NOTICE,
+    ?string $link = null
+): void {
+    $variables['link'] = $link ?? '';
+    \Drupal::logger($type)->log($severity, $message, $variables);
+}
