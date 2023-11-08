@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Extension\ModuleExtensionList;
+
 /**
  * @param string|string[] $type
  */
@@ -60,7 +62,7 @@ function module_invoke_all(string $hook): array
 }
 
 /**
- * @param ?string[] $fixed_list
+ * @param array<string, array{filename: string}> $fixed_list
  * @return string[]
  */
 function module_list(
@@ -69,28 +71,23 @@ function module_list(
     bool $sort = false,
     ?array $fixed_list = null
 ): array {
-    static $list = [], $sorted_list;
-    if ($refresh || $fixed_list) {
-        $list = [];
-        $sorted_list = null;
-        if ($fixed_list !== null) {
-            foreach (array_keys($fixed_list) as $name) {
-                drupal_get_filename('module', $name);
-                $list[$name] = $name;
-            }
-        } elseif ($refresh || $bootstrap_refresh) {
-            // These do nothing, now.
-        } else {
-            $list = array_keys(\Drupal::moduleHandler()->getModuleList());
-            $list = array_combine($list, $list);
-        }
+    if ($fixed_list !== null) {
+        $moduleExtensionList = \Drupal::service('extension.list.module');
+        assert($moduleExtensionList instanceof ModuleExtensionList);
+        $moduleNames = array_keys($fixed_list);
+        $newList = array_map(
+            static fn (string $name) => $moduleExtensionList->get($name),
+            $moduleNames
+        );
+        \Drupal::moduleHandler()->setModuleList(
+            array_combine($moduleNames, $newList)
+        );
     }
+    $list = array_keys(\Drupal::moduleHandler()->getModuleList());
+    $list = array_combine($list, $list);
+
     if ($sort) {
-        if (!isset($sorted_list)) {
-            $sorted_list = $list;
-            ksort($sorted_list);
-        }
-        return $sorted_list;
+        ksort($list);
     }
     return $list;
 }
