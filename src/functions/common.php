@@ -7,6 +7,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
+use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -354,4 +355,18 @@ function drupal_array_set_nested_value(array &$array, array $parents, mixed $val
 function drupal_array_nested_key_exists(array $array, array $parents): bool
 {
     return NestedArray::keyExists($array, $parents);
+}
+
+/**
+ * @return array<string, mixed>|false
+ */
+function drupal_get_library(string $module, ?string $name = null): array|false
+{
+    $libraryDiscovery = \Drupal::service('library.discovery');
+    assert($libraryDiscovery instanceof LibraryDiscoveryInterface);
+    if ($name !== null) {
+        return $libraryDiscovery->getLibraryByName($module, $name);
+    }
+
+    return $libraryDiscovery->getLibrariesByExtension($module);
 }
