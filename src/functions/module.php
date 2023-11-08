@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Extension\ModuleExtensionList;
+
 /**
  * @param string|string[] $type
  */
@@ -57,4 +59,35 @@ function module_invoke_all(string $hook): array
     $args = func_get_args();
     unset($args[0]);
     return \Drupal::moduleHandler()->invokeAll($hook, $args);
+}
+
+/**
+ * @param array<string, array{filename: string}> $fixed_list
+ * @return string[]
+ */
+function module_list(
+    bool $refresh = false,
+    bool $bootstrap_refresh = false,
+    bool $sort = false,
+    ?array $fixed_list = null
+): array {
+    if ($fixed_list !== null) {
+        $moduleExtensionList = \Drupal::service('extension.list.module');
+        assert($moduleExtensionList instanceof ModuleExtensionList);
+        $moduleNames = array_keys($fixed_list);
+        $newList = array_map(
+            static fn (string $name) => $moduleExtensionList->get($name),
+            $moduleNames
+        );
+        \Drupal::moduleHandler()->setModuleList(
+            array_combine($moduleNames, $newList)
+        );
+    }
+    $list = array_keys(\Drupal::moduleHandler()->getModuleList());
+    $list = array_combine($list, $list);
+
+    if ($sort) {
+        ksort($list);
+    }
+    return $list;
 }
