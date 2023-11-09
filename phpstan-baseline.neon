@@ -56,6 +56,11 @@ parameters:
 			path: src/DB.php
 
 		-
+			message: "#^Plugin definitions cannot be altered\\.$#"
+			count: 1
+			path: src/Entity/EntityTypeManager.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Entity/WrappedConfigEntity.php
