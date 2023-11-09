@@ -364,22 +364,26 @@ final class DecoratedFieldItem implements FieldItemInterface, PrimitiveInterface
 
     public function offsetExists(mixed $offset): bool
     {
-        return array_key_exists($offset, $this->getProperties());
+        settype($offset, 'string');
+        return isset($this->inner->$offset);
     }
 
     public function offsetGet(mixed $offset): mixed
     {
-        return $this->get($offset)->getValue();
+        settype($offset, 'string');
+        return $this->inner->$offset;
     }
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->get((string) $offset)->setValue($value);
+        settype($offset, 'string');
+        $this->inner->$offset = $value;
     }
 
     public function offsetUnset(mixed $offset): void
     {
-        $this->get($offset)->setValue(null);
+        settype($offset, 'string');
+        unset($this->inner->$offset);
     }
 
     /**
