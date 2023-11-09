@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\User;
 
 use Drupal\Core\Session\AccountInterface;
+use Drupal\user\Entity\Role;
 
 final class GlobalUser implements AccountInterface
 {
@@ -85,7 +86,7 @@ final class GlobalUser implements AccountInterface
     public function __get(string $name)
     {
         return match ($name) {
-            'roles' => $this->getRoles(),
+            'roles' => array_combine($this->getRoles(), array_map([Role::class, 'load'], $this->getRoles())),
             'name' => $this->getAccountName(),
             default => null,
         };
