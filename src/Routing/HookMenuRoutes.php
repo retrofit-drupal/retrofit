@@ -47,6 +47,8 @@ final class HookMenuRoutes extends RouteSubscriberBase
                 $parameters[$placeholder] = [
                   'type' => $placeholder === '' ? $key : $placeholder,
                   'converter' => PageArgumentsConverter::class,
+                  'load arguments' => $definition['load arguments'] ?? [],
+                  'index' => $key,
                 ];
                 $pathParts[] = '{' . $placeholder . '}';
             }

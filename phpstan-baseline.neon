@@ -166,11 +166,6 @@ parameters:
 			path: src/ParamConverter/PageArgumentsConverter.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\ParamConverter\\\\PageArgumentsConverter\\:\\:convert\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/ParamConverter/PageArgumentsConverter.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Block/Block.php
