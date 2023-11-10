@@ -46,3 +46,11 @@ file_put_contents(__DIR__ . '/../vendor/drupal/autoload.php', <<<AUTOLOAD
 return require __DIR__ . '/../autoload.php';
 
 AUTOLOAD);
+file_put_contents(__DIR__ . '/../vendor/drupal/composer.json', <<<COMPOSER
+{
+    "config": {
+        "vendor-dir": "../"
+    }
+}
+COMPOSER
+);
