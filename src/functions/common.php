@@ -100,7 +100,6 @@ function entity_get_controller(string $entity_type): EntityStorageInterface
 
 function entity_uri(string $entity_type, EntityInterface $entity): string
 {
-    // @phpstan-ignore-next-line
     return $entity->toUrl()->toString();
 }
 
