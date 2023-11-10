@@ -8,6 +8,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Database\Query\Merge;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -391,4 +392,45 @@ function drupal_goto(string $path = '', array $options = [], int $http_response_
         $response = new RedirectResponse($goto, $http_response_code);
         throw new EnforcedResponseException($response);
     }
+}
+
+/**
+ * @param array<string, mixed>|object $record
+ * @param string[] $primary_keys
+ */
+function drupal_write_record(string $table, array|object &$record, array|string $primary_keys = []): int|false
+{
+    $return = false;
+    if (($schema = (array) drupal_get_schema($table)) && isset($schema['fields']) && is_array($schema['fields'])) {
+        $fields = array_intersect_key((array) $record, $schema['fields']);
+        foreach ($schema['fields'] as $field => $info) {
+            if (is_array($info)) {
+                if (!empty($info['serialize'])) {
+                    $fields[$field] = serialize($fields[$field]);
+                }
+                if (empty($primary_keys) && isset($info['type']) && $info['type'] === 'serial') {
+                    $serial = $field;
+                }
+            }
+        }
+        if (empty($primary_keys)) {
+            $query_return = \Drupal::database()->insert($table)
+                ->fields($fields)
+                ->execute();
+            if (isset($serial)) {
+                if (is_array($record)) {
+                    $record[$serial] = $query_return;
+                } else {
+                    $record->$serial = $query_return;
+                }
+            }
+            $return = Merge::STATUS_INSERT;
+        } else {
+            $return = \Drupal::database()->merge($table)
+                ->keys((array) $primary_keys)
+                ->fields($fields)
+                ->execute() ?? false;
+        }
+    }
+    return $return;
 }
