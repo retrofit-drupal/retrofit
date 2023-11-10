@@ -8,6 +8,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
+use Drupal\Core\Database\Query\Merge;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -17,6 +18,7 @@ use Drupal\Core\GeneratedUrl;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
+use Retrofit\Drupal\DB;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -390,4 +392,98 @@ function drupal_goto(string $path = '', array $options = [], int $http_response_
         $response = new RedirectResponse($goto, $http_response_code);
         throw new EnforcedResponseException($response);
     }
+}
+
+/**
+ * @param array<string, mixed>|object $record
+ * @param string[] $primary_keys
+ */
+function drupal_write_record(string $table, array|object &$record, array|string $primary_keys = []): int|false
+{
+    if (is_string($primary_keys)) {
+        $primary_keys = [$primary_keys];
+    }
+
+    $schema = drupal_get_schema($table);
+    if (empty($schema)) {
+        return false;
+    }
+
+    $object = (object) $record;
+    $fields = [];
+
+    foreach ($schema['fields'] as $field => $info) {
+        if ($info['type'] === 'serial') {
+            if (!empty($primary_keys)) {
+                continue;
+            }
+            $serial = $field;
+        }
+        if (in_array($field, $primary_keys, true)) {
+            continue;
+        }
+        if (!property_exists($object, $field)) {
+            continue;
+        }
+        if (empty($info['serialize'])) {
+            $fields[$field] = $object->$field;
+        } else {
+            $fields[$field] = serialize($object->$field);
+        }
+        if (isset($object->$field) || !empty($info['not null'])) {
+            if ($info['type'] === 'int' || $info['type'] === 'serial') {
+                $fields[$field] = (int) $fields[$field];
+            } elseif ($info['type'] === 'float') {
+                $fields[$field] = (float) $fields[$field];
+            } else {
+                $fields[$field] = (string) $fields[$field];
+            }
+        }
+    }
+
+    if (empty($fields)) {
+        // In Drupal 7 this actually returned `null` which was invalid.
+        // But, developers were probably using `!empty` checks, so we are returning `false`.
+        return false;
+    }
+
+    if (empty($primary_keys)) {
+        if (isset($serial) && isset($fields[$serial]) && !$fields[$serial]) {
+            unset($fields[$serial]);
+        }
+        $query = db_insert($table)->fields($fields);
+        $return = SAVED_NEW;
+    } else {
+        $query = db_update($table)->fields($fields);
+        foreach ($primary_keys as $key) {
+            $query->condition($key, $object->$key);
+        }
+        $return = SAVED_UPDATED;
+    }
+    $query_return = $query->execute();
+    if ($query_return && isset($serial)) {
+        // If the database was not told to return the last insert id, it will be
+        // because we already know it.
+        if ($return === SAVED_NEW && isset($fields[$serial])) {
+            $object->$serial = $fields[$serial];
+        } else {
+            $object->$serial = DB::get()->lastInsertId();
+        }
+    } elseif ($query_return === false && count($primary_keys) == 1) {
+        $return = false;
+    }
+    if (empty($primary_keys)) {
+        foreach ($schema['fields'] as $field => $info) {
+            if (isset($info['default']) && !property_exists($object, $field)) {
+                $object->$field = $info['default'];
+            }
+        }
+    }
+
+    // If we began with an array, convert back.
+    if (is_array($record)) {
+        $record = (array) $object;
+    }
+
+    return $return;
 }
