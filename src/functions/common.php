@@ -407,7 +407,7 @@ function drupal_write_record(string $table, array|object &$record, array|string 
 
     $schema = drupal_get_schema($table);
     if (empty($schema)) {
-        return FALSE;
+        return false;
     }
 
     $object = (object) $record;
@@ -428,22 +428,18 @@ function drupal_write_record(string $table, array|object &$record, array|string 
         }
         if (empty($info['serialize'])) {
             $fields[$field] = $object->$field;
-        }
-        else {
+        } else {
             $fields[$field] = serialize($object->$field);
         }
         if (isset($object->$field) || !empty($info['not null'])) {
             if ($info['type'] === 'int' || $info['type'] === 'serial') {
                 $fields[$field] = (int) $fields[$field];
-            }
-            elseif ($info['type'] === 'float') {
+            } elseif ($info['type'] === 'float') {
                 $fields[$field] = (float) $fields[$field];
-            }
-            else {
+            } else {
                 $fields[$field] = (string) $fields[$field];
             }
         }
-
     }
 
     if (empty($fields)) {
@@ -471,13 +467,11 @@ function drupal_write_record(string $table, array|object &$record, array|string 
         // because we already know it.
         if ($return === SAVED_NEW && isset($fields[$serial])) {
             $object->$serial = $fields[$serial];
-        }
-        else {
+        } else {
             $object->$serial = DB::get()->lastInsertId();
         }
-    }
-    elseif ($query_return === FALSE && count($primary_keys) == 1) {
-        $return = FALSE;
+    } elseif ($query_return === false && count($primary_keys) == 1) {
+        $return = false;
     }
     if (empty($primary_keys)) {
         foreach ($schema['fields'] as $field => $info) {

@@ -9,6 +9,9 @@ use Retrofit\Drupal\Tests\Integration\IntegrationTestCase;
 
 final class DrupalWriteRecordTest extends IntegrationTestCase
 {
+    /**
+     * @var string[]
+     */
     protected static $modules = ['system', 'dblog'];
 
     public function testWritingRecord(): void
@@ -42,7 +45,7 @@ final class DrupalWriteRecordTest extends IntegrationTestCase
             ->select('watchdog', 'w')
             ->fields('w')
             ->execute()
-            ->fetchAll();
+            ?->fetchAll();
         self::assertEquals(
             [(object) ($record + ['wid' => 1])],
             $records
