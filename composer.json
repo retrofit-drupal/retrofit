@@ -47,5 +47,10 @@
             "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "php tests/bootstrap.php"
+        ]
     }
 }
