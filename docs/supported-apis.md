@@ -42,7 +42,9 @@ See [supported hooks](supported-hooks.md#field-hooks).
 ## Form API
 
 TODO 
+* Document decorated form state to allow array access
 
 * `\Retrofit\Drupal\Controller\DrupalGetFormController`
 * `\Retrofit\Drupal\Form\DrupalGetForm`
 * `\Retrofit\Drupal\Form\ArrayAccessFormState`
+* `\Retrofit\Drupal\Form\FormBuilder`
