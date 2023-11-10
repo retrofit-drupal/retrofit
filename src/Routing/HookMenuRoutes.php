@@ -60,6 +60,11 @@ final class HookMenuRoutes extends RouteSubscriberBase
         if ($titleCallback !== '') {
             $route->setDefault('_title_callback', '\Retrofit\Drupal\Controller\PageCallbackController::getTitle');
             $titleArguments = $definition['title arguments'] ?? [];
+            foreach ($titleArguments as &$titleArgument) {
+                if (is_int($titleArgument)) {
+                    $titleArgument = $pathParts[$titleArgument];
+                }
+            }
             $route->setDefault('_custom_title_callback', $titleCallback);
             $route->setDefault('_custom_title_arguments', $titleArguments);
         }
@@ -82,6 +87,11 @@ final class HookMenuRoutes extends RouteSubscriberBase
         } else {
             $route->setRequirement('_custom_access', '\Retrofit\Drupal\Access\CustomControllerAccessCallback::check');
             $route->setDefault('_custom_access_callback', $accessCallback);
+            foreach ($accessArguments as &$accessArgument) {
+                if (is_int($accessArgument)) {
+                    $accessArgument = $pathParts[$accessArgument];
+                }
+            }
             $route->setDefault('_custom_access_arguments', $accessArguments);
         }
 

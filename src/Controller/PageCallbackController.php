@@ -34,7 +34,12 @@ final class PageCallbackController implements ContainerInjectionInterface
         if (!is_callable($callback)) {
             return '';
         }
-        $arguments = $route->getDefault('_custom_title_arguments');
+        $arguments = (array) $route->getDefault('_custom_title_arguments');
+        foreach ($arguments as &$argument) {
+            if (is_string($argument) && $placeholder = preg_filter('/(^{)(.*)(}$)/', '$2', $argument)) {
+                $argument = $routeMatch->getParameter($placeholder);
+            }
+        }
         return call_user_func_array($callback, $arguments);
     }
 

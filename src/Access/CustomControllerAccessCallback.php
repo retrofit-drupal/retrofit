@@ -29,6 +29,11 @@ final class CustomControllerAccessCallback
                 $route_match->getRouteName()
             ));
         }
+        foreach ($access_arguments as &$argument) {
+            if (is_string($argument) && $placeholder = preg_filter('/(^{)(.*)(}$)/', '$2', $argument)) {
+                $argument = $route_match->getParameter($placeholder);
+            }
+        }
         /** @var array<int|string, mixed> $access_arguments */
         $result = call_user_func_array($access_callback, $access_arguments);
         return AccessResult::allowedIf(is_bool($result) && $result);
