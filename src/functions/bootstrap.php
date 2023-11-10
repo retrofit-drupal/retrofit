@@ -20,7 +20,7 @@ function drupal_get_filename(string $type, string $name, ?string $filename = nul
 }
 
 /**
- * @return mixed[]|bool
+ * @return false|array{fields: array<string, array{serialize: bool, type: string, default: mixed, 'not null'?: bool}>}
  */
 function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array|bool
 {
