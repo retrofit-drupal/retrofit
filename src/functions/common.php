@@ -469,7 +469,7 @@ function drupal_write_record(string $table, array|object &$record, array|string 
     if ($query_return && isset($serial)) {
         // If the database was not told to return the last insert id, it will be
         // because we already know it.
-        if ($return === SAVED_NEW && $fields[$serial]) {
+        if ($return === SAVED_NEW && isset($fields[$serial])) {
             $object->$serial = $fields[$serial];
         }
         else {
