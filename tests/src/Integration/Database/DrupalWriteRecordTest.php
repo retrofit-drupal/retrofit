@@ -40,7 +40,6 @@ final class DrupalWriteRecordTest extends IntegrationTestCase
         self::assertEquals(1, $record['wid']);
 
         $database = $this->container->get('database');
-        assert($database instanceof Connection);
         $records = $database
             ->select('watchdog', 'w')
             ->fields('w')
