@@ -135,7 +135,6 @@ function element_children(array &$elements, bool $sort = false): array
 function drupal_get_path(string $type, string $name): string
 {
     $pathResolver = \Drupal::service('extension.path.resolver');
-    assert($pathResolver instanceof ExtensionPathResolver);
     return $pathResolver->getPath($type, $name);
 }
 
@@ -163,9 +162,7 @@ function drupal_render_children(array &$element, array $children_keys = null): s
  */
 function drupal_render(array &$elements): MarkupInterface|string
 {
-    $renderer = \Drupal::service('renderer');
-    assert($renderer instanceof RendererInterface);
-    return $renderer->render($elements);
+    return \Drupal::service('renderer')->render($elements);
 }
 
 /**
@@ -367,7 +364,6 @@ function drupal_array_nested_key_exists(array $array, array $parents): bool
 function drupal_get_library(string $module, ?string $name = null): array|false
 {
     $libraryDiscovery = \Drupal::service('library.discovery');
-    assert($libraryDiscovery instanceof LibraryDiscoveryInterface);
     if ($name !== null) {
         return $libraryDiscovery->getLibraryByName($module, $name);
     }

@@ -32,7 +32,6 @@ final class FieldTypeTest extends IntegrationTestCase
     public function testDefinitions(): void
     {
         $fieldTypeManager = $this->container->get('plugin.manager.field.field_type');
-        assert($fieldTypeManager instanceof FieldTypePluginManagerInterface);
         self::assertTrue($fieldTypeManager->hasDefinition('retrofit_field:field_example_rgb'));
     }
 
@@ -89,7 +88,6 @@ final class FieldTypeTest extends IntegrationTestCase
         $entity->save();
 
         $database = $this->container->get('database');
-        self::assertInstanceOf(Connection::class, $database);
         $schema = $database->schema();
 
         self::assertTrue($schema->tableExists('entity_test__field_rgb'));
@@ -123,7 +121,6 @@ final class FieldTypeTest extends IntegrationTestCase
             ->save();
 
         $entityTypeManager = $this->container->get('entity_type.manager');
-        self::assertInstanceOf(EntityTypeManagerInterface::class, $entityTypeManager);
         $viewBuilder = $entityTypeManager->getViewBuilder($entity->getEntityTypeId());
         $build = $viewBuilder->view($entity, 'default');
         $this->render($build);

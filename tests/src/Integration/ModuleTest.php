@@ -38,7 +38,6 @@ final class ModuleTest extends IntegrationTestCase
         ]));
 
         $moduleHandler = $this->container->get('module_handler');
-        self::assertInstanceOf(ModuleHandlerInterface::class, $moduleHandler);
         self::assertEquals(
             ['user', 'system', 'sqlite'],
             array_keys($moduleHandler->getModuleList())

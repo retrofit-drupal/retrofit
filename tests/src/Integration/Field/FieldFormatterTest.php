@@ -22,7 +22,6 @@ final class FieldFormatterTest extends IntegrationTestCase
     public function testDefinitions(): void
     {
         $fieldFormatterManager = $this->container->get('plugin.manager.field.formatter');
-        assert($fieldFormatterManager instanceof FormatterPluginManager);
         self::assertTrue(
             $fieldFormatterManager->hasDefinition('retrofit_field_formatter:field_example_simple_text')
         );

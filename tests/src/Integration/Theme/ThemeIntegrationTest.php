@@ -45,7 +45,6 @@ final class ThemeIntegrationTest extends IntegrationTestCase
     public function testListInfo(): void
     {
         $themeHandler = $this->container->get('extension.list.theme');
-        assert($themeHandler instanceof ThemeExtensionList);
         self::assertArrayHasKey('bartik', $themeHandler->getList());
     }
 
@@ -82,7 +81,6 @@ final class ThemeIntegrationTest extends IntegrationTestCase
     private function placeBlock(string $plugin_id, string $region): void
     {
         $entity_type_manager = $this->container->get('entity_type.manager');
-        self::assertInstanceOf(EntityTypeManagerInterface::class, $entity_type_manager);
         $block_storage = $entity_type_manager->getStorage('block');
         $block_storage->create([
             'id' => "test_$plugin_id",

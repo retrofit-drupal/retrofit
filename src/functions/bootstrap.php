@@ -14,9 +14,7 @@ function check_plain(MarkupInterface|\Stringable|string $text): string
 
 function drupal_get_filename(string $type, string $name, ?string $filename = null, bool $trigger_error = false): ?string
 {
-    $pathResolver = \Drupal::service('extension.path.resolver');
-    assert($pathResolver instanceof ExtensionPathResolver);
-    return $pathResolver->getPathname($type, $name);
+    return \Drupal::service('extension.path.resolver')->getPathname($type, $name);
 }
 
 /**
@@ -67,7 +65,6 @@ function get_t(): string
 function drupal_set_title(?string $title = null, int $output = CHECK_PLAIN): array|string|\Stringable|null
 {
     $titleResolver = \Drupal::service('title_resolver');
-    assert($titleResolver instanceof TitleResolverInterface);
     if ($title !== null && $titleResolver instanceof RetrofitTitleResolver) {
         $storedTitle = ($output === PASS_THROUGH) ? $title : check_plain($title);
         $titleResolver->setStoredTitle($storedTitle);
@@ -83,15 +80,12 @@ function drupal_set_title(?string $title = null, int $output = CHECK_PLAIN): arr
 
 function drupal_get_title(): array|string|\Stringable|null
 {
-    $titleResolver = \Drupal::service('title_resolver');
-    assert($titleResolver instanceof TitleResolverInterface);
-
     $route = \Drupal::routeMatch()->getRouteObject();
     if ($route === null) {
         return null;
     }
 
-    return $titleResolver->getTitle(\Drupal::request(), $route);
+    return \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route);
 }
 
 /**

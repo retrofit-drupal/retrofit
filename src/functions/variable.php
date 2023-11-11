@@ -8,7 +8,6 @@ function variable_set(string $name, mixed $value): void
 {
     if ($name === 'menu_rebuild_needed') {
         $route_builder = \Drupal::getContainer()->get('router.builder');
-        assert($route_builder instanceof RouteBuilderInterface);
         $route_builder->setRebuildNeeded();
     } else {
         \Drupal::state()->set($name, $value);

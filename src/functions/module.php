@@ -73,7 +73,6 @@ function module_list(
 ): array {
     if ($fixed_list !== null) {
         $moduleExtensionList = \Drupal::service('extension.list.module');
-        assert($moduleExtensionList instanceof ModuleExtensionList);
         $moduleNames = array_keys($fixed_list);
         $newList = array_map(
             static fn (string $name) => $moduleExtensionList->get($name),

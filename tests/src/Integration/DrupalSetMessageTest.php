@@ -19,7 +19,6 @@ final class DrupalSetMessageTest extends KernelTestBase
         drupal_set_message(new TranslatableMarkup('baz'), 'error');
 
         $messenger = $this->container->get('messenger');
-        self::assertInstanceOf(MessengerInterface::class, $messenger);
         self::assertEquals([
           'status' => ['foo'],
           'warning' => ['bar'],

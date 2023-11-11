@@ -541,11 +541,6 @@ parameters:
 			path: src/functions/bootstrap.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 3
-			path: src/functions/bootstrap.php
-
-		-
 			message: "#^Function drupal_get_title\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
@@ -556,17 +551,7 @@ parameters:
 			path: src/functions/bootstrap.php
 
 		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Controller\\\\TitleResolver and Drupal\\\\Core\\\\Controller\\\\TitleResolverInterface will always evaluate to true\\.$#"
-			count: 2
-			path: src/functions/bootstrap.php
-
-		-
 			message: "#^Instanceof between Drupal\\\\Core\\\\Controller\\\\TitleResolver and Retrofit\\\\Drupal\\\\Controller\\\\RetrofitTitleResolver will always evaluate to false\\.$#"
-			count: 1
-			path: src/functions/bootstrap.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver and Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
 
@@ -671,27 +656,7 @@ parameters:
 			path: src/functions/cache.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 3
-			path: src/functions/common.php
-
-		-
 			message: "#^Function url\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Asset\\\\LibraryDiscovery and Drupal\\\\Core\\\\Asset\\\\LibraryDiscoveryInterface will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver and Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/common.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Render\\\\Renderer and Drupal\\\\Core\\\\Render\\\\RendererInterface will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/common.php
 
@@ -861,22 +826,12 @@ parameters:
 			path: src/functions/module.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/module.php
-
-		-
 			message: "#^Cannot access offset string on mixed\\.$#"
 			count: 4
 			path: src/functions/module.php
 
 		-
 			message: "#^Function module_implements\\(\\) should return array\\<string\\> but returns mixed\\.$#"
-			count: 1
-			path: src/functions/module.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ModuleExtensionList and Drupal\\\\Core\\\\Extension\\\\ModuleExtensionList will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/module.php
 
@@ -946,11 +901,6 @@ parameters:
 			path: src/functions/node.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 2
-			path: src/functions/taxonomy.php
-
-		-
 			message: "#^Function taxonomy_get_parents\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/functions/taxonomy.php
@@ -991,39 +941,14 @@ parameters:
 			path: src/functions/taxonomy.php
 
 		-
-			message: "#^Instanceof between Drupal\\\\taxonomy\\\\TermStorage and Drupal\\\\taxonomy\\\\TermStorageInterface will always evaluate to true\\.$#"
-			count: 2
-			path: src/functions/taxonomy.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(object\\)\\: mixed\\)\\|null, Closure\\(Drupal\\\\taxonomy\\\\TermInterface\\)\\: Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity given\\.$#"
 			count: 1
 			path: src/functions/taxonomy.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/theme.php
-
-		-
 			message: "#^Function theme\\(\\) never returns string so it can be removed from the return type\\.$#"
 			count: 1
 			path: src/functions/theme.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Render\\\\Renderer and Drupal\\\\Core\\\\Render\\\\RendererInterface will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/theme.php
-
-		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/variable.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Routing\\\\RouteBuilder and Drupal\\\\Core\\\\Routing\\\\RouteBuilderInterface will always evaluate to true\\.$#"
-			count: 1
-			path: src/functions/variable.php
 
 		-
 			message: "#^Cannot call method fetchField\\(\\) on Drupal\\\\Core\\\\Database\\\\StatementInterface\\|null\\.$#"
@@ -1046,49 +971,9 @@ parameters:
 			path: tests/src/Integration/Database/DbTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Messenger\\\\\\\\MessengerInterface' and Drupal\\\\Core\\\\Messenger\\\\Messenger will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/DrupalSetMessageTest.php
-
-		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldFormatterTest.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Field\\\\FormatterPluginManager and Drupal\\\\Core\\\\Field\\\\FormatterPluginManager will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldFormatterTest.php
-
-		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldTypeTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Database\\\\\\\\Connection' and Drupal\\\\Core\\\\Database\\\\Connection will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldTypeTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Entity\\\\\\\\EntityTypeManagerInterface' and Drupal\\\\Core\\\\Entity\\\\EntityTypeManager will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldTypeTest.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Field\\\\FieldTypePluginManager and Drupal\\\\Core\\\\Field\\\\FieldTypePluginManagerInterface will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Field/FieldTypeTest.php
-
-		-
 			message: "#^Cannot access property \\$language on mixed\\.$#"
 			count: 1
 			path: tests/src/Integration/Language/GlobalLanguageContentTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Extension\\\\\\\\ModuleHandlerInterface' and Drupal\\\\Core\\\\Extension\\\\ModuleHandler will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/ModuleTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with false will always evaluate to false\\.$#"
@@ -1109,36 +994,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
 			count: 6
 			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
-
-		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Entity\\\\\\\\EntityTypeManagerInterface' and Drupal\\\\Core\\\\Entity\\\\EntityTypeManager will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
-
-		-
-			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ThemeExtensionList and Drupal\\\\Core\\\\Extension\\\\ThemeExtensionList will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Routing\\\\\\\\RouteBuilderInterface' and Drupal\\\\Core\\\\Routing\\\\RouteBuilder will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Integration/VariablesTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\State\\\\\\\\StateInterface' and Drupal\\\\Core\\\\State\\\\State will always evaluate to true\\.$#"
-			count: 2
-			path: tests/src/Integration/VariablesTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotFalse\\(\\) with Symfony\\\\Component\\\\Routing\\\\Route\\|null will always evaluate to true\\.$#"
-			count: 1
-			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
 
 		-
 			message: "#^Cannot call method getDefaults\\(\\) on Symfony\\\\Component\\\\Routing\\\\Route\\|null\\.$#"

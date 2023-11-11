@@ -15,7 +15,6 @@ function theme(string $hook, array $variables = []): MarkupInterface|string
         $build["#$key"] = $variable;
     }
     $renderer = \Drupal::service('renderer');
-    assert($renderer instanceof RendererInterface);
     return $renderer->render($build);
 }
 

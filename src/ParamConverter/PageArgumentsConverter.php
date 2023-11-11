@@ -14,8 +14,9 @@ final class PageArgumentsConverter implements ParamConverterInterface
         if (str_starts_with($name, 'arg')) {
             return $value;
         }
-        if (function_exists($name . '_load') && is_callable($name . '_load')) {
-            $value = ($name . '_load')($value);
+        $name .= '_load';
+        if (function_exists($name) && is_callable($name)) {
+            $value = ($name)($value);
         }
         return $value;
     }

@@ -38,7 +38,6 @@ class HookMenuRoutesTest extends TestCase
         self::assertCount(20, $collection);
         $routes = $collection->all();
         $route = array_shift($routes);
-        self::assertNotFalse($route);
         self::assertEquals([
           '_title' => 'Menu Example',
           '_controller' => '\Retrofit\Drupal\Controller\PageCallbackController::getPage',
