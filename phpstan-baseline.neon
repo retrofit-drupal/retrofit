@@ -1,52 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController\\:\\:create\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController\\:\\:getForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Parameter \\#1 \\$formId of method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:setFormId\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:create\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getPage\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getPage\\(\\) should return array but returns mixed\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getTitle\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
+			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getPage\\(\\) should return array\\<string, mixed\\> but returns mixed\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
 

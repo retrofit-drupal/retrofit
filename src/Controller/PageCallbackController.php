@@ -19,14 +19,14 @@ final class PageCallbackController implements ContainerInjectionInterface
     ) {
     }
 
-    public static function create(ContainerInterface $container)
+    public static function create(ContainerInterface $container): self
     {
         return new self(
             $container->get('module_handler')
         );
     }
 
-    public function getTitle(RouteMatchInterface $routeMatch): string
+    public function getTitle(RouteMatchInterface $routeMatch): string|\Stringable
     {
         $route = $routeMatch->getRouteObject();
         assert($route !== null);
@@ -35,15 +35,34 @@ final class PageCallbackController implements ContainerInjectionInterface
             return '';
         }
         $arguments = $route->getDefault('_custom_title_arguments');
-        return call_user_func_array($callback, $arguments);
+        if (!is_array($arguments)) {
+                throw new \InvalidArgumentException(
+                    'The "_custom_title_arguments" default must be a string'
+                );
+        }
+        /** @var array<int|string, mixed> $arguments */
+        $title = call_user_func_array($callback, $arguments);
+        if (!is_string($title) && !$title instanceof \Stringable) {
+            throw new \InvalidArgumentException(
+                'The "title" result must be a string or \Stringable'
+            );
+        }
+        return $title;
     }
 
-    public function getPage(RouteMatchInterface $routeMatch, Request $request): array
+    /**
+     * @return array<string, mixed>
+     */
+    public function getPage(RouteMatchInterface $routeMatch): array
     {
         $route = $routeMatch->getRouteObject();
         assert($route !== null);
         if ($route->hasOption('file')) {
-            $modulePath = $this->moduleHandler->getModule($route->getOption('module'))->getPath();
+            $module = $route->getOption('module');
+            if (!is_string($module)) {
+                throw new \RuntimeException('Module name must be a string.');
+            }
+            $modulePath = $this->moduleHandler->getModule($module)->getPath();
             $includePath = $modulePath . '/' . $route->getOption('file');
             if (file_exists($includePath)) {
                 require_once $includePath;
