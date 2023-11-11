@@ -506,11 +506,6 @@ parameters:
 			path: src/Theme/HookPreprocess.php
 
 		-
-			message: "#^Class Retrofit\\\\Drupal\\\\Theme\\\\Registry extends @internal class Drupal\\\\Core\\\\Theme\\\\Registry\\.$#"
-			count: 1
-			path: src/Theme/Registry.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php
@@ -1269,8 +1264,3 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:writeCache\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/src/Utils/TestModuleHandler.php
-
-		-
-			message: "#^Class Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestThemeExtensionList extends @internal class Drupal\\\\Core\\\\Extension\\\\ThemeExtensionList\\.$#"
-			count: 1
-			path: tests/src/Utils/TestThemeExtensionList.php
