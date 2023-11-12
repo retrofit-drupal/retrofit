@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,16 +13,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class PageCallbackController implements ContainerInjectionInterface
 {
-    public function __construct(
-        private readonly ModuleHandlerInterface $moduleHandler
-    ) {
-    }
-
     public static function create(ContainerInterface $container)
     {
-        return new self(
-            $container->get('module_handler')
-        );
+        return new self();
     }
 
     public function getTitle(RouteMatchInterface $routeMatch): string
@@ -48,8 +40,7 @@ final class PageCallbackController implements ContainerInjectionInterface
         $route = $routeMatch->getRouteObject();
         assert($route !== null);
         if ($route->hasOption('file')) {
-            $modulePath = $this->moduleHandler->getModule($route->getOption('module'))->getPath();
-            $includePath = $modulePath . '/' . $route->getOption('file');
+            $includePath = $route->getOption('file path') . '/' . $route->getOption('file');
             if (file_exists($includePath)) {
                 require_once $includePath;
             }
@@ -58,7 +49,12 @@ final class PageCallbackController implements ContainerInjectionInterface
         if (!is_callable($callback)) {
             throw new NotFoundHttpException();
         }
-        $arguments = $routeMatch->getParameters()->all();
+        $arguments = (array) $route->getDefault('_custom_page_arguments');
+        foreach ($arguments as &$argument) {
+            if (is_string($argument) && $placeholder = preg_filter('/(^{)(.*)(}$)/', '$2', $argument)) {
+                $argument = $routeMatch->getParameter($placeholder);
+            }
+        }
         $result = call_user_func_array($callback, array_values($arguments));
         return is_string($result) ? [
           '#markup' => Markup::create($result),

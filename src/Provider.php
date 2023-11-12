@@ -19,7 +19,6 @@ use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Path\CurrentPathStack;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
-use Retrofit\Drupal\Routing\Enhancer\ParamConversionEnhancer;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
 use Retrofit\Drupal\Template\RetrofitExtension;
@@ -44,6 +43,7 @@ class Provider extends ServiceProviderBase
 
         $container
           ->register(HookMenuRoutes::class)
+          ->addArgument(new Reference('module_handler'))
           ->setAutowired(true)
           ->addTag('event_subscriber');
 
@@ -56,12 +56,6 @@ class Provider extends ServiceProviderBase
           ->addArgument(new Reference('language_manager'))
           ->addArgument(new Reference('module_handler'))
           ->addTag('event_subscriber');
-
-        $container->setDefinition(
-            ParamConversionEnhancer::class,
-            (new ChildDefinition('route_enhancer.param_conversion'))
-            ->setDecoratedService('route_enhancer.param_conversion')
-        );
 
         $container
           ->register(PageArgumentsConverter::class)

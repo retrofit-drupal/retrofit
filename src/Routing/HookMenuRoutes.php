@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Routing;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Routing\RouteSubscriberBase;
 use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Symfony\Component\Routing\Route;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\RouteCollection;
 final class HookMenuRoutes extends RouteSubscriberBase
 {
     public function __construct(
+        private readonly ModuleHandlerInterface $moduleHandler,
         private readonly HookMenuRegistry $hookMenuRegistry
     ) {
     }
@@ -31,62 +33,100 @@ final class HookMenuRoutes extends RouteSubscriberBase
         }
     }
 
+    /**
+     * @param array{
+     *   'page callback': string|string[],
+     *   'page arguments'?: array<int|string>,
+     *   'load arguments'?: array<int|string>,
+     *   title?: string,
+     *   'title callback'?: string|string[],
+     *   'title arguments'?: array<int|string>,
+     *   'access callback'?: string|string[]|bool,
+     *   'access arguments'?: array<int|string>,
+     *   file?: string,
+     *   'file path'?: string
+     * } $definition
+     */
     private function convertToRoute(string $module, string $path, array $definition): Route
     {
-        $pageArguments = $definition['page arguments'] ?? [];
+        $definition += [
+            'page arguments' => [],
+            'load arguments' => [],
+            'title' => '',
+            'title callback' => '',
+            'title arguments' => [],
+            'access callback' => '',
+            'access arguments' => [],
+            'file path' => $this->moduleHandler->getModule($module)->getPath(),
+        ];
+        $loadArguments = $definition['load arguments'];
         $parameters = [];
         $pathParts = [];
         foreach (explode('/', $path) as $key => $item) {
             if (!str_starts_with($item, '%')) {
                 $pathParts[] = $item;
             } else {
+                $parameter = ['converter' => PageArgumentsConverter::class];
                 $placeholder = substr($item, 1);
                 if ($placeholder === '') {
                     $placeholder = "arg$key";
+                } else {
+                    $parameter += [
+                        'load arguments' => &$loadArguments,
+                        'index' => $key,
+                    ];
                 }
-                $parameters[$placeholder] = [
-                  'type' => $placeholder === '' ? $key : $placeholder,
-                  'converter' => PageArgumentsConverter::class,
-                  'load arguments' => $definition['load arguments'] ?? [],
-                  'index' => $key,
-                ];
+                $parameters[$placeholder] = $parameter;
                 $pathParts[] = '{' . $placeholder . '}';
             }
         }
+        foreach ($loadArguments as &$loadArgument) {
+            $loadArgument = match (true) {
+                is_int($loadArgument) => $pathParts[$loadArgument],
+                $loadArgument === 'map' => $pathParts,
+                default => $loadArgument,
+            };
+        }
+        $pageArguments = $definition['page arguments'];
+        foreach ($pageArguments as &$pageArgument) {
+            if (is_int($pageArgument)) {
+                $pageArgument = $pathParts[$pageArgument];
+            }
+        }
+        if (isset($definition['file'])) {
+            @include_once $definition['file path'] . '/' . $definition['file'];
+        }
         $route = new Route('/' . implode('/', $pathParts));
-        $route->setDefault('_title', $definition['title'] ?? '');
+        $route->setDefault('_title', $definition['title']);
 
-        $titleCallback = $definition['title callback'] ?? '';
-        if ($titleCallback !== '') {
+        if ($definition['title callback'] !== '') {
             $route->setDefault('_title_callback', '\Retrofit\Drupal\Controller\PageCallbackController::getTitle');
-            $titleArguments = $definition['title arguments'] ?? [];
+            $titleArguments = $definition['title arguments'];
             foreach ($titleArguments as &$titleArgument) {
                 if (is_int($titleArgument)) {
                     $titleArgument = $pathParts[$titleArgument];
                 }
             }
-            $route->setDefault('_custom_title_callback', $titleCallback);
+            $route->setDefault('_custom_title_callback', $definition['title callback']);
             $route->setDefault('_custom_title_arguments', $titleArguments);
         }
 
-        $pageCallback = $definition['page callback'] ?? '';
-        if ($pageCallback === 'drupal_get_form') {
+        if ($definition['page callback'] === 'drupal_get_form') {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\DrupalGetFormController::getForm');
             $route->setDefault('_form_id', array_shift($pageArguments));
         } else {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\PageCallbackController::getPage');
-            $route->setDefault('_menu_callback', $pageCallback);
+            $route->setDefault('_menu_callback', $definition['page callback']);
         }
 
-        $accessCallback = $definition['access callback'] ?? '';
-        $accessArguments = $definition['access arguments'] ?? [];
-        if ($accessCallback === '' || $accessCallback === 'user_access') {
-            $route->setRequirement('_permission', reset($accessArguments) ?: '');
-        } elseif (is_bool($accessCallback)) {
-            $route->setRequirement('_access', $accessCallback ? 'TRUE' : 'FALSE');
+        $accessArguments = $definition['access arguments'];
+        if ($definition['access callback'] === '' || $definition['access callback'] === 'user_access') {
+            $route->setRequirement('_permission', (string) reset($accessArguments) ?: '');
+        } elseif (is_bool($definition['access callback'])) {
+            $route->setRequirement('_access', $definition['access callback'] ? 'TRUE' : 'FALSE');
         } else {
             $route->setRequirement('_custom_access', '\Retrofit\Drupal\Access\CustomControllerAccessCallback::check');
-            $route->setDefault('_custom_access_callback', $accessCallback);
+            $route->setDefault('_custom_access_callback', $definition['access callback']);
             foreach ($accessArguments as &$accessArgument) {
                 if (is_int($accessArgument)) {
                     $accessArgument = $pathParts[$accessArgument];
@@ -97,17 +137,10 @@ final class HookMenuRoutes extends RouteSubscriberBase
 
         $route->setOption('module', $module);
         if (isset($definition['file'])) {
+            $route->setOption('file path', $definition['file path']);
             $route->setOption('file', $definition['file']);
         }
-        if (count($parameters) === 0 && count($pageArguments) > 0) {
-            foreach ($pageArguments as $key => $pageArgument) {
-                $parameters["arg$key"] = [
-                  'type' => $pageArgument,
-                  'converter' => PageArgumentsConverter::class,
-                ];
-                $route->setDefault("arg$key", $pageArgument);
-            }
-        }
+        $route->setDefault('_custom_page_arguments', $pageArguments);
         if (count($parameters) > 0) {
             $route->setOption('parameters', $parameters);
         }

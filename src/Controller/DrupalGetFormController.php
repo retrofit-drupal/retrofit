@@ -6,7 +6,6 @@ namespace Retrofit\Drupal\Controller;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Retrofit\Drupal\Form\ArrayAccessFormState;
@@ -17,8 +16,7 @@ final class DrupalGetFormController implements ContainerInjectionInterface
 {
     public function __construct(
         private readonly ClassResolverInterface $classResolver,
-        private readonly FormBuilderInterface $formBuilder,
-        private readonly ModuleHandlerInterface $moduleHandler
+        private readonly FormBuilderInterface $formBuilder
     ) {
     }
 
@@ -26,8 +24,7 @@ final class DrupalGetFormController implements ContainerInjectionInterface
     {
         return new self(
             $container->get('class_resolver'),
-            $container->get('form_builder'),
-            $container->get('module_handler')
+            $container->get('form_builder')
         );
     }
 
@@ -36,10 +33,7 @@ final class DrupalGetFormController implements ContainerInjectionInterface
         $route = $routeMatch->getRouteObject();
         assert($route !== null);
         if ($route->hasOption('file')) {
-            $modulePath = $this->moduleHandler->getModule(
-                $route->getOption('module')
-            )->getPath();
-            $includePath = $modulePath . '/' . $route->getOption('file');
+            $includePath = $route->getOption('file path') . '/' . $route->getOption('file');
             if (file_exists($includePath)) {
                 require_once $includePath;
             }
@@ -49,8 +43,13 @@ final class DrupalGetFormController implements ContainerInjectionInterface
         );
         $form_object->setFormId($route->getDefault('_form_id'));
         $form_state = new ArrayAccessFormState();
-        $args = $routeMatch->getRawParameters()->all();
-        $form_state->addBuildInfo('args', array_values($args));
+        $arguments = (array) $route->getDefault('_custom_page_arguments');
+        foreach ($arguments as &$argument) {
+            if (is_string($argument) && $placeholder = preg_filter('/(^{)(.*)(}$)/', '$2', $argument)) {
+                $argument = $routeMatch->getParameter($placeholder);
+            }
+        }
+        $form_state->addBuildInfo('args', array_values($arguments));
         return $this->formBuilder->buildForm($form_object, $form_state);
     }
 }

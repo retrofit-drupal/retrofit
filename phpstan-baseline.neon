@@ -16,11 +16,6 @@ parameters:
 			path: src/Controller/DrupalGetFormController.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:create\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
@@ -37,11 +32,6 @@ parameters:
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getTitle\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
 
@@ -512,16 +502,6 @@ parameters:
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:alterRoutes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Routing/HookMenuRoutes.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:convertToRoute\\(\\) has parameter \\$definition with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Routing/HookMenuRoutes.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
 			count: 1
 			path: src/Routing/HookMenuRoutes.php
 
