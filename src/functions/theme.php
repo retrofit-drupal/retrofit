@@ -26,9 +26,6 @@ function list_themes(bool $refresh = false): array
 function theme(string $hook, array $variables = []): MarkupInterface|string
 {
     $build['#theme'] = $hook;
-    if (function_exists('retrofit_preprocess_' . $hook)) {
-        ('retrofit_preprocess_' . $hook)($variables);
-    }
     foreach ($variables as $key => $variable) {
         $build["#$key"] = $variable;
     }

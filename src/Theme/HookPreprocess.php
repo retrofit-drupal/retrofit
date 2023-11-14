@@ -87,7 +87,6 @@ final class HookPreprocess
                 $variables['heading']['attributes']['class'] = $variables['heading']['class'];
                 unset($variables['heading']['class']);
             }
-            $links['#heading'] = $variables['heading'];
         }
     }
 }
