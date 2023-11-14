@@ -55,4 +55,39 @@ final class HookPreprocess
             ->load($variables['elements']['#id']);
         $variables['block'] = new WrappedConfigEntity($block);
     }
+
+    /**
+     * @param array{
+     *      links?: array{title: string, html?: bool, href?: string, attributes?: array{class?: string[]}},
+     *      heading?: mixed[]
+     * } $variables
+     */
+    public static function links(array &$variables): void
+    {
+        if (!empty($variables['links'])) {
+            foreach ($variables['links'] as $key => &$link) {
+                $link += ['attributes' => []];
+                $link['attributes']['class'][] = $key;
+                if (isset($link['html']) && !empty($link['html'])) {
+                    $link['title'] = ['#markup' => $link['title']];
+                    unset($link['html']);
+                }
+                if (
+                    isset($link['href'])
+                    && ($url = \Drupal::pathValidator()->getUrlIfValidWithoutAccessCheck($link['href']))
+                ) {
+                    $url->mergeOptions($link);
+                    $link['url'] = $url;
+                    unset($link['href']);
+                }
+            }
+        }
+        if (!empty($variables['heading'])) {
+            if (!empty($variables['heading']['class'])) {
+                $variables['heading']['attributes']['class'] = $variables['heading']['class'];
+                unset($variables['heading']['class']);
+            }
+            $links['#heading'] = $variables['heading'];
+        }
+    }
 }
