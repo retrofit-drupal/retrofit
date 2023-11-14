@@ -41,4 +41,3 @@ function path_to_theme(): string
 {
     return \Drupal::theme()->getActiveTheme()->getPath();
 }
-
