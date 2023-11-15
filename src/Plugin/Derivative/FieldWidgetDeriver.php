@@ -37,7 +37,10 @@ final class FieldWidgetDeriver extends DeriverBase implements ContainerDeriverIn
                     $derivative = $base_plugin_definition;
                     $derivative['label'] = $definition['label'] ?? '';
                     $derivative['description'] = $definition['description'] ?? '';
-                    $derivative['field types'] = $definition['field types'] ?? [];
+                    $derivative['field_types'] = array_map(
+                        static fn (string $type) => "retrofit_field:$type",
+                        $definition['field types'] ?? []
+                    );
                     $derivative['multiple_values'] = isset($definition['behaviors']['multiple values'])
                         && $definition['behaviors']['multiple values'] == FIELD_BEHAVIOR_CUSTOM;
                     $derivative['weight'] = $definition['weight'] ?? null;
