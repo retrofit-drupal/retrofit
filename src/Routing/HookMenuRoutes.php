@@ -100,7 +100,40 @@ final class HookMenuRoutes extends RouteSubscriberBase
                 require_once $definition['include file'];
             }
         }
-        $route = new Route('/' . implode('/', $pathParts));
+        $defaults = [];
+        $pageCallback = match ($definition['page callback']) {
+            'drupal_get_form' => array_shift($pageArguments),
+            default => $definition['page callback'],
+        };
+        if (is_callable($pageCallback)) {
+            $skip = $definition['page callback'] === 'drupal_get_form' ? 2 : 0;
+            $reflectedPageCallback = match (true) {
+                is_array($pageCallback) => new \ReflectionMethod(...$pageCallback),
+                strpos($pageCallback, '::') !== false => new \ReflectionMethod(
+                    ...explode('::', $pageCallback, 2)
+                ),
+                default => new \ReflectionFunction($pageCallback),
+            };
+            foreach (
+                array_slice(
+                    $reflectedPageCallback->getParameters(),
+                    count($pageArguments) + $skip,
+                    null,
+                    true
+                ) as $key => $arg
+            ) {
+                $placeholder = "arg$key";
+                $parameters[$placeholder] = [
+                    'converter' => PageArgumentsConverter::class,
+                ];
+                $pathParts[] = '{' . $placeholder . '}';
+                $pageArguments[] = '{' . $placeholder . '}';
+                if ($arg->isOptional()) {
+                    $defaults[$placeholder] = $arg->getDefaultValue();
+                }
+            }
+        }
+        $route = new Route('/' . implode('/', $pathParts), $defaults);
         $route->setDefault('_title', $definition['title']);
 
         if ($definition['title callback'] !== '') {
@@ -117,7 +150,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
 
         if ($definition['page callback'] === 'drupal_get_form') {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\DrupalGetFormController::getForm');
-            $route->setDefault('_form_id', array_shift($pageArguments));
+            $route->setDefault('_form_id', $pageCallback);
         } else {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\PageCallbackController::getPage');
             $route->setDefault('_menu_callback', $definition['page callback']);
