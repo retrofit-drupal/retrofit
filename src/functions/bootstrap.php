@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Controller\TitleResolverInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
@@ -97,6 +98,19 @@ function drupal_get_title(): array|string|\Stringable|null
     }
 
     return $titleResolver->getTitle(\Drupal::request(), $route);
+}
+
+/**
+ * @param array<string, string> $args
+ */
+function format_string(string $string, array $args = array()): MarkupInterface
+{
+    return new FormattableMarkup($string, $args);
+}
+
+function request_uri(): string
+{
+    return \Drupal::request()->getRequestUri();
 }
 
 /**
