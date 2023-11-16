@@ -60,4 +60,5 @@ const BLOCK_VISIBILITY_PHP = 2;
 
 require_once __DIR__ . '/constants/bootstrap.php';
 require_once __DIR__ . '/constants/comment.php';
+require_once __DIR__ . '/constants/common.php';
 require_once __DIR__ . '/constants/file.php';
