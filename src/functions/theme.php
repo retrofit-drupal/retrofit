@@ -3,7 +3,22 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Extension\Extension;
+use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
+
+/**
+ * @return array<string, mixed[]>
+ */
+function list_themes(bool $refresh = false): array
+{
+    $list = [];
+    $service = \Drupal::service('theme_handler');
+    if ($service instanceof ThemeHandlerInterface) {
+        $list = array_map(fn(Extension $theme) => get_object_vars($theme), $service->listInfo());
+    };
+    return $list;
+}
 
 /**
  * @param array<string, mixed> $variables
