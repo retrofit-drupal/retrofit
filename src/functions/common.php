@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
@@ -393,6 +394,11 @@ function drupal_goto(string $path = '', array $options = [], int $http_response_
         $response = new RedirectResponse($goto, $http_response_code);
         throw new EnforcedResponseException($response);
     }
+}
+
+function drupal_json_decode(string $var): mixed
+{
+    return Json::decode($var);
 }
 
 /**
