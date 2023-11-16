@@ -10,22 +10,26 @@ use Symfony\Component\Routing\Route;
 
 final class RetrofitTitleResolver implements TitleResolverInterface
 {
-    private string $storedTitle = '';
+    /**
+     * @var array<string, string>
+     */
+    private array $storedTitle = [];
 
     public function __construct(
         private readonly TitleResolverInterface $inner,
     ) {
     }
 
-    public function setStoredTitle(string $title): void
+    public function setStoredTitle(string $title, Request $request): void
     {
-        $this->storedTitle = $title;
+        $this->storedTitle[$request->getPathInfo()] = $title;
     }
 
     public function getTitle(Request $request, Route $route): array|string|\Stringable|null
     {
-        if ($this->storedTitle !== '') {
-            return $this->storedTitle;
+        $path = $request->getPathInfo();
+        if (isset($this->storedTitle[$path])) {
+            return $this->storedTitle[$path];
         }
         return $this->inner->getTitle($request, $route);
     }

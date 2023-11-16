@@ -49,7 +49,7 @@ final class RetrofitTitleResolverTest extends IntegrationTestCase
             Request::create('/'),
             $this->createMock(Route::class)
         ));
-        $titleResolver->setStoredTitle('foo');
+        $titleResolver->setStoredTitle('foo', Request::create('/'));
         self::assertEquals('foo', $titleResolver->getTitle(
             Request::create('/'),
             $this->createMock(Route::class)
