@@ -94,6 +94,11 @@ function drupal_get_title(): array|string|\Stringable|null
     return $titleResolver->getTitle(\Drupal::request(), $route);
 }
 
+function request_uri(): string
+{
+    return \Drupal::request()->getRequestUri();
+}
+
 /**
  * @param mixed[] $variables
  */
