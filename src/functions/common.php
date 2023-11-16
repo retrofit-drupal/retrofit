@@ -376,6 +376,14 @@ function drupal_get_library(string $module, ?string $name = null): array|false
     return $libraryDiscovery->getLibrariesByExtension($module);
 }
 
+/**
+ * @return array<int|string, mixed>
+ */
+function drupal_get_query_array(string $query): array
+{
+    parse_str($query, $result);
+    return $result;
+}
 
 /**
  * @param array<string, mixed> $options
