@@ -59,6 +59,11 @@ function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array
     }
 }
 
+function drupal_is_https(): bool
+{
+    return \Drupal::request()->isSecure();
+}
+
 function get_t(): string
 {
     return 't';
