@@ -65,7 +65,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
         $pageCallback = $definition['page callback'] ?? '';
         if ($pageCallback === 'drupal_get_form') {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\DrupalGetFormController::getForm');
-            $route->setDefault('_form_id', array_shift($pageArguments));
+            $route->setOption('form_id', array_shift($pageArguments));
         } else {
             $route->setDefault('_controller', '\Retrofit\Drupal\Controller\PageCallbackController::getPage');
             $route->setDefault('_menu_callback', $pageCallback);
