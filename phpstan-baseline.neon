@@ -171,6 +171,21 @@ parameters:
 			path: src/ParamConverter/PageArgumentsConverter.php
 
 		-
+			message: "#^Cannot access offset 'path' on mixed\\.$#"
+			count: 1
+			path: src/Path/CurrentPathStack.php
+
+		-
+			message: "#^Cannot call method getPathInfo\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: src/Path/CurrentPathStack.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Path\\\\CurrentPathStack\\:\\:getPath\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Path/CurrentPathStack.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Block/Block.php
