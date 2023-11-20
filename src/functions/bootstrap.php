@@ -72,13 +72,11 @@ function get_t(): string
 
 function drupal_set_title(?string $title = null, int $output = CHECK_PLAIN): array|string|\Stringable|null
 {
-    $request = \Drupal::request();
-
     $titleResolver = \Drupal::service('title_resolver');
     assert($titleResolver instanceof TitleResolverInterface);
     if ($title !== null && $titleResolver instanceof RetrofitTitleResolver) {
         $storedTitle = ($output === PASS_THROUGH) ? $title : check_plain($title);
-        $titleResolver->setStoredTitle($storedTitle, $request);
+        $titleResolver->setStoredTitle($storedTitle);
     }
 
     $route = \Drupal::routeMatch()->getRouteObject();
@@ -86,7 +84,7 @@ function drupal_set_title(?string $title = null, int $output = CHECK_PLAIN): arr
         return null;
     }
 
-    return $titleResolver->getTitle($request, $route);
+    return $titleResolver->getTitle(\Drupal::request(), $route);
 }
 
 function drupal_get_title(): array|string|\Stringable|null
