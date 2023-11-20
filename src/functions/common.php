@@ -409,6 +409,11 @@ function drupal_json_decode(string $var): mixed
     return Json::decode($var);
 }
 
+function drupal_json_encode(mixed $var): string
+{
+    return Json::encode($var);
+}
+
 /**
  * @param array<string, mixed>|object $record
  * @param string[] $primary_keys
