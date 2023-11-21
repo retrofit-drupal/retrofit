@@ -23,6 +23,11 @@ use Retrofit\Drupal\DB;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+function drupal_encode_path(string $path): string
+{
+    return UrlHelper::encodePath($path);
+}
+
 /**
  * @todo flush out
  * this cannot call Url objects because they may generate routes and could
