@@ -26,8 +26,8 @@ final class GlobalLanguageContentSetter implements EventSubscriberInterface
 
     public function setGlobalLanguageContent(RequestEvent $event): void
     {
-        if (!isset($GLOBALS['language_content'])) {
-            $GLOBALS['language_content'] = new GlobalLanguageContent($this->languageManager);
+        if (!isset($GLOBALS['language'])) {
+            $GLOBALS['language'] = new GlobalLanguageContent($this->languageManager);
         }
     }
 }

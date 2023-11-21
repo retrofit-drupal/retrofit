@@ -15,7 +15,7 @@ final class GlobalLanguageContentTest extends IntegrationTestCase
     public function testGlobalLanguageContent(): void
     {
         $this->doRequest(Request::create('/'));
-        $this->assertArrayHasKey('language_content', $GLOBALS);
-        self::assertEquals('en', $GLOBALS['language_content']->language);
+        $this->assertArrayHasKey('language', $GLOBALS);
+        self::assertEquals('en', $GLOBALS['language']->language);
     }
 }
