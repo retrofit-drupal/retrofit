@@ -57,7 +57,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
             'title arguments' => [],
             'access callback' => '',
             'access arguments' => [],
-            'file path' => $this->moduleHandler->getModule($module)->getPath(),
+            'file path' => '',
         ];
         $loadArguments = $definition['load arguments'];
         $parameters = [];
@@ -94,7 +94,11 @@ final class HookMenuRoutes extends RouteSubscriberBase
             }
         }
         if (isset($definition['file'])) {
-            @include_once $definition['file path'] . '/' . $definition['file'];
+            $filePath = $definition['file path'] ?: $this->moduleHandler->getModule($module)->getPath();
+            $definition['include file'] = $filePath . '/' . $definition['file'];
+            if (file_exists($definition['include file'])) {
+                require_once $definition['include file'];
+            }
         }
         $route = new Route('/' . implode('/', $pathParts));
         $route->setDefault('_title', $definition['title']);
@@ -136,9 +140,8 @@ final class HookMenuRoutes extends RouteSubscriberBase
         }
 
         $route->setOption('module', $module);
-        if (isset($definition['file'])) {
-            $route->setOption('file path', $definition['file path']);
-            $route->setOption('file', $definition['file']);
+        if (isset($definition['include file'])) {
+            $route->setOption('include file', $definition['include file']);
         }
         $route->setDefault('_custom_page_arguments', $pageArguments);
         if (count($parameters) > 0) {

@@ -39,8 +39,9 @@ final class PageCallbackController implements ContainerInjectionInterface
     {
         $route = $routeMatch->getRouteObject();
         assert($route !== null);
-        if ($route->hasOption('file')) {
-            $includePath = $route->getOption('file path') . '/' . $route->getOption('file');
+        if ($route->hasOption('include file')) {
+            $includePath = $route->getOption('include file');
+            assert(is_string($includePath));
             if (file_exists($includePath)) {
                 require_once $includePath;
             }
