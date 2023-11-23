@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 
 function drupal_realpath(string $uri): string|false
 {
@@ -27,4 +28,11 @@ function file_scan_directory(string $dir, string $mask, array $options = []): ar
         $files = \Drupal::service('file_system')->scanDirectory($dir, $mask, $options);
     }
     return $files;
+}
+
+function file_uri_target(string $uri): string|bool
+{
+    $service = \Drupal::service('stream_wrapper_manager');
+    assert($service instanceof StreamWrapperManagerInterface);
+    return $service->getTarget($uri);
 }
