@@ -7,6 +7,7 @@ namespace Retrofit\Drupal\Tests\Integration;
 use mglaman\DrupalTestHelpers\RequestTrait;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 
 final class RetrofitTitleResolverTest extends IntegrationTestCase
@@ -45,13 +46,17 @@ final class RetrofitTitleResolverTest extends IntegrationTestCase
             RetrofitTitleResolver::class,
             $titleResolver
         );
+        $requestStack = $this->container->get('request_stack');
+        assert($requestStack instanceof RequestStack);
+        $request = $requestStack->getCurrentRequest();
+        assert($request instanceof Request);
         self::assertEquals(null, $titleResolver->getTitle(
-            Request::create('/'),
+            $request,
             $this->createMock(Route::class)
         ));
         $titleResolver->setStoredTitle('foo');
         self::assertEquals('foo', $titleResolver->getTitle(
-            Request::create('/'),
+            $request,
             $this->createMock(Route::class)
         ));
     }
