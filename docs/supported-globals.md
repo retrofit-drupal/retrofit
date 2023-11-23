@@ -6,4 +6,4 @@
 
 # Language
 
-`\Retrofit\Drupal\Language\GlobalLanguageContent` allows using `global $language` in Drupal 7 code as normal.
+`\Retrofit\Drupal\Language\GlobalLanguage` allows using `global $language` in Drupal 7 code as normal.
