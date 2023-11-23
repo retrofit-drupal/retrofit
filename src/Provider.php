@@ -122,7 +122,8 @@ class Provider extends ServiceProviderBase
 
         $container->register(RetrofitTitleResolver::class)
             ->setDecoratedService('title_resolver')
-            ->addArgument(new Reference(RetrofitTitleResolver::class . '.inner'));
+            ->addArgument(new Reference(RetrofitTitleResolver::class . '.inner'))
+            ->addArgument(new Reference('request_stack'));
 
         $container->setDefinition(
             FormBuilder::class,

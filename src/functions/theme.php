@@ -8,14 +8,14 @@ use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
 
 /**
- * @return array<string, mixed[]>
+ * @return array<string, Extension>
  */
 function list_themes(bool $refresh = false): array
 {
     $list = [];
     $service = \Drupal::service('theme_handler');
     if ($service instanceof ThemeHandlerInterface) {
-        $list = array_map(fn(Extension $theme) => get_object_vars($theme), $service->listInfo());
+        $list = $service->listInfo();
     };
     return $list;
 }
