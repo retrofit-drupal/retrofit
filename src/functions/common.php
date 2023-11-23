@@ -23,6 +23,11 @@ use Retrofit\Drupal\DB;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+function drupal_encode_path(string $path): string
+{
+    return UrlHelper::encodePath($path);
+}
+
 /**
  * @todo flush out
  * this cannot call Url objects because they may generate routes and could
@@ -237,16 +242,18 @@ function drupal_add_js(array|string|null $data = null, array|string|null $option
 
         case 'inline':
             $attachment_subscriber->addAttachments([
-                'js' => [$options],
+                'js' => $options,
             ]);
             break;
 
         default:
-            $attachment_subscriber->addAttachments([
-                'js' => [
-                    $options['data'] => $options,
-                ],
-            ]);
+            if (is_string($data)) {
+                $attachment_subscriber->addAttachments([
+                    'js' => [
+                        $data => $options,
+                    ],
+                ]);
+            }
     }
     return [];
 }
