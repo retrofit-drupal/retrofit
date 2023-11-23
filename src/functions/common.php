@@ -237,16 +237,18 @@ function drupal_add_js(array|string|null $data = null, array|string|null $option
 
         case 'inline':
             $attachment_subscriber->addAttachments([
-                'js' => [$options],
+                'js' => $options,
             ]);
             break;
 
         default:
-            $attachment_subscriber->addAttachments([
-                'js' => [
-                    $options['data'] => $options,
-                ],
-            ]);
+            if (is_string($data)) {
+                $attachment_subscriber->addAttachments([
+                    'js' => [
+                        $data => $options,
+                    ],
+                ]);
+            }
     }
     return [];
 }
