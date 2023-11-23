@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Drupal\Core\File\FileSystemInterface;
 
-function drupal_realpath(string $path): string|false
+function drupal_realpath(string $uri): string|false
 {
     $service = \Drupal::service('file_system');
-    return $service instanceof FileSystemInterface ? $service->realpath($path) : false;
+    return !empty($uri) && $service instanceof FileSystemInterface ? $service->realpath($uri) : false;
 }
 
 function file_prepare_directory(string &$directory, ?int $options = FileSystemInterface::MODIFY_PERMISSIONS): bool
