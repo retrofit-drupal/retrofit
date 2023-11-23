@@ -13,6 +13,13 @@ function check_plain(MarkupInterface|\Stringable|string $text): string
     return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
 }
 
+function conf_path(bool $require_settings = true, bool $reset = false): string
+{
+    $conf = \Drupal::getContainer()->getParameter('site.path');
+    assert(is_string($conf));
+    return $conf;
+}
+
 function drupal_get_filename(string $type, string $name, ?string $filename = null, bool $trigger_error = false): ?string
 {
     $pathResolver = \Drupal::service('extension.path.resolver');
