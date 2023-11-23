@@ -151,11 +151,6 @@ parameters:
 			path: src/Form/DrupalGetForm.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Language\\\\GlobalLanguageContent\\:\\:__get\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Language/GlobalLanguageContent.php
-
-		-
 			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/Menu/LocalActionManager.php
@@ -1092,8 +1087,8 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$language on mixed\\.$#"
-			count: 1
-			path: tests/src/Integration/Language/GlobalLanguageContentTest.php
+			count: 3
+			path: tests/src/Integration/Language/GlobalLanguageTest.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:build\\(\\)\\.$#"
