@@ -10,33 +10,21 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class CurrentPathStack extends CoreCurrentPathStack
 {
-    public function __construct(RequestStack $request_stack)
-    {
-        parent::__construct($request_stack);
-        if ($request = $request_stack->getCurrentRequest()) {
-            $_GET['q'] = $request->getPathInfo();
-            $this->paths[$request] = ['path' => &$_GET['q']];
-        }
-    }
-
     public function getPath(?Request $request = null): string
     {
-        if (!isset($request)) {
-            $request = $this->requestStack->getCurrentRequest();
-        }
-        if (!isset($this->paths[$request])) {
-            $this->paths[$request] = ['path' => $request->getPathInfo()];
-        }
+        $request ??= $this->requestStack->getCurrentRequest();
+        assert($request instanceof Request);
+        $this->paths[$request] ??= ['path' => $request->getPathInfo()];
+        assert(is_array($this->paths[$request]) && is_string($this->paths[$request]['path']));
         return $this->paths[$request]['path'];
     }
 
     public function setPath($path, ?Request $request = null): static
     {
-        if (!isset($request)) {
-            $request = $this->requestStack->getCurrentRequest();
-        }
-        $this->paths[$request] = ['path' => $path];
-
+        $request ??= $this->requestStack->getCurrentRequest();
+        assert($request instanceof Request);
+        $_GET['q'] = $request->getPathInfo();
+        $this->paths[$request] = ['path' => &$_GET['q']];
         return $this;
     }
 }
