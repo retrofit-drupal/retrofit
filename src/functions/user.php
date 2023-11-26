@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Retrofit\Drupal\Entity\Role;
 
 function user_access(string $string, ?AccountInterface $account = null): bool
 {

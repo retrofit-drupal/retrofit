@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Retrofit\Drupal\User;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\user\Entity\Role;
+use Retrofit\Drupal\Entity\Role;
 
 final class GlobalUser implements AccountInterface
 {
@@ -21,16 +21,7 @@ final class GlobalUser implements AccountInterface
 
     public function getRoles($exclude_locked_roles = false)
     {
-        $roles = $this->inner->getRoles($exclude_locked_roles);
-        // Drupal 7 appended `user` to locked roles, so we need to do the same.
-        if (!$exclude_locked_roles) {
-            if ($this->isAuthenticated()) {
-                $roles[] = 'authenticated user';
-            } else {
-                $roles[] = 'anonymous user';
-            }
-        }
-        return $roles;
+        return $this->inner->getRoles($exclude_locked_roles);
     }
 
     public function hasPermission($permission)
@@ -83,10 +74,20 @@ final class GlobalUser implements AccountInterface
         return $this->inner->getLastAccessedTime();
     }
 
-    public function __get(string $name)
+    public function __get(string $name): mixed
     {
         return match ($name) {
-            'roles' => array_combine($this->getRoles(), array_map([Role::class, 'load'], $this->getRoles())),
+            'roles' => array_map(
+                fn($role) => match ($role->id()) {
+                    'anonymous',
+                    'authenticated' => strtolower((string) $role->label()),
+                    default => (string) $role->label(),
+                },
+                array_filter(array_map(
+                    [Role::class, 'load'],
+                    array_combine($this->getRoles(), $this->getRoles())
+                ))
+            ),
             'name' => $this->getAccountName(),
             default => null,
         };

@@ -37,6 +37,7 @@ final class HookMenuRoutesTest extends IntegrationTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->installConfig(['user']);
         $this->config('system.site')
           ->set('name', 'Drupal')
           ->save();

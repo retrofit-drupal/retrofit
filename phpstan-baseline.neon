@@ -526,11 +526,6 @@ parameters:
 			path: src/Theme/HookPreprocess.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/User/GlobalUser.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php

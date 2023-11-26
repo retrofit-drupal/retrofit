@@ -377,7 +377,7 @@ function menu_example_permission() {
  *   True if the acting user has the role specified.
  */
 function menu_example_custom_access($role_name) {
-  $access_granted = array_key_exists($role_name, $GLOBALS['user']->roles);
+  $access_granted = in_array($role_name, $GLOBALS['user']->roles);
   return $access_granted;
 }
 

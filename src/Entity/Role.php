@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Entity;
 
-class Role extends \Drupal\user\Entity\Role
+use Drupal\user\Entity\Role as CoreRole;
+
+class Role extends CoreRole
 {
     public function __toString()
     {
