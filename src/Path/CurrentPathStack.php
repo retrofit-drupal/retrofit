@@ -6,7 +6,6 @@ namespace Retrofit\Drupal\Path;
 
 use Drupal\Core\Path\CurrentPathStack as CoreCurrentPathStack;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class CurrentPathStack extends CoreCurrentPathStack
 {
