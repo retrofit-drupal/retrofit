@@ -9,8 +9,6 @@ parameters:
 		drupal_root: '%currentWorkingDirectory%/vendor/drupal'
 	ignoreErrors:
 		- "#^Class .* extends @internal class#"
-	scanDirectories:
-		- vendor/drupal/core/modules/node/src
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
 	- phpstan-baseline.neon
