@@ -22,7 +22,7 @@ class CurrentPathStack extends CoreCurrentPathStack
     {
         $request ??= $this->requestStack->getCurrentRequest();
         assert($request instanceof Request);
-        $_GET['q'] = $request->getPathInfo();
+        $_GET['q'] = $path;
         $this->paths[$request] = ['path' => &$_GET['q']];
         return $this;
     }
