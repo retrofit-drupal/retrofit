@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Retrofit\Drupal\Form\DrupalGetForm;
-use Retrofit\Drupal\Form\ArrayAccessFormState;
 
 /**
  * @param mixed[] $form_state
