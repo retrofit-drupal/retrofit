@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeTypeInterface;
 
@@ -23,6 +24,16 @@ function node_view($node, $view_mode = 'full', $langcode = null)
     return \Drupal::entityTypeManager()
       ->getViewBuilder('node')
       ->view($node, $view_mode, $langcode);
+}
+
+function node_type_get_name(EntityInterface|string $node): string|false
+{
+    if ($node instanceof EntityInterface) {
+        return $node->bundle();
+    } else {
+        $types = NodeType::loadMultiple();
+        return isset($types[$node]) ? $node : false;
+    }
 }
 
 function node_type_load(string $name): ?NodeTypeInterface
