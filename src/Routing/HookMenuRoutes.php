@@ -66,7 +66,8 @@ final class HookMenuRoutes extends RouteSubscriberBase
         $loadArguments = $definition['load arguments'];
         $pathParts = [];
         $parameters = [];
-        foreach (explode('/', $path) as $key => $item) {
+        $key = 0;
+        foreach (explode('/', $path) as $item) {
             if (!str_starts_with($item, '%')) {
                 $pathParts[] = $item;
             } else {
@@ -83,6 +84,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
                 $parameters[$placeholder] = $parameter;
                 $pathParts[] = '{' . $placeholder . '}';
             }
+            ++$key;
         }
 
         foreach ($loadArguments as &$loadArgument) {
@@ -135,7 +137,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
                     count($pageArguments) + $skip,
                     null,
                     true
-                ) as $key => $arg
+                ) as $arg
             ) {
                 $placeholder = "arg$key";
                 if ($arg->isOptional()) {
@@ -162,6 +164,7 @@ final class HookMenuRoutes extends RouteSubscriberBase
                 $parameters[$placeholder] = ['converter' => PageArgumentsConverter::class];
                 $pathParts[] = '{' . $placeholder . '}';
                 $pageArguments[] = '{' . $placeholder . '}';
+                ++$key;
             }
         }
 
