@@ -61,6 +61,13 @@ final class Registry extends CoreRegistry
                 $cache[$theme_hook]['path'] = '@retrofit';
             }
         }
+
+        $cache['form_required_marker'] = [
+            'render element' => 'element',
+            'type' => 'module',
+            'template' => 'theme-function',
+            'path' => '@retrofit',
+        ];
     }
 
     /**
