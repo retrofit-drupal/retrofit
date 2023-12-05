@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Field\FieldTypePluginManagerInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldConfigInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -15,18 +16,9 @@ use Drupal\field\FieldStorageConfigInterface;
  */
 function field_create_field(array $field): FieldStorageConfigInterface
 {
-    $info = drupal_static('retrofit_field_info');
-    if (!isset($info)) {
-        $info = [];
-        \Drupal::moduleHandler()->invokeAllWith(
-            'field_info',
-            function (callable $hook, string $module) use (&$info): void {
-                $info += $hook();
-            }
-        );
-    }
-    assert(is_array($info));
-    if (isset($info[$field['type']])) {
+    $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+    $info = $field_type_manager->getDefinitions();
+    if (isset($info["retrofit_field:$field[type]"])) {
         $field['type'] = "retrofit_field:$field[type]";
     }
     $field_storage = FieldStorageConfig::create($field + ['entity_type' => 'node']);
