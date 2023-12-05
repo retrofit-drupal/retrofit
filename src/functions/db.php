@@ -92,3 +92,26 @@ function db_table_exists(string $table): bool
 {
     return DB::get()->schema()->tableExists($table);
 }
+
+/**
+ * @param mixed[] $spec
+ * @param mixed[] $keys_new
+ */
+function db_add_field(string $table, string $field, array $spec, array $keys_new = array()): void
+{
+    DB::get()->schema()->addField($table, $field, $spec, $keys_new);
+}
+
+/**
+ * @param mixed[] $spec
+ * @param mixed[] $keys_new
+ */
+function db_change_field(string $table, string $field, string $field_new, array $spec, array $keys_new = array()): void
+{
+    DB::get()->schema()->changeField($table, $field, $field_new, $spec, $keys_new);
+}
+
+function db_field_exists(string $table, string $field): bool
+{
+    return DB::get()->schema()->fieldExists($table, $field);
+}
