@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Theme;
 
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\block\BlockInterface;
+use Drupal\node\NodeInterface;
 use Retrofit\Drupal\Entity\WrappedConfigEntity;
 
 /**
@@ -104,5 +107,60 @@ final class HookPreprocess
                 unset($variables['heading']['class']);
             }
         }
+    }
+
+    /**
+     * @param array{
+     *   node: NodeInterface<string, FieldItemListInterface>,
+     *   teaser: bool,
+     *   url: string,
+     *   author_name?: MarkupInterface,
+     *   author_picture?: mixed[],
+     *   date?: MarkupInterface,
+     *   display_submitted?: bool,
+     *   label?: mixed[]
+     * } $variables
+     */
+    public static function node(array &$variables): void
+    {
+        $node = $variables['node'];
+        $variables['promote'] = $node->isPromoted();
+        $variables['sticky'] = $node->isSticky();
+        $variables['status'] = $node->isPublished();
+        $variables['preview'] = $node->in_preview ?? null;
+        $variables['name'] = $variables['author_name'] ?? '';
+        $variables['node_url'] = $variables['url'];
+        $variables['title'] = $variables['label'] ?? '';
+        $variables['submitted'] = '';
+        $variables['user_picture'] = '';
+        if (!empty($variables['display_submitted'])) {
+            if (isset($variables['date'])) {
+                $variables['submitted'] = t('Submitted by @username on @datetime', [
+                    '@username' => $variables['name'],
+                    '@datetime' => $variables['date'],
+                ]);
+            }
+            if (isset($variables['author_picture'])) {
+                $variables['user_picture'] = render($variables['author_picture']);
+            }
+        }
+        $variables['classes_array'][] = drupal_html_class('node-' . $node->bundle());
+        if ($variables['promote']) {
+            $variables['classes_array'][] = 'node-promoted';
+        }
+        if ($variables['sticky']) {
+            $variables['classes_array'][] = 'node-sticky';
+        }
+        if (!$variables['status']) {
+            $variables['classes_array'][] = 'node-unpublished';
+        }
+        if ($variables['teaser']) {
+            $variables['classes_array'][] = 'node-teaser';
+        }
+        if (isset($variables['preview'])) {
+            $variables['classes_array'][] = 'node-preview';
+        }
+        $variables['theme_hook_suggestions'][] = 'node__' . $node->bundle();
+        $variables['theme_hook_suggestions'][] = 'node__' . $node->id();
     }
 }
