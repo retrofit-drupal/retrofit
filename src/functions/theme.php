@@ -3,19 +3,19 @@
 declare(strict_types=1);
 
 use Drupal\Component\Render\MarkupInterface;
-use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
+use Retrofit\Drupal\Extension\ExtensionWrapper;
 
 /**
- * @return array<string, Extension>
+ * @return array<string, ExtensionWrapper>
  */
 function list_themes(bool $refresh = false): array
 {
     $list = [];
     $service = \Drupal::service('theme_handler');
     if ($service instanceof ThemeHandlerInterface) {
-        $list = $service->listInfo();
+        $list = array_map(ExtensionWrapper::class . '::create', $service->listInfo());
     };
     return $list;
 }
