@@ -14,6 +14,7 @@ require_once __DIR__ . '/functions/module.php';
 require_once __DIR__ . '/functions/namespaced.php';
 require_once __DIR__ . '/functions/node.php';
 require_once __DIR__ . '/functions/path.php';
+require_once __DIR__ . '/functions/system.php';
 require_once __DIR__ . '/functions/taxonomy.php';
 require_once __DIR__ . '/functions/theme.php';
 require_once __DIR__ . '/functions/user.php';
