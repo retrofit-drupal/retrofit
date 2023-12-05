@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Drupal\Core\Language\Language;
-
 // phpcs:ignoreFile
 
 const MENU_IS_ROOT = 0x0001;
@@ -59,8 +57,6 @@ const BLOCK_VISIBILITY_NOTLISTED = 0;
 const BLOCK_VISIBILITY_LISTED = 1;
 
 const BLOCK_VISIBILITY_PHP = 2;
-
-const LANGUAGE_NONE = Language::LANGCODE_NOT_SPECIFIED;
 
 require_once __DIR__ . '/constants/bootstrap.php';
 require_once __DIR__ . '/constants/comment.php';
