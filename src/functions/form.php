@@ -103,3 +103,16 @@ function form_get_errors()
         return $form;
     }
 }
+
+/**
+ * @param mixed[] $variables
+ */
+function theme_form_required_marker(array $variables): string
+{
+    $attributes = [
+        'class' => ['form-item__label', 'form-required'],
+        'style' => 'display: inline',
+        'title' => (string) t('This field is required.'),
+    ];
+    return '<span' . drupal_attributes($attributes) . '></span>';
+}
