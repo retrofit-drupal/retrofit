@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Render\MarkupInterface;
+use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Controller\TitleResolverInterface;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
@@ -65,6 +66,11 @@ function drupal_get_schema(?string $table = null, ?bool $rebuild = false): array
     } else {
         return false;
     }
+}
+
+function drupal_hash_base64(string $data): string
+{
+    return Crypt::hashBase64($data);
 }
 
 function drupal_is_https(): bool
