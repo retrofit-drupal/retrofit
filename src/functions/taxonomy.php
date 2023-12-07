@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy\TermStorageInterface;
@@ -27,12 +28,28 @@ function taxonomy_get_parents($tid)
     );
 }
 
-function taxonomy_get_tree($vid, $parent = 0, $max_depth = null, $load_entities = false)
+/**
+ * @return EntityInterface[]
+ */
+function taxonomy_get_term_by_name(string $name): array
+{
+    $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    assert($storage instanceof TermStorageInterface);
+    return $storage->loadByProperties(['name' => $name]);
+}
+
+/**
+ * @return WrappedContentEntity[]
+ */
+function taxonomy_get_tree(string $vid, int $parent = 0, ?int $max_depth = null, bool $load_entities = false): array
 {
     $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     assert($storage instanceof TermStorageInterface);
     return array_map(
-        static fn (TermInterface $term) => new WrappedContentEntity($term),
+        static function (object $term) {
+            assert($term instanceof TermInterface);
+            return new WrappedContentEntity($term);
+        },
         $storage->loadTree($vid, $parent, $max_depth, $load_entities)
     );
 }
