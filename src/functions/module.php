@@ -15,6 +15,7 @@ function drupal_alter(
     mixed &$context3 = null
 ): void {
     \Drupal::moduleHandler()->alter($type, $data, $context1, $context2);
+    \Drupal::theme()->alter($type, $data, $context1, $context2);
 }
 
 function module_exists(string $module): bool
