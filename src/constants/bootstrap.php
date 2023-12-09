@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\RfcLogLevel;
 
 const CHECK_PLAIN = 0;
+
+const LANGUAGE_NONE = LanguageInterface::LANGCODE_NOT_SPECIFIED;
 
 const PASS_THROUGH = -1;
 

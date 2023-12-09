@@ -321,11 +321,6 @@ parameters:
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:applyDefaultValue\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\.$#"
-			count: 1
-			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
@@ -956,26 +951,6 @@ parameters:
 			path: src/functions/node.php
 
 		-
-			message: "#^Call to method loadParents\\(\\) on an unknown class Drupal\\\\taxonomy\\\\TermStorageInterface\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Call to method loadTree\\(\\) on an unknown class Drupal\\\\taxonomy\\\\TermStorageInterface\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Call to static method loadMultiple\\(\\) on an unknown class Drupal\\\\taxonomy\\\\Entity\\\\Vocabulary\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Class Drupal\\\\taxonomy\\\\TermStorageInterface not found\\.$#"
-			count: 2
-			path: src/functions/taxonomy.php
-
-		-
 			message: "#^Function taxonomy_get_parents\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/functions/taxonomy.php
@@ -986,52 +961,7 @@ parameters:
 			path: src/functions/taxonomy.php
 
 		-
-			message: "#^Function taxonomy_get_tree\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$load_entities with no type specified\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$max_depth with no type specified\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$parent with no type specified\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Function taxonomy_get_tree\\(\\) has parameter \\$vid with no type specified\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
 			message: "#^Function taxonomy_get_vocabularies\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\taxonomy\\\\VocabularyInterface given\\.$#"
-			count: 1
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity constructor expects Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface, Drupal\\\\taxonomy\\\\TermInterface given\\.$#"
-			count: 2
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Parameter \\$term of anonymous function has invalid type Drupal\\\\taxonomy\\\\TermInterface\\.$#"
-			count: 2
-			path: src/functions/taxonomy.php
-
-		-
-			message: "#^Parameter \\$vocabulary of anonymous function has invalid type Drupal\\\\taxonomy\\\\VocabularyInterface\\.$#"
 			count: 1
 			path: src/functions/taxonomy.php
 
