@@ -321,11 +321,6 @@ parameters:
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:applyDefaultValue\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\.$#"
-			count: 1
-			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php

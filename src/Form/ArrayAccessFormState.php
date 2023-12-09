@@ -9,6 +9,11 @@ use Drupal\Core\Url;
 
 final class ArrayAccessFormState extends FormState implements \ArrayAccess
 {
+    public function __construct(bool $errors = false)
+    {
+        static::setAnyErrors($errors);
+    }
+
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->$offset);
