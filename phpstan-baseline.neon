@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController\\:\\:create\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Controller/DrupalGetFormController.php
@@ -16,27 +11,12 @@ parameters:
 			path: src/Controller/DrupalGetFormController.php
 
 		-
-			message: "#^Parameter \\#1 \\$classResolver of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\DependencyInjection\\\\ClassResolverInterface, object given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:buildForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
+			message: "#^Parameter \\#1 \\$formId of method Retrofit\\\\Drupal\\\\Form\\\\DrupalGetForm\\:\\:setFormId\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/Controller/DrupalGetFormController.php
 
 		-
 			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Parameter \\#2 \\$formBuilder of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\Form\\\\FormBuilderInterface, object given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
-			message: "#^Parameter \\#3 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Controller\\\\DrupalGetFormController constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
 			count: 1
 			path: src/Controller/DrupalGetFormController.php
 
@@ -57,11 +37,6 @@ parameters:
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:getTitle\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
 
@@ -101,11 +76,6 @@ parameters:
 			path: src/Entity/WrappedConfigEntity.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__construct\\(\\) has parameter \\$entity with no value type specified in iterable type Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\.$#"
-			count: 1
-			path: src/Entity/WrappedContentEntity.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Entity/WrappedContentEntity.php
@@ -116,8 +86,18 @@ parameters:
 			path: src/Entity/WrappedContentEntity.php
 
 		-
+			message: "#^Plugin definitions cannot be altered\\.$#"
+			count: 1
+			path: src/Field/FieldTypePluginManager.php
+
+		-
 			message: "#^Class Retrofit\\\\Drupal\\\\Form\\\\ArrayAccessFormState implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
 			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
 			path: src/Form/ArrayAccessFormState.php
 
 		-
@@ -151,14 +131,29 @@ parameters:
 			path: src/Form/DrupalGetForm.php
 
 		-
-			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
+			message: "#^Plugin definitions cannot be altered\\.$#"
 			count: 1
 			path: src/Menu/LocalActionManager.php
 
 		-
 			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
+			path: src/Menu/LocalActionManager.php
+
+		-
+			message: "#^Plugin definitions cannot be altered\\.$#"
+			count: 1
 			path: src/Menu/LocalTaskManager.php
+
+		-
+			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: src/Menu/LocalTaskManager.php
+
+		-
+			message: "#^Plugin definitions cannot be altered\\.$#"
+			count: 1
+			path: src/Menu/MenuLinkManager.php
 
 		-
 			message: "#^Property Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
@@ -211,11 +206,6 @@ parameters:
 			path: src/Plugin/Derivative/BlockDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\BlockDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/BlockDeriver.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/FieldFormatterDeriver.php
@@ -224,16 +214,6 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver\\:\\:getDerivativeDefinitions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/FieldFormatterDeriver.php
-
-		-
-			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldFormatterDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/FieldFormatterDeriver.php
-
-		-
-			message: "#^Parameter \\#1 \\$moduleHandler of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\FieldItemDeriver constructor expects Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface, object given\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/FieldItemDeriver.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver\\:\\:getDerivativeDefinitions\\(\\) has parameter \\$base_plugin_definition with no value type specified in iterable type array\\.$#"
@@ -246,12 +226,7 @@ parameters:
 			path: src/Plugin/Derivative/LocalActionDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/LocalActionDeriver.php
-
-		-
-			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/LocalActionDeriver.php
 
@@ -271,12 +246,7 @@ parameters:
 			path: src/Plugin/Derivative/LocalTaskDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
-			count: 1
-			path: src/Plugin/Derivative/LocalTaskDeriver.php
-
-		-
-			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/LocalTaskDeriver.php
 
@@ -291,14 +261,14 @@ parameters:
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
 
 		-
-			message: "#^Parameter \\#2 \\$routeProvider of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Drupal\\\\Core\\\\Routing\\\\RouteProviderInterface, object given\\.$#"
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) has parameter \\$items with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
 			count: 1
-			path: src/Plugin/Derivative/MenuLinkDeriver.php
+			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) has parameter \\$items with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\.$#"
@@ -316,17 +286,17 @@ parameters:
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:__construct\\(\\) has parameter \\$inner with no value type specified in iterable type Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\.$#"
-			count: 1
-			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:calculateStorageDependencies\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:createInstance\\(\\) has parameter \\$parent with generic interface Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface but does not specify its types\\: I, T$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
@@ -406,7 +376,17 @@ parameters:
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:getParent\\(\\) return type with generic interface Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface does not specify its types\\: I, T$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:getRoot\\(\\) return type has no value type specified in iterable type Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:getRoot\\(\\) return type with generic interface Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface does not specify its types\\: I, T$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
@@ -417,6 +397,11 @@ parameters:
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\DecoratedFieldItem\\:\\:setContext\\(\\) has parameter \\$parent with generic interface Drupal\\\\Core\\\\TypedData\\\\TraversableTypedDataInterface but does not specify its types\\: I, T$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
 
@@ -481,6 +466,11 @@ parameters:
 			path: src/Plugin/Field/FieldType/FieldItem.php
 
 		-
+			message: "#^Class Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItemList extends generic class Drupal\\\\Core\\\\Field\\\\FieldItemList but does not specify its types\\: T$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItemList.php
+
+		-
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/FieldItemList.php
@@ -492,6 +482,11 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 'Retrofit\\\\\\\\Drupal' on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
+			count: 1
+			path: src/Provider.php
+
+		-
+			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: src/Provider.php
 
@@ -546,7 +541,7 @@ parameters:
 			path: src/Theme/HookPreprocess.php
 
 		-
-			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\Core\\\\Entity\\\\EntityInterface\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\block\\\\Entity\\\\Block\\|null given\\.$#"
 			count: 1
 			path: src/Theme/HookPreprocess.php
 
@@ -586,12 +581,37 @@ parameters:
 			path: src/functions/bootstrap.php
 
 		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 3
+			path: src/functions/bootstrap.php
+
+		-
 			message: "#^Function drupal_get_title\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
 
 		-
 			message: "#^Function drupal_set_title\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Controller\\\\TitleResolver and Drupal\\\\Core\\\\Controller\\\\TitleResolverInterface will always evaluate to true\\.$#"
+			count: 2
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Controller\\\\TitleResolver and Retrofit\\\\Drupal\\\\Controller\\\\RetrofitTitleResolver will always evaluate to false\\.$#"
+			count: 1
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver and Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
 
@@ -691,7 +711,32 @@ parameters:
 			path: src/functions/cache.php
 
 		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 3
+			path: src/functions/common.php
+
+		-
 			message: "#^Function url\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Asset\\\\LibraryDiscovery and Drupal\\\\Core\\\\Asset\\\\LibraryDiscoveryInterface will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver and Drupal\\\\Core\\\\Extension\\\\ExtensionPathResolver will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Render\\\\Renderer and Drupal\\\\Core\\\\Render\\\\RendererInterface will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Instanceof between string and Drupal\\\\Core\\\\GeneratedUrl will always evaluate to false\\.$#"
 			count: 1
 			path: src/functions/common.php
 
@@ -836,19 +881,24 @@ parameters:
 			path: src/functions/db.php
 
 		-
-			message: "#^Cannot call method prepareDirectory\\(\\) on mixed\\.$#"
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/file.php
 
 		-
-			message: "#^Cannot call method scanDirectory\\(\\) on mixed\\.$#"
+			message: "#^Instanceof between Drupal\\\\Core\\\\File\\\\FileSystem and Drupal\\\\Core\\\\File\\\\FileSystemInterface will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/file.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:setFormId\\(\\)\\.$#"
-			count: 2
-			path: src/functions/form.php
+			message: "#^Instanceof between Drupal\\\\Core\\\\StreamWrapper\\\\StreamWrapperManager and Drupal\\\\Core\\\\StreamWrapper\\\\StreamWrapperManagerInterface will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/file.php
+
+		-
+			message: "#^Parameter \\#2 \\$options of method Drupal\\\\Core\\\\File\\\\FileSystem\\:\\:prepareDirectory\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/functions/file.php
 
 		-
 			message: "#^Function form_get_errors\\(\\) has no return type specified\\.$#"
@@ -861,17 +911,12 @@ parameters:
 			path: src/functions/form.php
 
 		-
-			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:buildForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
-			count: 1
-			path: src/functions/form.php
-
-		-
-			message: "#^Parameter \\#1 \\$form_arg of method Drupal\\\\Core\\\\Form\\\\FormBuilderInterface\\:\\:getForm\\(\\) expects Drupal\\\\Core\\\\Form\\\\FormInterface\\|string, object given\\.$#"
-			count: 1
-			path: src/functions/form.php
-
-		-
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getImplementations\\(\\)\\.$#"
+			count: 1
+			path: src/functions/module.php
+
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/module.php
 
@@ -882,6 +927,11 @@ parameters:
 
 		-
 			message: "#^Function module_implements\\(\\) should return array\\<string\\> but returns mixed\\.$#"
+			count: 1
+			path: src/functions/module.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ModuleExtensionList and Drupal\\\\Core\\\\Extension\\\\ModuleExtensionList will always evaluate to true\\.$#"
 			count: 1
 			path: src/functions/module.php
 
@@ -951,6 +1001,16 @@ parameters:
 			path: src/functions/node.php
 
 		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Path\\\\CurrentPathStack and Drupal\\\\Core\\\\Path\\\\CurrentPathStack will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/path.php
+
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 3
+			path: src/functions/taxonomy.php
+
+		-
 			message: "#^Function taxonomy_get_parents\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/functions/taxonomy.php
@@ -966,37 +1026,42 @@ parameters:
 			path: src/functions/taxonomy.php
 
 		-
+			message: "#^Instanceof between Drupal\\\\taxonomy\\\\TermStorage and Drupal\\\\taxonomy\\\\TermStorageInterface will always evaluate to true\\.$#"
+			count: 3
+			path: src/functions/taxonomy.php
+
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/theme.php
+
+		-
 			message: "#^Function theme\\(\\) never returns string so it can be removed from the return type\\.$#"
 			count: 1
 			path: src/functions/theme.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:createInstance\\(\\)\\.$#"
+			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ThemeHandler and Drupal\\\\Core\\\\Extension\\\\ThemeHandlerInterface will always evaluate to true\\.$#"
 			count: 1
-			path: tests/src/Integration/Block/BlockTest.php
+			path: src/functions/theme.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:hasDefinition\\(\\)\\.$#"
-			count: 3
-			path: tests/src/Integration/Block/BlockTest.php
-
-		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Block\\\\BlockTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Instanceof between Drupal\\\\Core\\\\Render\\\\Renderer and Drupal\\\\Core\\\\Render\\\\RendererInterface will always evaluate to true\\.$#"
 			count: 1
-			path: tests/src/Integration/Block/BlockTest.php
+			path: src/functions/theme.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:insert\\(\\)\\.$#"
-			count: 3
-			path: tests/src/Integration/Database/DbTest.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:schema\\(\\)\\.$#"
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
-			path: tests/src/Integration/Database/DbTest.php
+			path: src/functions/variable.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:select\\(\\)\\.$#"
+			message: "#^Instanceof between Drupal\\\\Core\\\\Routing\\\\RouteBuilder and Drupal\\\\Core\\\\Routing\\\\RouteBuilderInterface will always evaluate to true\\.$#"
+			count: 1
+			path: src/functions/variable.php
+
+		-
+			message: "#^Cannot call method fetchField\\(\\) on Drupal\\\\Core\\\\Database\\\\StatementInterface\\|null\\.$#"
 			count: 2
 			path: tests/src/Integration/Database/DbTest.php
 
@@ -1016,52 +1081,77 @@ parameters:
 			path: tests/src/Integration/Database/DbTest.php
 
 		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DrupalWriteRecordTest.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Database\\\\Connection and Drupal\\\\Core\\\\Database\\\\Connection will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Database/DrupalWriteRecordTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Messenger\\\\\\\\MessengerInterface' and Drupal\\\\Core\\\\Messenger\\\\Messenger will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/DrupalSetMessageTest.php
+
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldFormatterTest.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Field\\\\FormatterPluginManager and Drupal\\\\Core\\\\Field\\\\FormatterPluginManager will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldFormatterTest.php
+
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldTypeTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Database\\\\\\\\Connection' and Drupal\\\\Core\\\\Database\\\\Connection will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldTypeTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Entity\\\\\\\\EntityTypeManagerInterface' and Drupal\\\\Core\\\\Entity\\\\EntityTypeManager will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldTypeTest.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Field\\\\FieldTypePluginManager and Drupal\\\\Core\\\\Field\\\\FieldTypePluginManagerInterface will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Field/FieldTypeTest.php
+
+		-
 			message: "#^Cannot access property \\$language on mixed\\.$#"
 			count: 3
 			path: tests/src/Integration/Language/GlobalLanguageTest.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:build\\(\\)\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:getCurrentRouteMenuTreeParameters\\(\\)\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:load\\(\\)\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:rebuild\\(\\)\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:transform\\(\\)\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Menu\\\\MenuLinkManagerTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Menu/MenuLinkManagerTest.php
-
-		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\ModuleTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Extension\\\\\\\\ModuleHandlerInterface' and Drupal\\\\Core\\\\Extension\\\\ModuleHandler will always evaluate to true\\.$#"
 			count: 1
 			path: tests/src/Integration/ModuleTest.php
 
 		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Render\\\\AttachmentResponseSubscriberTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with false will always evaluate to false\\.$#"
 			count: 1
-			path: tests/src/Integration/Render/AttachmentResponseSubscriberTest.php
+			path: tests/src/Integration/ProviderTest.php
 
 		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\RetrofitTitleResolverTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/RetrofitTitleResolverTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Retrofit\\\\\\\\Drupal\\\\\\\\Controller\\\\\\\\RetrofitTitleResolver' and Drupal\\\\Core\\\\Controller\\\\TitleResolver will always evaluate to false\\.$#"
+			count: 2
+			path: tests/src/Integration/RetrofitTitleResolverTest.php
+
+		-
+			message: "#^Instanceof between Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack and Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack will always evaluate to true\\.$#"
 			count: 1
 			path: tests/src/Integration/RetrofitTitleResolverTest.php
 
@@ -1071,28 +1161,33 @@ parameters:
 			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
 
 		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuFormRoutesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuFormRoutesTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|false given\\.$#"
 			count: 6
 			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
 
 		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Routing\\\\HookMenuRoutesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/src/Integration/Routing/HookMenuRoutesTest.php
-
-		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\Theme\\\\ThemeIntegrationTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
 			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
 
 		-
-			message: "#^Property Retrofit\\\\Drupal\\\\Tests\\\\Integration\\\\VariablesTest\\:\\:\\$modules type has no value type specified in iterable type array\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Entity\\\\\\\\EntityTypeManagerInterface' and Drupal\\\\Core\\\\Entity\\\\EntityTypeManager will always evaluate to true\\.$#"
 			count: 1
+			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
+
+		-
+			message: "#^Instanceof between Drupal\\\\Core\\\\Extension\\\\ThemeExtensionList and Drupal\\\\Core\\\\Extension\\\\ThemeExtensionList will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/Theme/ThemeIntegrationTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\Routing\\\\\\\\RouteBuilderInterface' and Drupal\\\\Core\\\\Routing\\\\RouteBuilder will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Integration/VariablesTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Drupal\\\\\\\\Core\\\\\\\\State\\\\\\\\StateInterface' and Drupal\\\\Core\\\\State\\\\State will always evaluate to true\\.$#"
+			count: 2
 			path: tests/src/Integration/VariablesTest.php
 
 		-
@@ -1109,6 +1204,11 @@ parameters:
 			message: "#^Cannot call method getRequirements\\(\\) on Symfony\\\\Component\\\\Routing\\\\Route\\|null\\.$#"
 			count: 1
 			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
+			count: 2
+			path: tests/src/Utils/TestExtensionInstallStorage.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:addModule\\(\\) has no return type specified\\.$#"
