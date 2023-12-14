@@ -28,7 +28,7 @@ function field_filter_xss(string $string): string
 function field_form_get_state(
     array $parents,
     string $field_name,
-    string $langcode,
+    ?string $langcode,
     FormStateInterface $form_state
 ): array {
     return WidgetBase::getWidgetState($parents, $field_name, $form_state);

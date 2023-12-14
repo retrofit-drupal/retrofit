@@ -106,4 +106,35 @@ final class FieldWidget extends WidgetBase
         }
         return ['value' => $element];
     }
+
+    /**
+     * @param FieldItemListInterface<FieldItemInterface> $items
+     * @param array{'#parents': array<int|string>} $form
+     * @param FormStateInterface $form_state
+     * @param int $get_delta
+     * @return mixed[]
+     */
+    public function form(
+        FieldItemListInterface $items,
+        array &$form,
+        FormStateInterface $form_state,
+        $get_delta = null
+    ): array {
+        $field_name = $this->fieldDefinition->getName();
+        $parents = $form['#parents'];
+        if (!static::getWidgetState($parents, $field_name, $form_state)) {
+            $storage_definition = $this->fieldDefinition->getFieldStorageDefinition();
+            assert($storage_definition instanceof ConfigEntityInterface);
+            assert($this->fieldDefinition instanceof ConfigEntityInterface);
+            $field_state = [
+                'field' => $storage_definition->toArray(),
+                'instance' => $this->fieldDefinition->toArray(),
+                'items_count' => count($items),
+                'array_parents' => [],
+                'errors' => [],
+            ];
+            static::setWidgetState($parents, $field_name, $form_state, $field_state);
+        }
+        return parent::form($items, $form, $form_state, $get_delta);
+    }
 }
