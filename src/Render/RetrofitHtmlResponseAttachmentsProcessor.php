@@ -6,15 +6,18 @@ namespace Retrofit\Drupal\Render;
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Asset\AssetCollectionRendererInterface;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Render\AttachmentsInterface;
 use Drupal\Core\Render\AttachmentsResponseProcessorInterface;
+use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 
 final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsResponseProcessorInterface
 {
     public function __construct(
         private readonly AttachmentsResponseProcessorInterface $inner,
+        private readonly AssetCollectionRendererInterface $jsCollectionRenderer,
         private readonly LibraryDiscoveryInterface $libraryDiscovery,
     ) {
     }
@@ -62,14 +65,15 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
         }
         if (isset($attachments['js']) && is_array($attachments['js'])) {
             foreach ($attachments['js'] as $key => $item) {
-                if (is_array($item) && isset($item['type'], $item['data'])) {
+                if (is_array($item) && isset($item['type'])) {
                     switch ($item['type']) {
                         case 'inline':
                             $element = [
                                 '#tag' => 'script',
-                                '#value' => $item['data'],
+                                '#value' => $item['data'] ?? $key,
                                 '#weight' => $item['weight'] ?? 0,
                             ];
+                            $scope = $item['scope'] ?? 'footer';
                             unset(
                                 $item['data'],
                                 $item['type'],
@@ -82,23 +86,41 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
                                 $item['preprocess'],
                             );
                             $element['#attributes'] = $item;
-                            $attachments['html_head'][] = [
-                                $element,
-                                "retrofit:$key",
-                            ];
                             unset($attachments['js'][$key]);
+                            switch ($scope) {
+                                case 'header':
+                                    $attachments['html_head'][] = [
+                                        $element,
+                                        "retrofit:$key",
+                                    ];
+                                    break;
+
+                                default:
+                                    $element['#type'] = 'html_tag';
+                                    assert($this->jsCollectionRenderer instanceof RetrofitJsCollectionRenderer);
+                                    $this->jsCollectionRenderer->addRetrofitFooter($element);
+                                    break;
+                            }
                             break;
 
                         case 'setting':
-                            $attachments['drupalSettings'] = NestedArray::mergeDeepArray(
-                                [$attachments['drupalSettings'] ?? [], $item['data']],
-                                true,
-                            );
+                            if (isset($item['data'])) {
+                                $attachments['drupalSettings'] = NestedArray::mergeDeepArray(
+                                    [$attachments['drupalSettings'] ?? [], $item['data']],
+                                    true,
+                                );
+                            }
                             unset($attachments['js'][$key]);
                             break;
                     }
                 }
             }
+            assert($this->jsCollectionRenderer instanceof RetrofitJsCollectionRenderer);
+            $this->jsCollectionRenderer->addRetrofitFooter([
+                '#type' => 'html_tag',
+                '#tag' => 'script',
+                '#value' => 'Drupal.settings = drupalSettings;',
+            ]);
         }
         $retrofit_library = [
             'css' => $attachments['css'] ?? [],

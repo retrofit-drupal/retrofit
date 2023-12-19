@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Tests\Unit\Render;
 
+use Drupal\Core\Asset\AssetCollectionRendererInterface;
 use Drupal\Core\Render\AttachmentsResponseProcessorInterface;
 use Drupal\Core\Render\HtmlResponse;
 use PHPUnit\Framework\TestCase;
@@ -30,8 +31,9 @@ final class RetrofitHtmlResponseAttachmentsProcessorTest extends TestCase
         $inner->expects(self::once())
             ->method('processAttachments')
             ->with($response);
+        $jsCollectionRenderer = $this->createMock(AssetCollectionRendererInterface::class);
         $libraryDiscovery = $this->createMock(RetrofitLibraryDiscovery::class);
-        $sut = new RetrofitHtmlResponseAttachmentsProcessor($inner, $libraryDiscovery);
+        $sut = new RetrofitHtmlResponseAttachmentsProcessor($inner, $jsCollectionRenderer, $libraryDiscovery);
         $sut->processAttachments($response);
         self::assertEquals(
             [
