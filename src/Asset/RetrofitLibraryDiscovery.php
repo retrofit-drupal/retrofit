@@ -56,10 +56,13 @@ class RetrofitLibraryDiscovery implements LibraryDiscoveryInterface
      */
     public function setRetrofitLibrary(string $key, array $attachments): void
     {
-        $this->retrofitLibraries[$key]['license'] ??= [];
+        $this->retrofitLibraries[$key]['license'] = [];
         if (!empty($attachments['js'])) {
-            $this->retrofitLibraries[$key]['dependencies'][] = 'core/jquery';
-            $this->retrofitLibraries[$key]['dependencies'][] = 'core/once';
+            $this->retrofitLibraries[$key]['dependencies'][] = 'core/drupalSettings';
+            if ($attachments['requires_jquery']) {
+                $this->retrofitLibraries[$key]['dependencies'][] = 'core/jquery';
+                $this->retrofitLibraries[$key]['dependencies'][] = 'core/once';
+            }
         }
         foreach (['css', 'js'] as $type) {
             foreach ($attachments[$type] ?? [] as $data => $options) {

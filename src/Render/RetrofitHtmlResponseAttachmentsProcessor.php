@@ -36,6 +36,7 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
                 }
             }
         }
+        $retrofit_library = [];
         if (isset($attachments['css']) && is_array($attachments['css'])) {
             foreach ($attachments['css'] as $key => $item) {
                 if (is_array($item) && isset($item['type'], $item['data']) && $item['type'] === 'inline') {
@@ -62,10 +63,15 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
                     unset($attachments['css'][$key]);
                 }
             }
+            $retrofit_library['css'] = $attachments['css'];
+            unset($attachments['css']);
+            asort($retrofit_library['css']);
         }
         if (isset($attachments['js']) && is_array($attachments['js'])) {
+            $requires_jquery = false;
             foreach ($attachments['js'] as $key => &$item) {
                 if (is_array($item)) {
+                    $requires_jquery = !empty($item['requires_jquery']) ?: $requires_jquery;
                     switch ($item['type'] ?? 'file') {
                         case 'inline':
                             $element = [
@@ -125,14 +131,11 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
                 '#tag' => 'script',
                 '#value' => 'Drupal.settings = drupalSettings;',
             ]);
+            $retrofit_library['requires_jquery'] = $requires_jquery;
+            $retrofit_library['js'] = $attachments['js'];
+            unset($attachments['js']);
+            asort($retrofit_library['js']);
         }
-        $retrofit_library = [
-            'css' => $attachments['css'] ?? [],
-            'js' => $attachments['js'] ?? [],
-        ];
-        unset($attachments['css'], $attachments['js']);
-        asort($retrofit_library['css']);
-        asort($retrofit_library['js']);
         $name = Crypt::hashBase64(serialize($retrofit_library));
         assert($this->libraryDiscovery instanceof RetrofitLibraryDiscovery);
         $this->libraryDiscovery->setRetrofitLibrary($name, $retrofit_library);

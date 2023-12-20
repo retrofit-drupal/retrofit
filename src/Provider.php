@@ -7,7 +7,6 @@ namespace Retrofit\Drupal;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Template\Loader\FilesystemLoader;
-use Retrofit\Drupal\Asset\RetrofitAssetResolver;
 use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
@@ -123,10 +122,6 @@ class Provider extends ServiceProviderBase
 
         $container->register(RetrofitLibraryDiscovery::class)
             ->setDecoratedService('library.discovery')
-            ->setAutowired(true);
-
-        $container->register(RetrofitAssetResolver::class)
-            ->setDecoratedService('asset.resolver')
             ->setAutowired(true);
 
         $container->register(RetrofitJsCollectionRenderer::class)
