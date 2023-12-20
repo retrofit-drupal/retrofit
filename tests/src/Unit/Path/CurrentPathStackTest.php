@@ -59,7 +59,7 @@ final class CurrentPathStackTest extends TestCase
      * @covers ::setPath
      * @covers ::getPath
      */
-    public function testMutable()
+    public function testMutable(): void
     {
         $request = Request::create('/test-page');
         $requestStack = new RequestStack();

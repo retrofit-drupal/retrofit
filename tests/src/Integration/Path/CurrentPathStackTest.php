@@ -21,9 +21,10 @@ final class CurrentPathStackTest extends IntegrationTestCase
     {
         // phpcs:ignore
         unset($_GET['q']);
+        parent::tearDown();
     }
 
-    public function testIntegration()
+    public function testIntegration(): void
     {
         self::assertArrayNotHasKey('q', $_GET);
         $this->doRequest(Request::create('/user/login'));
