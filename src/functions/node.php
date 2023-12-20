@@ -30,10 +30,10 @@ function node_type_get_name(EntityInterface|string $node): string|false
 {
     if ($node instanceof EntityInterface) {
         return $node->bundle();
-    } else {
-        $types = NodeType::loadMultiple();
-        return isset($types[$node]) ? $node : false;
     }
+
+    $type = NodeType::load($node);
+    return $type !== null ? $type->label() : false;
 }
 
 function node_type_load(string $name): ?NodeTypeInterface
@@ -69,7 +69,6 @@ function node_type_save(NodeTypeInterface $info): int
 
 function node_type_delete(string $type): void
 {
-    $type = NodeType::load($type);
-    assert($type instanceof NodeTypeInterface);
-    $type->delete();
+    $nodeType = NodeType::load($type);
+    $nodeType?->delete();
 }
