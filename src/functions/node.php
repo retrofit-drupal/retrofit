@@ -33,7 +33,7 @@ function node_type_get_name(EntityInterface|string $node): string|false
     }
 
     $type = NodeType::load($node);
-    return $type !== null ? $type->label() : false;
+    return $type !== null ? (string) $type->label() : false;
 }
 
 function node_type_load(string $name): ?NodeTypeInterface
