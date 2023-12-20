@@ -17,6 +17,7 @@ $loader->add('Drupal\\FunctionalJavascriptTests', __DIR__ . '/../vendor/drupal/c
 $loader->add('Drupal\\TestTools', __DIR__ . '/../vendor/drupal/core/tests');
 $loader->addPsr4('Drupal\\entity_test\\', __DIR__ . '/../vendor/drupal/core/modules/system/tests/modules/entity_test/src');
 $loader->addPsr4('Drupal\\field\\', __DIR__ . '/../vendor/drupal/core/modules/field/src');
+$loader->addPsr4('Drupal\\node\\', __DIR__ . '/../vendor/drupal/core/modules/node/src');
 $loader->addPsr4('Drupal\\sqlite\\', __DIR__ . '/../vendor/drupal/core/modules/sqlite/src');
 $loader->addPsr4('Drupal\\taxonomy\\', __DIR__ . '/../vendor/drupal/core/modules/taxonomy/src');
 $loader->addPsr4('Drupal\\user\\', __DIR__ . '/../vendor/drupal/core/modules/user/src');
