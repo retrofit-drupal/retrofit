@@ -39,7 +39,7 @@ final class RetrofitHtmlResponseAttachmentsProcessorTest extends TestCase
             [
                 'library' => [
                     'foo/bar',
-                    'retrofit/gJNwAVQXZnj7Dd9xElORcaSqGosZXm-cTB8t-EgznjU',
+                    'retrofit/NXhscRe0440PFpI5dSznEVgmauL25KojD7u4e9aZwOM',
                 ],
             ],
             $response->getAttachments()

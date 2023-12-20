@@ -29,18 +29,11 @@ class RetrofitJsCollectionRenderer implements AssetCollectionRendererInterface
      */
     public function render(array $assets): array
     {
+        $is_footer = isset($assets['retrofit']);
+        unset($assets['retrofit']);
         $elements = $this->inner->render($assets);
-        if (!empty($this->retrofitFooter)) {
-            $is_footer = false;
-            foreach ($assets as $asset) {
-                if (isset($asset['scope']) && $asset['scope'] === 'footer') {
-                    $is_footer = true;
-                    break;
-                }
-            }
-            if ($is_footer) {
-                $elements = array_merge($elements, $this->retrofitFooter);
-            }
+        if ($is_footer && !empty($this->retrofitFooter)) {
+            $elements = array_merge($elements, $this->retrofitFooter);
         }
         return $elements;
     }

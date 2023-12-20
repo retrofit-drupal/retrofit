@@ -50,8 +50,9 @@ class RetrofitLibraryDiscovery implements LibraryDiscoveryInterface
 
     /**
      * @param array{
-     *   css?: array<string|int, array{group?: int}>,
-     *   js?: mixed[]
+     *   css?: mixed[],
+     *   js?: mixed[],
+     *   requires_jquery?: bool,
      * } $attachments
      */
     public function setRetrofitLibrary(string $key, array $attachments): void
@@ -59,7 +60,11 @@ class RetrofitLibraryDiscovery implements LibraryDiscoveryInterface
         $this->retrofitLibraries[$key]['license'] = [];
         if (!empty($attachments['js'])) {
             $this->retrofitLibraries[$key]['dependencies'][] = 'core/drupalSettings';
-            if ($attachments['requires_jquery']) {
+            $this->retrofitLibraries[$key]['js'][] = [
+                'data' => 'retrofit',
+                'scope' => 'footer',
+            ];
+            if (!empty($attachments['requires_jquery'])) {
                 $this->retrofitLibraries[$key]['dependencies'][] = 'core/jquery';
                 $this->retrofitLibraries[$key]['dependencies'][] = 'core/once';
             }
