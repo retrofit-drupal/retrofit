@@ -56,3 +56,5 @@ file_put_contents(__DIR__ . '/../vendor/drupal/composer.json', <<<COMPOSER
 }
 COMPOSER
 );
+
+chdir(__DIR__ . '/../vendor/drupal');

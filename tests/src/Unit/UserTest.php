@@ -7,6 +7,7 @@ namespace Retrofit\Drupal\Tests\Unit;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxy;
+use Drupal\Core\Session\PermissionChecker;
 use Drupal\Core\Session\UserSession;
 use Drupal\user\RoleStorageInterface;
 use PHPUnit\Framework\TestCase;
@@ -60,6 +61,9 @@ final class UserTest extends TestCase
             ->with('user_role')
             ->willReturn($roleStorage);
         $container->set('entity_type.manager', $entityTypeManager);
+
+        $permissionChecker = new PermissionChecker($entityTypeManager);
+        $container->set('permission_checker', $permissionChecker);
 
         \Drupal::setContainer($container);
 
