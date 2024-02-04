@@ -214,34 +214,38 @@ function drupal_add_library(string $module, string $name, ?bool $every_page = nu
  */
 function drupal_add_js(array|string|null $data = null, array|string|null $options = null): array
 {
-    if ($data === null) {
-        return [];
-    }
+
     $attachment_subscriber = \Drupal::getContainer()->get(AttachmentResponseSubscriber::class);
     assert($attachment_subscriber instanceof AttachmentResponseSubscriber);
 
-    if (is_string($options)) {
+    $options ??= [];
+    if (!is_array($options)) {
         $options = ['type' => $options];
-    } elseif ($options === null) {
-        $options = [];
     }
-
-    $type = $options['type'] ?? 'file';
-    switch ($type) {
+    $options += [
+        'type' => 'file',
+        'requires_jquery' => isset($options['type']) && $options['type'] === 'setting',
+        'scope' => 'footer',
+        'cache' => true,
+        'defer' => false,
+        'preprocess' => true,
+        'data' => $data,
+    ];
+    $options['preprocess'] = $options['cache'] ? $options['preprocess'] : false;
+    switch ($options['type']) {
         case 'setting':
             if (is_array($data)) {
                 $attachment_subscriber->addAttachments([
                     'drupalSettings' => $data,
                 ]);
-            } else {
-                // @todo log warning if string? Cannot discern what D7 did.
             }
-
             break;
 
         case 'inline':
             $attachment_subscriber->addAttachments([
-                'js' => $options,
+                'js' => [
+                    $options,
+                ],
             ]);
             break;
 

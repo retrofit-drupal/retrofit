@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Tests\Unit\Render;
 
+use Drupal\Core\Asset\AssetCollectionRendererInterface;
 use Drupal\Core\Render\AttachmentsResponseProcessorInterface;
 use Drupal\Core\Render\HtmlResponse;
 use PHPUnit\Framework\TestCase;
+use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
 
 /**
@@ -29,12 +31,15 @@ final class RetrofitHtmlResponseAttachmentsProcessorTest extends TestCase
         $inner->expects(self::once())
             ->method('processAttachments')
             ->with($response);
-        $sut = new RetrofitHtmlResponseAttachmentsProcessor($inner);
+        $jsCollectionRenderer = $this->createMock(AssetCollectionRendererInterface::class);
+        $libraryDiscovery = $this->createMock(RetrofitLibraryDiscovery::class);
+        $sut = new RetrofitHtmlResponseAttachmentsProcessor($inner, $jsCollectionRenderer, $libraryDiscovery);
         $sut->processAttachments($response);
         self::assertEquals(
             [
                 'library' => [
-                    'foo/bar'
+                    'foo/bar',
+                    'retrofit/NXhscRe0440PFpI5dSznEVgmauL25KojD7u4e9aZwOM',
                 ],
             ],
             $response->getAttachments()
