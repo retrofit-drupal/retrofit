@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Theme;
 
+use Drupal\block\BlockInterface;
 use Retrofit\Drupal\Entity\WrappedConfigEntity;
 
 /**
@@ -53,7 +54,22 @@ final class HookPreprocess
         $block = \Drupal::entityTypeManager()
             ->getStorage('block')
             ->load($variables['elements']['#id']);
+        assert($block instanceof BlockInterface);
+        $block_counter = &drupal_static('template_preprocess_block', []);
+        assert(is_array($block_counter));
         $variables['block'] = new WrappedConfigEntity($block);
+        if (!isset($block_counter[$block->getRegion()])) {
+            $block_counter[$block->getRegion()] = 1;
+        }
+        $variables['block_zebra'] = $block_counter[$block->getRegion()] % 2 ? 'odd' : 'even';
+        $variables['block_id'] = $block_counter[$block->getRegion()]++;
+        $variables['classes_array'][] = drupal_html_class('block-' . $variables['configuration']['provider']);
+        $variables['classes'] = implode(' ', $variables['classes_array']);
+        $variables['theme_hook_suggestions'][] = 'block__' . $block->getRegion();
+        $variables['theme_hook_suggestions'][] = 'block__' . $variables['configuration']['provider'];
+        $variables['theme_hook_suggestions'][] = 'block__' . $variables['configuration']['provider']
+        . '__' . strtr($block->getPluginId(), '-', '_');
+        $variables['block_html_id'] = $variables['attributes']['id'];
     }
 
     /**
