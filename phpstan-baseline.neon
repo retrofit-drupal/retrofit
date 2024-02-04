@@ -516,11 +516,6 @@ parameters:
 			path: src/Theme/HookPreprocess.php
 
 		-
-			message: "#^Parameter \\#1 \\$entity of class Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity constructor expects Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface, Drupal\\\\block\\\\Entity\\\\Block\\|null given\\.$#"
-			count: 1
-			path: src/Theme/HookPreprocess.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php
