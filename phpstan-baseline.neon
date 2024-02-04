@@ -16,11 +16,6 @@ parameters:
 			path: src/Controller/DrupalGetFormController.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/DrupalGetFormController.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\PageCallbackController\\:\\:create\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
@@ -41,12 +36,7 @@ parameters:
 			path: src/Controller/PageCallbackController.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface\\:\\:getModule\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
-			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, array given\\.$#"
 			count: 1
 			path: src/Controller/PageCallbackController.php
 
@@ -162,11 +152,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_callable\\(\\) with callable\\-string&non\\-falsy\\-string will always evaluate to true\\.$#"
-			count: 1
-			path: src/ParamConverter/PageArgumentsConverter.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\ParamConverter\\\\PageArgumentsConverter\\:\\:convert\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/ParamConverter/PageArgumentsConverter.php
 
@@ -517,16 +502,6 @@ parameters:
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:alterRoutes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Routing/HookMenuRoutes.php
-
-		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRoutes\\:\\:convertToRoute\\(\\) has parameter \\$definition with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Routing/HookMenuRoutes.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
 			count: 1
 			path: src/Routing/HookMenuRoutes.php
 

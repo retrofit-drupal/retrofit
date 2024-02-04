@@ -31,7 +31,7 @@ class HookMenuRoutesTest extends TestCase
             $moduleHandler,
             new NullBackend('foo')
         );
-        $sut = new HookMenuRoutes($hookMenuRegistry);
+        $sut = new HookMenuRoutes($moduleHandler, $hookMenuRegistry);
         $collection = new RouteCollection();
         $event = new RouteBuildEvent($collection);
         $sut->onAlterRoutes($event);
@@ -44,9 +44,9 @@ class HookMenuRoutesTest extends TestCase
           '_controller' => '\Retrofit\Drupal\Controller\PageCallbackController::getPage',
           '_menu_callback' => '_menu_example_basic_instructions',
           // phpcs:ignore Generic.Files.LineLength.TooLong
-          'arg0' => new TranslatableMarkup('This page is displayed by the simplest (and base) menu example. Note that the title of the page is the same as the link title. You can also <a href=":link">visit a similar page with no menu link</a>. Also, note that there is a hook_menu_alter() example that has changed the path of one of the menu items.', [
+          '_custom_page_arguments' => [new TranslatableMarkup('This page is displayed by the simplest (and base) menu example. Note that the title of the page is the same as the link title. You can also <a href=":link">visit a similar page with no menu link</a>. Also, note that there is a hook_menu_alter() example that has changed the path of one of the menu items.', [
             ':link' => '/examples/menu_example/path_only',
-          ]),
+          ])],
         ], $route->getDefaults());
         self::assertEquals(
             ['_access' => 'TRUE'],

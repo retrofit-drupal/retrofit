@@ -43,6 +43,7 @@ class Provider extends ServiceProviderBase
 
         $container
           ->register(HookMenuRoutes::class)
+          ->addArgument(new Reference('module_handler'))
           ->setAutowired(true)
           ->addTag('event_subscriber');
 
