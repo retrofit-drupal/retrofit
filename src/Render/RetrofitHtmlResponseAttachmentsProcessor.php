@@ -24,6 +24,10 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
 
     public function processAttachments(AttachmentsInterface $response)
     {
+        // @todo find ways to remove this coupling.
+        assert($this->jsCollectionRenderer instanceof RetrofitJsCollectionRenderer);
+        assert($this->libraryDiscovery instanceof RetrofitLibraryDiscovery);
+
         $attachments = $response->getAttachments();
         if (isset($attachments['library']) && is_array($attachments['library'])) {
             foreach ($attachments['library'] as $key => $item) {
@@ -103,7 +107,6 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
 
                                 default:
                                     $element['#type'] = 'html_tag';
-                                    assert($this->jsCollectionRenderer instanceof RetrofitJsCollectionRenderer);
                                     $this->jsCollectionRenderer->addRetrofitFooter($element);
                                     break;
                             }
@@ -125,7 +128,6 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
                     }
                 }
             }
-            assert($this->jsCollectionRenderer instanceof RetrofitJsCollectionRenderer);
             $this->jsCollectionRenderer->addRetrofitFooter([
                 '#type' => 'html_tag',
                 '#tag' => 'script',
@@ -137,7 +139,6 @@ final class RetrofitHtmlResponseAttachmentsProcessor implements AttachmentsRespo
             asort($retrofit_library['js']);
         }
         $name = Crypt::hashBase64(serialize($retrofit_library));
-        assert($this->libraryDiscovery instanceof RetrofitLibraryDiscovery);
         $this->libraryDiscovery->setRetrofitLibrary($name, $retrofit_library);
         $attachments['library'][] = "retrofit/$name";
         $response->setAttachments($attachments);
