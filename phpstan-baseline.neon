@@ -486,12 +486,17 @@ parameters:
 			path: src/Provider.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$data\\.$#"
+			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Routing/HookMenuRegistry.php
 
 		-
-			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:get\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: src/Routing/HookMenuRegistry.php
+
+		-
+			message: "#^Property Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry\\:\\:\\$definitions \\(array\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/Routing/HookMenuRegistry.php
 
@@ -546,13 +551,18 @@ parameters:
 			path: src/User/HookPermissions.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$data\\.$#"
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 3
+			path: src/functions/bootstrap.php
+
+		-
+			message: "#^Cannot access offset string on mixed\\.$#"
 			count: 1
 			path: src/functions/bootstrap.php
 
 		-
-			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
-			count: 3
+			message: "#^Function drupal_get_schema\\(\\) should return array\\{fields\\: array\\<string, array\\{serialize\\: bool, type\\: string, default\\: mixed, not null\\?\\: bool\\}\\>\\}\\|false but returns mixed\\.$#"
+			count: 2
 			path: src/functions/bootstrap.php
 
 		-
@@ -892,7 +902,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 4
+			count: 3
 			path: src/functions/module.php
 
 		-
