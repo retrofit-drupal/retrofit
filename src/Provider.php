@@ -10,6 +10,7 @@ use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
+use Retrofit\Drupal\Entity\EntityTypeManager;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Form\FormBuilder;
 use Retrofit\Drupal\Language\GlobalLanguageSetter;
@@ -150,6 +151,12 @@ class Provider extends ServiceProviderBase
             CurrentPathStack::class,
             (new ChildDefinition('path.current'))
             ->setDecoratedService('path.current')
+        );
+
+        $container->setDefinition(
+            EntityTypeManager::class,
+            (new ChildDefinition('entity_type.manager'))
+            ->setDecoratedService('entity_type.manager')
         );
     }
 
