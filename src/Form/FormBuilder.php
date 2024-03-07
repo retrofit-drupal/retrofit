@@ -12,6 +12,7 @@ class FormBuilder extends CoreFormBuilder
 {
     /**
      * @param FormStateInterface|mixed[] $form_state
+     * @param-out FormStateInterface $form_state
      * @return mixed[]
      */
     public function buildForm(mixed $form_arg, FormStateInterface|array &$form_state): array
