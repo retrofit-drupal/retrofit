@@ -208,11 +208,11 @@ final class HookMenuRoutes extends RouteSubscriberBase
 
     /**
      * @param array<int, string> $pathParts
-     * @param array{
+     * @param array<string, array{
      *   converter: string,
-     *   'load arguments'?: string[],
+     *   'load arguments'?: int[]|string[],
      *   index?: int
-     * } $parameters
+     * }> $parameters
      */
     private function ensureArgument(mixed $argument, array &$pathParts, array &$parameters): mixed
     {
