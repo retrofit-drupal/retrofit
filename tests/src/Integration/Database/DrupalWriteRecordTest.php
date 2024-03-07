@@ -30,11 +30,13 @@ final class DrupalWriteRecordTest extends IntegrationTestCase
             'timestamp' => time(),
         ];
         $result = drupal_write_record('watchdog', $record);
+        assert(is_array($record));
         self::assertEquals(1, $result);
         self::assertArrayHasKey('wid', $record);
         self::assertEquals(1, $record['wid']);
         $record['message'] = 'test2';
         $result = drupal_write_record('watchdog', $record, ['wid']);
+        assert(is_array($record));
         self::assertEquals(2, $result);
         self::assertArrayHasKey('wid', $record);
         self::assertEquals(1, $record['wid']);

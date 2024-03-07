@@ -9,7 +9,6 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
-use Drupal\Core\Database\Query\Merge;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\RevisionableInterface;
@@ -22,6 +21,34 @@ use Drupal\Core\Render\RendererInterface;
 use Retrofit\Drupal\DB;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+
+function drupal_add_tabledrag(
+    string $table_id,
+    string $action,
+    string $relationship,
+    string $group,
+    ?string $subgroup = null,
+    ?string $source = null,
+    ?bool $hidden = null,
+    ?int $limit = 0
+): void {
+    $tabledrag_id =& drupal_static('drupal_attach_tabledrag');
+    $tabledrag_id = !isset($tabledrag_id) ? 0 : $tabledrag_id + 1;
+
+    // If a subgroup or source isn't set, assume it is the same as the group.
+    $target = $subgroup ?? $group;
+    $source = $source ?? $target;
+    $settings['tableDrag'][$table_id][$group][$tabledrag_id] = array(
+        'target' => $target,
+        'source' => $source,
+        'relationship' => $relationship,
+        'action' => $action,
+        'hidden' => $hidden,
+        'limit' => $limit,
+    );
+    drupal_add_js($settings, 'setting');
+    drupal_add_library('core', 'drupal.tabledrag');
+}
 
 function drupal_encode_path(string $path): string
 {
@@ -131,6 +158,7 @@ function entity_language(string $entity_type, EntityInterface $entity): ?string
 
 /**
  * @param array<string, mixed> $elements
+ * @param-out array $elements
  * @return array<string, mixed>
  */
 function element_children(array &$elements, bool $sort = false): array
@@ -147,6 +175,7 @@ function drupal_get_path(string $type, string $name): string
 
 /**
  * @param array<string, mixed> $element
+ * @param-out array $element
  * @param string[]|null $children_keys
  */
 function drupal_render_children(array &$element, array $children_keys = null): string
@@ -165,6 +194,7 @@ function drupal_render_children(array &$element, array $children_keys = null): s
 
 /**
  * @param array<string, mixed> $elements
+ * @param-out array $elements
  * @phpstan-ignore-next-line
  */
 function drupal_render(array &$elements): MarkupInterface|string
@@ -348,6 +378,7 @@ function drupal_clean_css_identifier(string $identifier, array $filter = [
 
 /**
  * @param array<int|string, mixed> $array
+ * @param-out array $array
  * @param array<int, int|string> $parents
  */
 function &drupal_array_get_nested_value(array &$array, array $parents, ?bool &$key_exists = null): mixed
@@ -357,6 +388,7 @@ function &drupal_array_get_nested_value(array &$array, array $parents, ?bool &$k
 
 /**
  * @param array<int|string, mixed> $array
+ * @param-out array $array
  * @param array<int, int|string> $parents
  */
 function drupal_array_set_nested_value(array &$array, array $parents, mixed $value, bool $force = false): void
@@ -402,6 +434,7 @@ function drupal_get_query_array(string $query): array
 function drupal_goto(string $path = '', array $options = [], int $http_response_code = 302): void
 {
     \Drupal::moduleHandler()->alter('drupal_goto', $path, $options, $http_response_code);
+    assert(is_string($path) && is_array($options) && is_int($http_response_code));
     $url = \Drupal::pathValidator()->getUrlIfValidWithoutAccessCheck($path);
     if ($url !== false) {
         $url->mergeOptions($options);
@@ -426,6 +459,7 @@ function drupal_json_encode(mixed $var): string
 
 /**
  * @param array<string, mixed>|object $record
+ * @param-out array|object $record
  * @param string[] $primary_keys
  */
 function drupal_write_record(string $table, array|object &$record, array|string $primary_keys = []): int|false
