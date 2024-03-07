@@ -39,7 +39,7 @@ class EntityFieldQuery
     /**
      * Indicates that both deleted and non-deleted fields should be returned.
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
+     * @see EntityFieldQuery::deleted()
      */
     public const RETURN_ALL = null;
 
@@ -56,18 +56,25 @@ class EntityFieldQuery
     /**
      * Associative array of entity-generic metadata conditions.
      *
-     * @var array[]
+     * @var array<string, array{value: mixed, operator: ?string}>
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::entityCondition()
+     * @see EntityFieldQuery::entityCondition()
      */
     public $entityConditions = [];
 
     /**
      * List of field conditions.
      *
-     * @var array[]
+     * @var array<array{
+     *   field: string|mixed[],
+     *   column: ?string,
+     *   value: mixed,
+     *   operator: ?string,
+     *   delta_group: mixed,
+     *   language_group: mixed
+     * }>
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldCondition()
+     * @see EntityFieldQuery::fieldCondition()
      */
     public $fieldConditions = [];
 
@@ -79,44 +86,51 @@ class EntityFieldQuery
      * and language. These can not be mixed with the field conditions because
      * field columns can have any name including delta and language.
      *
-     * @var array[]
+     * @var array<array{
+     *   field: string|mixed[],
+     *   column: ?string,
+     *   value: mixed,
+     *   operator: ?string,
+     *   delta_group: mixed,
+     *   language_group: mixed
+     * }>
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldLanguageCondition()
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::fieldDeltaCondition()
+     * @see EntityFieldQuery::fieldLanguageCondition()
+     * @see EntityFieldQuery::fieldDeltaCondition()
      */
     public $fieldMetaConditions = [];
 
     /**
      * List of property conditions.
      *
-     * @var array[]
+     * @var array<array{column: string, value: mixed, operator: ?string}>
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::propertyCondition()
+     * @see EntityFieldQuery::propertyCondition()
      */
     public $propertyConditions = [];
 
     /**
      * List of order clauses.
      *
-     * @var array[]
+     * @var array<array{type: string, specifier: string, direction: string}>
      */
     public $order = [];
 
     /**
      * The query range.
      *
-     * @var array[]
+     * @var array{start?: ?int, length?: ?int}
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::range()
+     * @see EntityFieldQuery::range()
      */
     public $range = [];
 
     /**
      * The query pager data.
      *
-     * @var array[]
+     * @var array{limit?: int|false|null, element?: ?int}
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::pager()
+     * @see EntityFieldQuery::pager()
      */
     public $pager = [];
 
@@ -128,7 +142,7 @@ class EntityFieldQuery
      *
      * @var ?bool
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
+     * @see EntityFieldQuery::deleted()
      */
     public $deleted = false;
 
@@ -163,7 +177,7 @@ class EntityFieldQuery
      *
      * @var int
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::age()
+     * @see EntityFieldQuery::age()
      */
     public $age = FIELD_LOAD_CURRENT;
 
@@ -172,7 +186,7 @@ class EntityFieldQuery
      *
      * @var string[]
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::addTag()
+     * @see EntityFieldQuery::addTag()
      */
     public $tags = [];
 
@@ -181,7 +195,7 @@ class EntityFieldQuery
      *
      * @var mixed[]
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::addMetaData()
+     * @see EntityFieldQuery::addMetaData()
      */
     public $metaData = [];
 
@@ -190,7 +204,7 @@ class EntityFieldQuery
      *
      * @var int[]
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::execute().
+     * @see EntityFieldQuery::execute().
      */
     public $orderedResults = [];
 
@@ -199,7 +213,7 @@ class EntityFieldQuery
      *
      * @var string
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::execute()
+     * @see EntityFieldQuery::execute()
      */
     public $executeCallback = '';
 
@@ -273,8 +287,8 @@ class EntityFieldQuery
      * @return $this
      *   The called object.
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
+     * @see EntityFieldQuery::addFieldCondition()
+     * @see EntityFieldQuery::deleted()
      */
     public function fieldCondition(
         $field,
@@ -314,8 +328,8 @@ class EntityFieldQuery
      * @return $this
      *   The called object.
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
+     * @see EntityFieldQuery::addFieldCondition()
+     * @see EntityFieldQuery::deleted()
      */
     public function fieldLanguageCondition(
         $field,
@@ -354,8 +368,8 @@ class EntityFieldQuery
      * @return $this
      *   The called object.
      *
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::addFieldCondition()
-     * @see Retrofit\Drupal\Entity\EntityFieldQuery::deleted()
+     * @see EntityFieldQuery::addFieldCondition()
+     * @see EntityFieldQuery::deleted()
      */
     public function fieldDeltaCondition(
         $field,
