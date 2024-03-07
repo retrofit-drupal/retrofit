@@ -20,6 +20,7 @@ final class Registry extends CoreRegistry
 {
     /**
      * @param RegistryData $cache
+     * @param-out array $cache
      */
     protected function processExtension(array &$cache, $name, $type, $theme, $path): void
     {
@@ -72,6 +73,7 @@ final class Registry extends CoreRegistry
 
     /**
      * @param array<string, array{'preprocess functions': callable[]}> $cache
+     * @param-out array $cache
      */
     protected function postProcessExtension(array &$cache, ActiveTheme $theme): void
     {
