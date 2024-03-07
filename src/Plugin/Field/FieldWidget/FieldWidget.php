@@ -110,6 +110,7 @@ final class FieldWidget extends WidgetBase
     /**
      * @param FieldItemListInterface<FieldItemInterface> $items
      * @param array{'#parents': array<int|string>} $form
+     * @param-out array $form
      * @param FormStateInterface $form_state
      * @param int $get_delta
      * @return mixed[]
