@@ -161,6 +161,11 @@ parameters:
 			path: src/ParamConverter/PageArgumentsConverter.php
 
 		-
+			message: "#^Cannot access offset 'provider' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 3
+			path: src/Plugin/Block/Block.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Block\\\\Block\\:\\:blockForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Plugin/Block/Block.php
@@ -254,6 +259,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
+
+		-
+			message: "#^Cannot access offset 'provider' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldFormatter/FieldFormatter.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldFormatter\\\\FieldFormatter\\:\\:viewElements\\(\\) has parameter \\$items with generic interface Drupal\\\\Core\\\\Field\\\\FieldItemListInterface but does not specify its types\\: T$#"
@@ -449,6 +459,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of function call_user_func_array expects callable\\(\\)\\: mixed, array\\{Drupal\\\\Core\\\\Field\\\\FieldItemInterface, string\\} given\\.$#"
 			count: 1
 			path: src/Plugin/Field/FieldType/DecoratedFieldItem.php
+
+		-
+			message: "#^Cannot access offset 'provider' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldType/FieldItem.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Plugin\\\\Field\\\\FieldType\\\\FieldItem\\:\\:schema\\(\\) return type has no value type specified in iterable type array\\.$#"
