@@ -14,8 +14,7 @@ final class HookExit implements EventSubscriberInterface
 {
     public function __construct(
         private readonly ModuleHandlerInterface $moduleHandler,
-    )
-    {
+    ) {
     }
 
     public static function getSubscribedEvents()
@@ -25,7 +24,7 @@ final class HookExit implements EventSubscriberInterface
         ];
     }
 
-    public function hookExit(PostResponseEvent $event): void
+    public function hookExit(TerminateEvent $event): void
     {
         $this->moduleHandler->invokeAll('exit');
     }
