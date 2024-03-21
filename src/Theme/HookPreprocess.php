@@ -7,6 +7,7 @@ namespace Retrofit\Drupal\Theme;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\block\BlockInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\node\NodeInterface;
 use Retrofit\Drupal\Entity\WrappedConfigEntity;
 
@@ -85,9 +86,9 @@ final class HookPreprocess
     {
         if (!empty($variables['links'])) {
             foreach ($variables['links'] as $key => &$link) {
-                $link += ['attributes' => []];
-                $link['attributes']['class'][] = $key;
-                if (isset($link['html']) && !empty($link['html'])) {
+                $link += ['attributes' => new Attribute()];
+                $link['attributes']->addClass($key);
+                if (!empty($link['html'])) {
                     $link['title'] = ['#markup' => $link['title']];
                     unset($link['html']);
                 }

@@ -36,11 +36,6 @@ parameters:
 			path: src/Controller/PageCallbackController.php
 
 		-
-			message: "#^Parameter \\#2 \\$args of function call_user_func_array expects array\\<int\\|string, mixed\\>, array given\\.$#"
-			count: 1
-			path: src/Controller/PageCallbackController.php
-
-		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Controller\\\\RetrofitTitleResolver\\:\\:getTitle\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Controller/RetrofitTitleResolver.php
