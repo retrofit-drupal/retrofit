@@ -158,6 +158,12 @@ class Provider extends ServiceProviderBase
             (new ChildDefinition('entity_type.manager'))
             ->setDecoratedService('entity_type.manager')
         );
+
+        $container
+            ->register(HookExit::class)
+            ->addArgument(new Reference('module_handler'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
     }
 
     public function alter(ContainerBuilder $container)

@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Retrofit\Drupal;
+
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\PostResponseEvent;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
+
+final class HookExit implements EventSubscriberInterface
+{
+    public function __construct(
+        private readonly ModuleHandlerInterface $moduleHandler,
+    )
+    {
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            TerminateEvent::class => 'hookExit',
+        ];
+    }
+
+    public function hookExit(PostResponseEvent $event): void
+    {
+        $this->moduleHandler->invokeAll('exit');
+    }
+}
