@@ -531,12 +531,12 @@ parameters:
 			path: src/Routing/HookMenuRoutes.php
 
 		-
-			message: "#^Cannot access offset '\\#title' on mixed\\.$#"
+			message: "#^Cannot access offset '\\#id' on mixed\\.$#"
 			count: 1
 			path: src/Theme/HookPreprocess.php
 
 		-
-			message: "#^Offset '\\#id' might not exist on array\\<int\\|string, mixed\\>\\|string\\.$#"
+			message: "#^Cannot access offset '\\#title' on mixed\\.$#"
 			count: 1
 			path: src/Theme/HookPreprocess.php
 

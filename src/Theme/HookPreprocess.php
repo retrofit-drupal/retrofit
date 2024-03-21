@@ -12,7 +12,7 @@ use Drupal\node\NodeInterface;
 use Retrofit\Drupal\Entity\WrappedConfigEntity;
 
 /**
- * @phpstan-type Variables array<string, string|array<int|string, mixed>>
+ * @phpstan-type Variables array<string, mixed>
  * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
  */
 final class HookPreprocess

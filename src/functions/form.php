@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Retrofit\Drupal\Form\DrupalGetForm;
+use Retrofit\Drupal\Form\FormBuilder;
 
 /**
  * @param mixed[] $form_state
+ * @param-out FormStateInterface $form_state
  * @return mixed[]
  */
 function drupal_build_form(string $form_id, array &$form_state): array
 {
     $form_object = \Drupal::classResolver(DrupalGetForm::class);
     $form_object->setFormId($form_id);
-    return \Drupal::formBuilder()->buildForm($form_object, $form_state);
+    $form_builder = \Drupal::formBuilder();
+    assert($form_builder instanceof FormBuilder);
+    return $form_builder->buildForm($form_object, $form_state);
 }
 
 function drupal_form_submit(string $form_id, FormStateInterface $form_state): void
