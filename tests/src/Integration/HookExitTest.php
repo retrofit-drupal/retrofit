@@ -7,6 +7,7 @@ namespace Retrofit\Drupal\Tests\Integration;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 final class HookExitTest extends IntegrationTestCase
 {
@@ -30,7 +31,7 @@ final class HookExitTest extends IntegrationTestCase
             Request::create('/'),
             new Response()
         );
-        $this->container->get('event_dispatcher')->dispatch($event);
+        $this->container->get('event_dispatcher')->dispatch($event, KernelEvents::TERMINATE);
         self::assertEquals(
             1,
             $this->container->get('state')->get('retrofit_fixtures_exit')

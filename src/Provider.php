@@ -12,6 +12,7 @@ use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Retrofit\Drupal\Entity\EntityTypeManager;
 use Retrofit\Drupal\EventSubscriber\HookExit;
+use Retrofit\Drupal\EventSubscriber\HookInit;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Form\FormBuilder;
 use Retrofit\Drupal\Language\GlobalLanguageSetter;
@@ -162,6 +163,12 @@ class Provider extends ServiceProviderBase
 
         $container
             ->register(HookExit::class)
+            ->addArgument(new Reference('module_handler'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
+
+        $container
+            ->register(HookInit::class)
             ->addArgument(new Reference('module_handler'))
             ->setAutowired(true)
             ->addTag('event_subscriber');

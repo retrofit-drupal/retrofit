@@ -6,10 +6,10 @@ namespace Retrofit\Drupal\EventSubscriber;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\TerminateEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class HookExit implements EventSubscriberInterface
+final class HookInit implements EventSubscriberInterface
 {
     public function __construct(
         private readonly ModuleHandlerInterface $moduleHandler,
@@ -19,12 +19,12 @@ final class HookExit implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::TERMINATE => 'hookExit',
+            KernelEvents::REQUEST => 'hookInit',
         ];
     }
 
-    public function hookExit(TerminateEvent $event): void
+    public function hookInit(RequestEvent $event): void
     {
-        $this->moduleHandler->invokeAll('exit');
+        $this->moduleHandler->invokeAll('init');
     }
 }

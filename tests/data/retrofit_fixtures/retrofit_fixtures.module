@@ -72,3 +72,10 @@ function retrofit_fixtures_exit()
     $count++;
     \Drupal::state()->set('retrofit_fixtures_exit', $count);
 }
+
+function retrofit_fixtures_init()
+{
+    $count = \Drupal::state()->get('retrofit_fixtures_init', 0);
+    $count++;
+    \Drupal::state()->set('retrofit_fixtures_init', $count);
+}
