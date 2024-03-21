@@ -11,6 +11,7 @@ use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Retrofit\Drupal\Entity\EntityTypeManager;
+use Retrofit\Drupal\EventSubscriber\HookExit;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Form\FormBuilder;
 use Retrofit\Drupal\Language\GlobalLanguageSetter;
@@ -158,6 +159,12 @@ class Provider extends ServiceProviderBase
             (new ChildDefinition('entity_type.manager'))
             ->setDecoratedService('entity_type.manager')
         );
+
+        $container
+            ->register(HookExit::class)
+            ->addArgument(new Reference('module_handler'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
     }
 
     public function alter(ContainerBuilder $container)
