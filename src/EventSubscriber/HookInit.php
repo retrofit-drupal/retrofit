@@ -19,7 +19,7 @@ final class HookInit implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'hookInit',
+            KernelEvents::REQUEST => ['hookInit', 200],
         ];
     }
 
