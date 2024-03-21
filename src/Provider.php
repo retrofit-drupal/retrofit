@@ -11,6 +11,7 @@ use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Retrofit\Drupal\Entity\EntityTypeManager;
+use Retrofit\Drupal\EventSubscriber\HookExit;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Form\FormBuilder;
 use Retrofit\Drupal\Language\GlobalLanguageSetter;

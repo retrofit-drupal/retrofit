@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Retrofit\Drupal;
+namespace Retrofit\Drupal\EventSubscriber;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
