@@ -17,16 +17,19 @@ use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
 final class RetrofitHtmlResponseAttachmentsProcessorTest extends TestCase
 {
     /**
+     *
+     * @param array<string, mixed> $attachments
+     * @param array<string, mixed> $expected
+     *
+     * @covers ::__construct
      * @covers ::processAttachments
+     *
+     * @dataProvider dataAttachments
      */
-    public function testProcessAttachments(): void
+    public function testProcessAttachments(array $attachments, array $expected): void
     {
         $response = new HtmlResponse('');
-        $response->setAttachments([
-            'library' => [
-                ['foo', 'bar']
-            ],
-        ]);
+        $response->setAttachments($attachments);
         $inner = $this->createMock(AttachmentsResponseProcessorInterface::class);
         $inner->expects(self::once())
             ->method('processAttachments')
@@ -35,14 +38,63 @@ final class RetrofitHtmlResponseAttachmentsProcessorTest extends TestCase
         $libraryDiscovery = $this->createMock(RetrofitLibraryDiscovery::class);
         $sut = new RetrofitHtmlResponseAttachmentsProcessor($inner, $jsCollectionRenderer, $libraryDiscovery);
         $sut->processAttachments($response);
-        self::assertEquals(
-            [
-                'library' => [
-                    'foo/bar',
-                    'retrofit/NXhscRe0440PFpI5dSznEVgmauL25KojD7u4e9aZwOM',
+        self::assertEquals($expected, $response->getAttachments());
+    }
+
+    /**
+     * @return array<string, array<int, array<string, array<int, array<int|string, array<string, array<string,
+     *     string>|int|string>|bool|int|string>|string>>>>
+     */
+    public static function dataAttachments(): array
+    {
+        return [
+            'legacy libraries' => [
+                [
+                    'library' => [
+                        ['foo', 'bar']
+                    ],
+                ],
+                [
+                    'library' => [
+                        'foo/bar',
+                        'retrofit/NXhscRe0440PFpI5dSznEVgmauL25KojD7u4e9aZwOM',
+                    ],
                 ],
             ],
-            $response->getAttachments()
-        );
+            'inline css' => [
+                [
+                    'css' => [
+                        [
+                            'type' => 'inline',
+                            'group' => 0,
+                            'weight' => 0,
+                            'every_page' => false,
+                            'media' => 'all',
+                            'preprocess' => true,
+                            'data' => '.foo { color: pink }',
+                            'browsers' => [],
+                        ],
+                    ],
+                ],
+                [
+                    'html_head' => [
+                        [
+                            [
+                                '#tag' => 'style',
+                                '#value' => '.foo { color: pink }',
+                                '#weight' => 0,
+                                '#attributes' => [
+                                    'media' => 'all',
+                                ],
+                            ],
+                            'retrofit:0',
+                        ],
+                    ],
+                    'library' => [
+                        'retrofit/p0pYMgU_NanStScEFSFfzy8t6FiwrwJCbJdc0EbwWk0',
+                    ],
+                ]
+            ],
+        ];
     }
 }
