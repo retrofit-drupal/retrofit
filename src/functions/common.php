@@ -272,6 +272,7 @@ function drupal_add_css(string|null $data = null, array|string|null $options = n
     if ($data === null) {
         return [];
     }
+
     $attachment_subscriber = \Drupal::getContainer()->get(AttachmentResponseSubscriber::class);
     assert($attachment_subscriber instanceof AttachmentResponseSubscriber);
 
@@ -280,10 +281,26 @@ function drupal_add_css(string|null $data = null, array|string|null $options = n
     } elseif ($options === null) {
         $options = [];
     }
+    $options += [
+        'type' => 'file',
+        'group' => CSS_DEFAULT,
+        'weight' => 0,
+        'every_page' => false,
+        'media' => 'all',
+        'preprocess' => true,
+        'data' => $data,
+        'browsers' => [],
+    ];
     $type = $options['type'] ?? 'file';
+
+    // Files with a query string cannot be preprocessed.
+    if ($options['type'] === 'file' && $options['preprocess'] && str_contains($data, '?')) {
+        $options['preprocess'] = false;
+    }
+
     if ($type === 'inline') {
         $attachment_subscriber->addAttachments([
-            'css' => $options,
+            'css' => [$options],
         ]);
     } elseif ($data) {
         $attachment_subscriber->addAttachments([
