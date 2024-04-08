@@ -26,6 +26,7 @@ function variable_get(string $name, mixed $default = null): mixed
         'clean_url' => true,
         'site_name' => \Drupal::config('system.site')->get('name') ?? $default,
         'site_slogan' => \Drupal::config('system.site')->get('slogan') ?? $default,
+        'site_frontpage' => \Drupal::config('system.site')->get('page.front') ?? $default,
         default => \Drupal::state()->get($name, $default)
     };
 }

@@ -11,6 +11,8 @@ use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
 use Retrofit\Drupal\Entity\EntityTypeManager;
+use Retrofit\Drupal\EventSubscriber\HookExit;
+use Retrofit\Drupal\EventSubscriber\HookInit;
 use Retrofit\Drupal\Field\FieldTypePluginManager;
 use Retrofit\Drupal\Form\FormBuilder;
 use Retrofit\Drupal\Language\GlobalLanguageSetter;
@@ -22,6 +24,7 @@ use Retrofit\Drupal\ParamConverter\PageArgumentsConverter;
 use Retrofit\Drupal\Path\CurrentPathStack;
 use Retrofit\Drupal\Render\AttachmentResponseSubscriber;
 use Retrofit\Drupal\Render\RetrofitHtmlResponseAttachmentsProcessor;
+use Retrofit\Drupal\Routing\HookAdminPaths;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
 use Retrofit\Drupal\Template\RetrofitExtension;
@@ -158,6 +161,24 @@ class Provider extends ServiceProviderBase
             (new ChildDefinition('entity_type.manager'))
             ->setDecoratedService('entity_type.manager')
         );
+
+        $container
+            ->register(HookExit::class)
+            ->addArgument(new Reference('module_handler'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
+
+        $container
+            ->register(HookInit::class)
+            ->addArgument(new Reference('module_handler'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
+
+        $container
+            ->register(HookAdminPaths::class)
+            ->addArgument(new Reference('state'))
+            ->setAutowired(true)
+            ->addTag('event_subscriber');
     }
 
     public function alter(ContainerBuilder $container)
