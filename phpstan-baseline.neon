@@ -481,6 +481,26 @@ parameters:
 			path: src/Plugin/Field/FieldType/FieldItemList.php
 
 		-
+			message: "#^Cannot access offset 'field_widget_info' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 2
+			path: src/Plugin/Field/FieldWidget/FieldWidget.php
+
+		-
+			message: "#^Cannot access offset 'provider' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 2
+			path: src/Plugin/Field/FieldWidget/FieldWidget.php
+
+		-
+			message: "#^Cannot access offset 'weight' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldWidget/FieldWidget.php
+
+		-
+			message: "#^Cannot access offset 'widget' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 1
+			path: src/Plugin/Field/FieldWidget/FieldWidget.php
+
+		-
 			message: "#^Cannot access offset 'Retrofit\\\\\\\\Drupal' on array\\|bool\\|float\\|int\\|string\\|UnitEnum\\|null\\.$#"
 			count: 1
 			path: src/Provider.php
