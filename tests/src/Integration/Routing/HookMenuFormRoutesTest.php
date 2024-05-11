@@ -100,4 +100,14 @@ final class HookMenuFormRoutesTest extends IntegrationTestCase
             $this->getTextContent(),
         );
     }
+
+    public function testWizard(): void
+    {
+        $path = '/examples/form_example/wizard';
+        $response = $this->doFormSubmit($path, [
+            'first_name' => 'Johnny',
+            'last_name' => 'Appleseed',
+        ], 'next');
+        $this->assertTitle('#1 | Drupal');
+    }
 }

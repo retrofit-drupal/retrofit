@@ -7,6 +7,7 @@ namespace Retrofit\Drupal\Form;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Url;
 
+#[\AllowDynamicProperties]
 final class ArrayAccessFormState extends FormState implements \ArrayAccess
 {
     public function __construct(bool $errors = false)
