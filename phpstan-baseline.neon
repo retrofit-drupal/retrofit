@@ -56,6 +56,11 @@ parameters:
 			path: src/Entity/EntityTypeManager.php
 
 		-
+			message: "#^Cannot access offset string on Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface\\.$#"
+			count: 1
+			path: src/Entity/WrappedConfigEntity.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Entity/WrappedConfigEntity.php
@@ -64,6 +69,11 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedConfigEntity\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Entity/WrappedConfigEntity.php
+
+		-
+			message: "#^Cannot access offset string on Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\.$#"
+			count: 1
+			path: src/Entity/WrappedContentEntity.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__get\\(\\) has no return type specified\\.$#"
@@ -82,6 +92,21 @@ parameters:
 
 		-
 			message: "#^Class Retrofit\\\\Drupal\\\\Form\\\\ArrayAccessFormState implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
+			message: "#^Parameter \\#1 \\$property of method Drupal\\\\Core\\\\Form\\\\FormState\\:\\:get\\(\\) expects array\\|string, mixed given\\.$#"
+			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
+			message: "#^Parameter \\#1 \\$property of method Drupal\\\\Core\\\\Form\\\\FormState\\:\\:has\\(\\) expects array\\|string, mixed given\\.$#"
+			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
+			message: "#^Parameter \\#1 \\$property of method Drupal\\\\Core\\\\Form\\\\FormState\\:\\:set\\(\\) expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/Form/ArrayAccessFormState.php
 
@@ -154,6 +179,11 @@ parameters:
 			message: "#^Call to function is_callable\\(\\) with callable\\-string&non\\-falsy\\-string will always evaluate to true\\.$#"
 			count: 1
 			path: src/ParamConverter/PageArgumentsConverter.php
+
+		-
+			message: "#^Cannot access offset 'block_info' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
+			count: 1
+			path: src/Plugin/Block/Block.php
 
 		-
 			message: "#^Cannot access offset 'provider' on array\\|Drupal\\\\Component\\\\Plugin\\\\Definition\\\\PluginDefinitionInterface\\.$#"
@@ -536,6 +566,16 @@ parameters:
 			path: src/Theme/HookPreprocess.php
 
 		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Theme\\\\Registry\\:\\:postProcessExtension\\(\\) has @param\\-out PHPDoc tag for parameter \\$cache with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Theme/Registry.php
+
+		-
+			message: "#^Method Retrofit\\\\Drupal\\\\Theme\\\\Registry\\:\\:processExtension\\(\\) has @param\\-out PHPDoc tag for parameter \\$cache with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Theme/Registry.php
+
+		-
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\GlobalUser\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/User/GlobalUser.php
@@ -703,6 +743,31 @@ parameters:
 		-
 			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 3
+			path: src/functions/common.php
+
+		-
+			message: "#^Function drupal_array_get_nested_value\\(\\) has @param\\-out PHPDoc tag for parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function drupal_array_set_nested_value\\(\\) has @param\\-out PHPDoc tag for parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function drupal_render_children\\(\\) has @param\\-out PHPDoc tag for parameter \\$element with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function drupal_write_record\\(\\) has @param\\-out PHPDoc tag for parameter \\$record with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function element_children\\(\\) has @param\\-out PHPDoc tag for parameter \\$elements with no value type specified in iterable type array\\.$#"
+			count: 1
 			path: src/functions/common.php
 
 		-
