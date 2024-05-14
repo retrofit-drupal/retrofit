@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Form;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Url;
 
@@ -17,7 +18,7 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
 
     public function offsetExists(mixed $offset): bool
     {
-        return isset($this->$offset);
+        return $this->has($offset);
     }
 
     public function &offsetGet(mixed $offset): mixed
@@ -37,7 +38,7 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
             case 'values':
                 return $this->getValues();
             default:
-                return $this->$offset;
+                return $this->get($offset);
         }
     }
 
@@ -56,13 +57,16 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
                     }
                 }
                 break;
+            case 'rebuild':
+                $this->setRebuild((bool) $value);
+                break;
             default:
-                $this->$offset = $value;
+                $this->set($offset, $value);
         }
     }
 
     public function offsetUnset(mixed $offset): void
     {
-        unset($this->$offset);
+        NestedArray::unsetValue($this->storage, (array) $offset);
     }
 }

@@ -104,10 +104,15 @@ final class HookMenuFormRoutesTest extends IntegrationTestCase
     public function testWizard(): void
     {
         $path = '/examples/form_example/wizard';
-        $response = $this->doFormSubmit($path, [
+        $this->doRequest(Request::create($path));
+        $this->assertTitle('Extensible Wizard: Step 1 | Drupal');
+        $this->doFormSubmit($path, [
             'first_name' => 'Johnny',
             'last_name' => 'Appleseed',
         ], 'next');
-        $this->assertTitle('#1 | Drupal');
+        $this->assertTitle('Extensible Wizard: Step 2 | Drupal');
+        $this->doFormSubmit($path, [
+            'city' => 'New York',
+        ], 'next');
     }
 }
