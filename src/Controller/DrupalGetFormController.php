@@ -31,6 +31,10 @@ final class DrupalGetFormController implements ContainerInjectionInterface
     public function getForm(RouteMatchInterface $routeMatch)
     {
         $route = $routeMatch->getRouteObject();
+
+        $buildInfo = [
+            'files' => [],
+        ];
         assert($route !== null);
         if ($route->hasOption('include file')) {
             $includePath = $route->getOption('include file');
@@ -38,12 +42,14 @@ final class DrupalGetFormController implements ContainerInjectionInterface
             if (file_exists($includePath)) {
                 require_once $includePath;
             }
+            $buildInfo['files'][] = $includePath;
         }
         $form_object = $this->classResolver->getInstanceFromDefinition(
             DrupalGetForm::class
         );
         $form_object->setFormId($route->getDefault('_form_id'));
         $form_state = new ArrayAccessFormState();
+        $form_state->setBuildInfo($buildInfo);
         $arguments = (array) $route->getDefault('_custom_page_arguments');
         foreach ($arguments as &$argument) {
             if (is_string($argument) && $placeholder = preg_filter('/(^{)(.*)(}$)/', '$2', $argument)) {
