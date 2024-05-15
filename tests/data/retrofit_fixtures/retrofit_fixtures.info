@@ -1,0 +1,5 @@
+name = Node example
+description = Demonstrates a custom content type and uses the field api.
+package = Example modules
+core = 7.x
+files[] = foobar.inc

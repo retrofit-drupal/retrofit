@@ -10,6 +10,7 @@ use Drupal\Core\Template\Loader\FilesystemLoader;
 use Retrofit\Drupal\Asset\RetrofitJsCollectionRenderer;
 use Retrofit\Drupal\Asset\RetrofitLibraryDiscovery;
 use Retrofit\Drupal\Controller\RetrofitTitleResolver;
+use Retrofit\Drupal\DependencyInjection\Compiler\FilesAutoloaderPass;
 use Retrofit\Drupal\Entity\EntityTypeManager;
 use Retrofit\Drupal\EventSubscriber\HookExit;
 use Retrofit\Drupal\EventSubscriber\HookInit;
@@ -179,6 +180,8 @@ class Provider extends ServiceProviderBase
             ->addArgument(new Reference('state'))
             ->setAutowired(true)
             ->addTag('event_subscriber');
+
+        $container->addCompilerPass(new FilesAutoloaderPass());
     }
 
     public function alter(ContainerBuilder $container)

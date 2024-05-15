@@ -29,7 +29,7 @@ abstract class IntegrationTestCase extends KernelTestBase
         foreach (static::getTestModules() as $module) {
             $modules[$module] = [
               'type' => 'module',
-              'pathname' => "../../tests/data/$module/$module.module",
+              'pathname' => "../../tests/data/$module/$module.info.yml",
               'filename' => "$module.module",
             ];
         }

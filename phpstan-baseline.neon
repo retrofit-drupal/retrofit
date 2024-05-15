@@ -756,6 +756,16 @@ parameters:
 			path: src/functions/common.php
 
 		-
+			message: "#^Function drupal_parse_info_format\\(\\) has parameter \\$data with no type specified\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Function drupal_parse_info_format\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
 			message: "#^Function drupal_render_children\\(\\) has @param\\-out PHPDoc tag for parameter \\$element with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/functions/common.php
@@ -792,6 +802,41 @@ parameters:
 
 		-
 			message: "#^Instanceof between string and Drupal\\\\Core\\\\GeneratedUrl will always evaluate to false\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Offset mixed on array\\{\\} in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_pop expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Undefined variable\\: \\$value1$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Undefined variable\\: \\$value2$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Undefined variable\\: \\$value3$#"
+			count: 1
+			path: src/functions/common.php
+
+		-
+			message: "#^Variable \\$key might not be defined\\.$#"
 			count: 1
 			path: src/functions/common.php
 
