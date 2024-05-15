@@ -13,7 +13,11 @@ spl_autoload_register(function (string $item) {
     }
     static $files;
     if ($files === null) {
-        $files = \Drupal::getContainer()->getParameter('files_autoload_registry');
+        if (!\Drupal::getContainer()->hasParameter('files_autoload_registry')) {
+            $files = [];
+        } else {
+            $files = \Drupal::getContainer()->getParameter('files_autoload_registry');
+        }
     }
     if (isset($files[$item])) {
         include $files[$item];
