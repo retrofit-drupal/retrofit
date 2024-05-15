@@ -18,7 +18,5 @@ final class FileClassAutoloaderTest extends IntegrationTestCase
     public function testAutoload(): void
     {
         self::assertTrue(class_exists(\SomeClass::class));
-
     }
-
 }
