@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 
 final class DrupalGetForm extends FormBase
 {
-    private string $formId;
+    protected string $formId;
 
     public function setFormId(string $formId): void
     {
