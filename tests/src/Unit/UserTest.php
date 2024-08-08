@@ -6,7 +6,11 @@ namespace Retrofit\Drupal\Tests\Unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccessPolicyProcessorInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxy;
+use Drupal\Core\Session\CalculatedPermissionsInterface;
+use Drupal\Core\Session\CalculatedPermissionsItemInterface;
 use Drupal\Core\Session\PermissionChecker;
 use Drupal\Core\Session\UserSession;
 use Drupal\user\RoleStorageInterface;
@@ -47,22 +51,21 @@ final class UserTest extends TestCase
         ]));
         $container->set('current_user', $accountProxy);
 
-        $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
-        $roleStorage = $this->createMock(RoleStorageInterface::class);
-        $roleStorage->expects($this->exactly(2))
-            ->method('isPermissionInRoles')
-            ->willReturnMap([
-                ['access content', ['foo'], true],
-                ['access content', ['bar'], false],
-            ]);
+        $accessPolicyProcessor = $this->createMock(AccessPolicyProcessorInterface::class);
+        $accessPolicyProcessor->expects($this->exactly(2))
+            ->method('processAccessPolicies')
+            ->willReturnCallback(function (AccountInterface $account) {
+                $calculatedPermissionsItem = $this->createMock(CalculatedPermissionsItemInterface::class);
+                $calculatedPermissionsItem->method('hasPermission')
+                    ->with('access content')
+                    ->willReturn(in_array('foo', $account->getRoles(), true));
+                $calculatedPermissions = $this->createMock(CalculatedPermissionsInterface::class);
+                $calculatedPermissions->method('getItem')
+                    ->willReturn($calculatedPermissionsItem);
+                return $calculatedPermissions;
+            });
 
-        $entityTypeManager
-            ->method('getStorage')
-            ->with('user_role')
-            ->willReturn($roleStorage);
-        $container->set('entity_type.manager', $entityTypeManager);
-
-        $permissionChecker = new PermissionChecker($entityTypeManager);
+        $permissionChecker = new PermissionChecker($accessPolicyProcessor);
         $container->set('permission_checker', $permissionChecker);
 
         \Drupal::setContainer($container);
