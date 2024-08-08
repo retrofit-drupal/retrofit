@@ -37,6 +37,9 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
                 return $this->getTriggeringElement();
             case 'values':
                 return $this->getValues();
+            case 'build_info':
+                // We do not use getBuildInfo due to references.
+                return $this->build_info;
             default:
                 return $this->get($offset);
         }
@@ -59,6 +62,9 @@ final class ArrayAccessFormState extends FormState implements \ArrayAccess
                 break;
             case 'rebuild':
                 $this->setRebuild((bool) $value);
+                break;
+            case 'build_info':
+                $this->setBuildInfo($value);
                 break;
             default:
                 $this->set($offset, $value);
