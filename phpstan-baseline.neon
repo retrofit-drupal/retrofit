@@ -96,6 +96,11 @@ parameters:
 			path: src/Form/ArrayAccessFormState.php
 
 		-
+			message: "#^Parameter \\#1 \\$build_info of method Drupal\\\\Core\\\\Form\\\\FormState\\:\\:setBuildInfo\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Form/ArrayAccessFormState.php
+
+		-
 			message: "#^Parameter \\#1 \\$property of method Drupal\\\\Core\\\\Form\\\\FormState\\:\\:get\\(\\) expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/Form/ArrayAccessFormState.php
@@ -599,6 +604,33 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\User\\\\HookPermissions\\:\\:getPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/User/HookPermissions.php
+
+		-
+			message: """
+				#^Fetching deprecated class constant EXISTS_ERROR of interface Drupal\\\\Core\\\\File\\\\FileSystemInterface\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. Use
+				 \\\\Drupal\\\\Core\\\\File\\\\FileExists\\:\\:Error instead\\.$#
+			"""
+			count: 1
+			path: src/constants/file.php
+
+		-
+			message: """
+				#^Fetching deprecated class constant EXISTS_RENAME of interface Drupal\\\\Core\\\\File\\\\FileSystemInterface\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. Use
+				\\\\Drupal\\\\Core\\\\File\\\\FileExists\\:\\:Rename instead\\.$#
+			"""
+			count: 1
+			path: src/constants/file.php
+
+		-
+			message: """
+				#^Fetching deprecated class constant EXISTS_REPLACE of interface Drupal\\\\Core\\\\File\\\\FileSystemInterface\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. Use
+				\\\\Drupal\\\\Core\\\\File\\\\FileExists\\:\\:Replace instead\\.$#
+			"""
+			count: 1
+			path: src/constants/file.php
 
 		-
 			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
