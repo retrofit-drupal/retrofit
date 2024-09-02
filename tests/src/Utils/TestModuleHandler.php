@@ -155,4 +155,9 @@ final class TestModuleHandler implements ModuleHandlerInterface
             return $module;
         }
     }
+
+    public function destruct(): void
+    {
+        $this->inner->destruct();
+    }
 }
