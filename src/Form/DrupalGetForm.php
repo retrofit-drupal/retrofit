@@ -21,7 +21,7 @@ final class DrupalGetForm extends FormBase
         return $this->formId;
     }
 
-    public function buildForm(array $form, FormStateInterface $form_state, ...$args): array
+    public function buildForm(array $form, FormStateInterface $form_state, mixed ...$args): array
     {
         return ($this->formId)($form, $form_state, ...$args);
     }
