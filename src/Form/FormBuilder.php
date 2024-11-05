@@ -53,6 +53,7 @@ class FormBuilder extends CoreFormBuilder
                 'validate_handlers' => $form_state->getValidateHandlers(),
                 'validation_complete' => $form_state->isValidationComplete(),
                 'values' => $form_state->getValues(),
+                'view' => $form_state->get('view'),
             ];
             $form_state = new ArrayAccessFormState(call_user_func([get_class($form_state), 'hasAnyErrors']));
         } else {
