@@ -28,11 +28,11 @@ function drupal_form_submit(string $form_id, FormStateInterface $form_state): vo
 /**
  * @return mixed[]
  */
-function drupal_get_form(string $form_id): array
+function drupal_get_form(string $form_id, mixed ...$args): array
 {
     $form_object = \Drupal::classResolver(DrupalGetForm::class);
     $form_object->setFormId($form_id);
-    return \Drupal::formBuilder()->getForm($form_object);
+    return \Drupal::formBuilder()->getForm($form_object, ...$args);
 }
 
 /**
