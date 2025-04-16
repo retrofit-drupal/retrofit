@@ -15,7 +15,7 @@
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.31",
-        "mglaman/drupal-test-helpers": "^1.0",
+        "mglaman/drupal-test-helpers": "^1.0.4",
         "mglaman/phpstan-drupal": "^1.2",
         "mikey179/vfsstream": "^1.6",
         "phpspec/prophecy-phpunit": "^2.0",
