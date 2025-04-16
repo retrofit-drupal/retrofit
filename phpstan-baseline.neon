@@ -51,11 +51,6 @@ parameters:
 			path: src/DB.php
 
 		-
-			message: "#^Plugin definitions cannot be altered\\.$#"
-			count: 1
-			path: src/Entity/EntityTypeManager.php
-
-		-
 			message: "#^Cannot access offset string on Drupal\\\\Core\\\\Config\\\\Entity\\\\ConfigEntityInterface\\.$#"
 			count: 1
 			path: src/Entity/WrappedConfigEntity.php
@@ -84,11 +79,6 @@ parameters:
 			message: "#^Method Retrofit\\\\Drupal\\\\Entity\\\\WrappedContentEntity\\:\\:__set\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/Entity/WrappedContentEntity.php
-
-		-
-			message: "#^Plugin definitions cannot be altered\\.$#"
-			count: 1
-			path: src/Field/FieldTypePluginManager.php
 
 		-
 			message: "#^Class Retrofit\\\\Drupal\\\\Form\\\\ArrayAccessFormState implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
@@ -151,29 +141,14 @@ parameters:
 			path: src/Form/DrupalGetForm.php
 
 		-
-			message: "#^Plugin definitions cannot be altered\\.$#"
+			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/Menu/LocalActionManager.php
 
 		-
 			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
-			path: src/Menu/LocalActionManager.php
-
-		-
-			message: "#^Plugin definitions cannot be altered\\.$#"
-			count: 1
 			path: src/Menu/LocalTaskManager.php
-
-		-
-			message: "#^Property Drupal\\\\Component\\\\Plugin\\\\PluginManagerBase\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/Menu/LocalTaskManager.php
-
-		-
-			message: "#^Plugin definitions cannot be altered\\.$#"
-			count: 1
-			path: src/Menu/MenuLinkManager.php
 
 		-
 			message: "#^Property Drupal\\\\Core\\\\Menu\\\\MenuLinkManager\\:\\:\\$discovery \\(Drupal\\\\Component\\\\Plugin\\\\Discovery\\\\DiscoveryInterface\\) in isset\\(\\) is not nullable\\.$#"
@@ -251,7 +226,7 @@ parameters:
 			path: src/Plugin/Derivative/LocalActionDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalActionDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/LocalActionDeriver.php
 
@@ -271,7 +246,7 @@ parameters:
 			path: src/Plugin/Derivative/LocalTaskDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\LocalTaskDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/LocalTaskDeriver.php
 
@@ -286,7 +261,7 @@ parameters:
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
 
 		-
-			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$hookMenuRegistry of class Retrofit\\\\Drupal\\\\Plugin\\\\Derivative\\\\MenuLinkDeriver constructor expects Retrofit\\\\Drupal\\\\Routing\\\\HookMenuRegistry, object given\\.$#"
 			count: 1
 			path: src/Plugin/Derivative/MenuLinkDeriver.php
 
@@ -567,6 +542,21 @@ parameters:
 
 		-
 			message: "#^Cannot access offset '\\#title' on mixed\\.$#"
+			count: 1
+			path: src/Theme/HookPreprocess.php
+
+		-
+			message: "#^Parameter &\\$variables by\\-ref type of method Retrofit\\\\Drupal\\\\Theme\\\\HookPreprocess\\:\\:node\\(\\) expects array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: bool, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\?\\: array, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\?\\: bool, label\\?\\: array\\}, array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: bool, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\: mixed, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\: true, label\\?\\: array, \\.\\.\\.\\} given\\.$#"
+			count: 2
+			path: src/Theme/HookPreprocess.php
+
+		-
+			message: "#^Parameter &\\$variables by\\-ref type of method Retrofit\\\\Drupal\\\\Theme\\\\HookPreprocess\\:\\:node\\(\\) expects array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: bool, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\?\\: array, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\?\\: bool, label\\?\\: array\\}, array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: bool, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\?\\: mixed, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\?\\: bool, label\\?\\: array, \\.\\.\\.\\} given\\.$#"
+			count: 7
+			path: src/Theme/HookPreprocess.php
+
+		-
+			message: "#^Parameter &\\$variables by\\-ref type of method Retrofit\\\\Drupal\\\\Theme\\\\HookPreprocess\\:\\:node\\(\\) expects array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: bool, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\?\\: array, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\?\\: bool, label\\?\\: array\\}, array\\{node\\: Drupal\\\\node\\\\NodeInterface, teaser\\: true, url\\: string, author_name\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, author_picture\\?\\: mixed, date\\?\\: Drupal\\\\Component\\\\Render\\\\MarkupInterface, display_submitted\\?\\: bool, label\\?\\: array, \\.\\.\\.\\} given\\.$#"
 			count: 1
 			path: src/Theme/HookPreprocess.php
 
