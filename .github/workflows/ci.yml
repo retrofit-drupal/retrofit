@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         uses: "ramsey/composer-install@v3"
       - name: PHPStan
-        run: php vendor/bin/phpstan analyze -c ${{ matrix.drupal == '^10' && 'phpstan10' || 'phpstan11' }}.neon
+        run: php vendor/bin/phpstan analyze -c ${{ matrix.drupal == '^10' && 'phpstan10' || 'phpstan' }}.neon
   test:
     runs-on: ubuntu-latest
     name: "tests | ${{ matrix.php-version }} / drupal/core:${{ matrix.drupal }}"
