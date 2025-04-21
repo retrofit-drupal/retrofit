@@ -10,6 +10,7 @@ use Retrofit\Drupal\Controller\PageCallbackController;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing\RouteCollection;
 
 class HookMenuRoutesTest extends TestCase
@@ -17,17 +18,21 @@ class HookMenuRoutesTest extends TestCase
     public function testMenuExample(): void
     {
         $moduleName = 'menu_example';
-        $moduleHandler = new ModuleHandler(
-            __DIR__,
-            [
-            $moduleName => [
-              'type' => 'module',
-              'pathname' => "../../../data/$moduleName/$moduleName.module",
-              'filename' => "$moduleName.module",
-            ],
-            ],
-            new NullBackend('foo')
-        );
+        $root = __DIR__;
+        $moduleList = [
+          $moduleName => [
+            'type' => 'module',
+            'pathname' => "../../../data/$moduleName/$moduleName.module",
+            'filename' => "$moduleName.module",
+          ],
+        ];
+        if (version_compare(\Drupal::VERSION, '11.0.0', '>=')) {
+            // @todo add event listener for `drupal_hook.menu` that is a `ProceduralCall`.
+            $moduleHandler = new ModuleHandler($root, $moduleList, new EventDispatcher(), []);
+        } else {
+            $moduleHandler = new ModuleHandler($root, $moduleList, new NullBackend('foo'));
+        }
+
         $hookMenuRegistry = new HookMenuRegistry(
             $moduleHandler,
             new NullBackend('foo')

@@ -5,10 +5,7 @@ parameters:
 		- tests/src
 	bootstrapFiles:
 		- tests/bootstrap.php
-	drupal:
-		drupal_root: '%currentWorkingDirectory%/vendor/drupal'
 	ignoreErrors:
 		- "#^Class .* extends @internal class#"
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
-	- phpstan-baseline.neon

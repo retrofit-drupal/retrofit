@@ -32,29 +32,49 @@ jobs:
         run: php vendor/bin/phpcs -q --report=checkstyle | cs2pr
   static:
     runs-on: ubuntu-latest
+    name: "phpstan | ${{ matrix.php-version }} / drupal/core:${{ matrix.drupal }}"
+    strategy:
+      matrix:
+        php-version: [ '8.1', '8.2', '8.3' ]
+        drupal: [ '^10' ]
+        include:
+          - php-version: "8.3"
+            drupal: "^11.1"
     steps:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: ${{ matrix.php-version }}
           extensions: gd
           coverage: none
           tools: composer:v2
+      - name: "Set drupal/core to ${{ matrix.drupal }}"
+        run: "composer require drupal/core:${{ matrix.drupal }} --no-update"
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist
+        uses: "ramsey/composer-install@v3"
       - name: PHPStan
-        run: php vendor/bin/phpstan analyze
+        run: php vendor/bin/phpstan analyze -c ${{ matrix.drupal == '^10' && 'phpstan10' || 'phpstan' }}.neon
   test:
     runs-on: ubuntu-latest
+    name: "tests | ${{ matrix.php-version }} / drupal/core:${{ matrix.drupal }}"
+    strategy:
+      matrix:
+        php-version: [ '8.1', '8.2', '8.3' ]
+        drupal: [ '^10' ]
+        include:
+          - php-version: "8.3"
+            drupal: "^11.1"
     steps:
       - uses: actions/checkout@v2
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: ${{ matrix.php-version }}
           extensions: gd
           coverage: none
           tools: composer:v2
+      - name: "Set drupal/core to ${{ matrix.drupal }}"
+        run: "composer require drupal/core:${{ matrix.drupal }} --no-update"
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist
+        uses: "ramsey/composer-install@v3"
       - name: phpunit
         run: php vendor/bin/phpunit
