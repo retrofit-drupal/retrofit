@@ -81,6 +81,16 @@ parameters:
 			path: src/Entity/WrappedContentEntity.php
 
 		-
+			message: "#^Access to an undefined property Retrofit\\\\Drupal\\\\Extension\\\\ModuleHandler\\:\\:\\$invokeMap\\.$#"
+			count: 1
+			path: src/Extension/ModuleHandler.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with \\$this\\(Retrofit\\\\Drupal\\\\Extension\\\\ModuleHandler\\) and 'getImplementationIn…' will always evaluate to true\\.$#"
+			count: 1
+			path: src/Extension/ModuleHandler.php
+
+		-
 			message: "#^Class Retrofit\\\\Drupal\\\\Form\\\\ArrayAccessFormState implements generic interface ArrayAccess but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/Form/ArrayAccessFormState.php
@@ -1323,9 +1333,24 @@ parameters:
 			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
 
 		-
+			message: "#^Class Drupal\\\\Core\\\\Extension\\\\ModuleHandler constructor invoked with 4 parameters, 3 required\\.$#"
+			count: 1
+			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$cache_backend of class Drupal\\\\Core\\\\Extension\\\\ModuleHandler constructor expects Drupal\\\\Core\\\\Cache\\\\CacheBackendInterface, Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcher given\\.$#"
+			count: 1
+			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
+
+		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 2
 			path: tests/src/Utils/TestExtensionInstallStorage.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Drupal\\\\Core\\\\Extension\\\\ModuleHandlerInterface and 'destruct' will always evaluate to true\\.$#"
+			count: 1
+			path: tests/src/Utils/TestModuleHandler.php
 
 		-
 			message: "#^Method Retrofit\\\\Drupal\\\\Tests\\\\Utils\\\\TestModuleHandler\\:\\:addModule\\(\\) has no return type specified\\.$#"
