@@ -24,12 +24,8 @@ final class HookThemeTest extends IntegrationTestCase
     public function register(ContainerBuilder $container): void
     {
         parent::register($container);
-        // Dirty hack to allow Drupal's form processing to run.
-        // @todo remove after https://github.com/mglaman/drupal-test-helpers/issues/10
-        if (!str_ends_with($this->getName(), 'Form')) {
-            $this->registerTestHttpKernel($container);
-        }
-        /** @var array{debug: bool} $twig */
+        $this->registerTestHttpKernel($container);
+      /** @var array{debug: bool} $twig */
         $twig = $container->getParameter('twig.config');
         $twig['debug'] = true;
         $container->setParameter('twig.config', $twig);
