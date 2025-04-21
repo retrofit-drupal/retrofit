@@ -1323,16 +1323,6 @@ parameters:
 			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
 
 		-
-			message: "#^Class Drupal\\\\Core\\\\Extension\\\\ModuleHandler constructor invoked with 3 parameters, 4\\-5 required\\.$#"
-			count: 1
-			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$eventDispatcher of class Drupal\\\\Core\\\\Extension\\\\ModuleHandler constructor expects Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcherInterface, Drupal\\\\Core\\\\Cache\\\\NullBackend given\\.$#"
-			count: 1
-			path: tests/src/Unit/Routing/HookMenuRoutesTest.php
-
-		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 2
 			path: tests/src/Utils/TestExtensionInstallStorage.php
