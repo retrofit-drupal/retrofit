@@ -159,7 +159,7 @@ final class TestModuleHandler implements ModuleHandlerInterface
     public function destruct(): void
     {
         if (method_exists($this->inner, 'destruct')) {
-          $this->inner->destruct();
+            $this->inner->destruct();
         }
     }
 }

@@ -28,11 +28,11 @@ class HookMenuRoutesTest extends TestCase
           ],
         ];
         $moduleHandler = DeprecationHelper::backwardsCompatibleCall(
-          currentVersion: \Drupal::VERSION,
-          deprecatedVersion: '11.0',
-          currentCallable: static fn() => new ModuleHandler($root, $moduleList, new EventDispatcher(), []),
-          // @phpstan-ignore-next-line
-          deprecatedCallable:  static fn() => new ModuleHandler($root, $moduleList, new NullBackend('foo')),
+            currentVersion: \Drupal::VERSION,
+            deprecatedVersion: '11.0',
+            currentCallable: static fn() => new ModuleHandler($root, $moduleList, new EventDispatcher(), []),
+            // @phpstan-ignore-next-line
+            deprecatedCallable:  static fn() => new ModuleHandler($root, $moduleList, new NullBackend('foo')),
         );
         $hookMenuRegistry = new HookMenuRegistry(
             $moduleHandler,
