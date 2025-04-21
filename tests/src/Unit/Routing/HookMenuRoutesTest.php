@@ -2,6 +2,7 @@
 
 namespace Retrofit\Drupal\Tests\Unit\Routing;
 
+use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Cache\NullBackend;
 use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Routing\RouteBuildEvent;
@@ -10,6 +11,7 @@ use Retrofit\Drupal\Controller\PageCallbackController;
 use Retrofit\Drupal\Routing\HookMenuRegistry;
 use Retrofit\Drupal\Routing\HookMenuRoutes;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing\RouteCollection;
 
 class HookMenuRoutesTest extends TestCase
@@ -17,16 +19,20 @@ class HookMenuRoutesTest extends TestCase
     public function testMenuExample(): void
     {
         $moduleName = 'menu_example';
-        $moduleHandler = new ModuleHandler(
-            __DIR__,
-            [
-            $moduleName => [
-              'type' => 'module',
-              'pathname' => "../../../data/$moduleName/$moduleName.module",
-              'filename' => "$moduleName.module",
-            ],
-            ],
-            new NullBackend('foo')
+        $root = __DIR__;
+        $moduleList = [
+          $moduleName => [
+            'type' => 'module',
+            'pathname' => "../../../data/$moduleName/$moduleName.module",
+            'filename' => "$moduleName.module",
+          ],
+        ];
+        $moduleHandler = DeprecationHelper::backwardsCompatibleCall(
+          currentVersion: \Drupal::VERSION,
+          deprecatedVersion: '11.0',
+          currentCallable: static fn() => new ModuleHandler($root, $moduleList, new EventDispatcher(), []),
+          // @phpstan-ignore-next-line
+          deprecatedCallable:  static fn() => new ModuleHandler($root, $moduleList, new NullBackend('foo')),
         );
         $hookMenuRegistry = new HookMenuRegistry(
             $moduleHandler,

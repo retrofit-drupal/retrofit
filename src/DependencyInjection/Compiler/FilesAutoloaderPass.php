@@ -14,7 +14,7 @@ final class FilesAutoloaderPass implements CompilerPassInterface
     {
         $filesAutoloadRegistry = [];
         $appRoot = $container->getParameter('app.root');
-        assert(is_string($appRoot) || is_null($appRoot));
+        assert(is_string($appRoot));
         $infoParser = new InfoParser($appRoot);
         /** @var array<string, array{pathname: string}> $container_modules */
         $container_modules = $container->getParameter('container.modules');

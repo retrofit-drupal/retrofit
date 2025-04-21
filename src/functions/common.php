@@ -400,7 +400,6 @@ function drupal_array_nested_key_exists(array $array, array $parents): bool
 function drupal_get_library(string $module, ?string $name = null): array|false
 {
     $libraryDiscovery = \Drupal::service('library.discovery');
-    assert($libraryDiscovery instanceof LibraryDiscoveryInterface);
     if ($name !== null) {
         return $libraryDiscovery->getLibraryByName($module, $name);
     }

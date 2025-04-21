@@ -11,6 +11,7 @@ final class ModuleHandler extends \Drupal\Core\Extension\ModuleHandler
      */
     public function getImplementations(string $hook): array
     {
+        // @todo visit changes from OOP hooks.
         $implementations = $this->getImplementationInfo($hook);
         return array_keys($implementations);
     }
