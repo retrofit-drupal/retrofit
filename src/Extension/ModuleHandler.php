@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Retrofit\Drupal\Extension;
 
-final class ModuleHandler extends \Drupal\Core\Extension\ModuleHandler
+use Drupal\Core\Extension\ModuleHandler as CoreModuleHandler;
+
+final class ModuleHandler extends CoreModuleHandler
 {
     /**
-     * @return string[]
+     * @return array<int, int|string>
      */
     public function getImplementations(string $hook): array
     {
-        // @todo visit changes from OOP hooks.
-        $implementations = $this->getImplementationInfo($hook);
-        return array_keys($implementations);
+        if (method_exists($this, 'getImplementationInfo')) {
+            $implementations = $this->getImplementationInfo($hook);
+            return array_keys($implementations);
+        }
+
+        return array_keys($this->invokeMap[$hook] ?? []);
     }
 }

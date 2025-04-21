@@ -2,7 +2,6 @@
 
 namespace Retrofit\Drupal\Tests\Unit\Routing;
 
-use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Cache\NullBackend;
 use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Routing\RouteBuildEvent;
@@ -28,6 +27,7 @@ class HookMenuRoutesTest extends TestCase
           ],
         ];
         if (version_compare(\Drupal::VERSION, '11.0.0', '>=')) {
+            // @todo add event listener for `drupal_hook.menu` that is a `ProceduralCall`.
             $moduleHandler = new ModuleHandler($root, $moduleList, new EventDispatcher(), []);
         } else {
             $moduleHandler = new ModuleHandler($root, $moduleList, new NullBackend('foo'));
